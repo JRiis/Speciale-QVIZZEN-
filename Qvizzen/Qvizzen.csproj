@@ -49,8 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
-    <Compile Include="PackageCreatorMainActivity.cs" />
+    <Compile Include="Controller\ContentController.cs" />
+    <Compile Include="Controller\GameplayController.cs" />
+    <Compile Include="Controller\MultiplayerController.cs" />
+    <Compile Include="Controller\SingeplayerController.cs" />
+    <Compile Include="Model\Anwser.cs" />
+    <Compile Include="Model\GamePack.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Model\Pack.cs" />
+    <Compile Include="Activities\PackageCreatorMainActivity.cs" />
+    <Compile Include="Model\Question.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +82,7 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
