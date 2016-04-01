@@ -26,9 +26,6 @@ namespace Qvizzen
 
             //Setup content adapter for list.
             ContentCtr = ContentController.GetInstance();
-            
-            
-            
             ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
             var adapter = new PackAdapter(this, ContentCtr.Content);
             listPackages.Adapter = adapter;
@@ -38,13 +35,21 @@ namespace Qvizzen
             ContentCtr.Content.Add(test);
             //TEST
 
-
             //Setup Click Event for list.
             listPackages.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
+                ContentCtr.CurrentPack = ContentCtr.Content[e.Position];
                 StartActivity(typeof(MainActivity));
+            };
 
-                var i = e.Position;
+            //Setup Click Event for button.
+            Button buttonNewPackage = FindViewById<Button>(Resource.Id.buttonNewPackage);
+            buttonNewPackage.Click += delegate
+            {
+                Pack newPack = new Pack();
+                ContentCtr.CurrentPack = newPack;
+                ContentCtr.Content.Add(newPack);
+                StartActivity(typeof(PackageCreatorMainActivity));
             };
         }
     }

@@ -63,9 +63,6 @@ namespace Qvizzen
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060007
-			public const int button1 = 2131099655;
-			
 			// aapt resource value: 0x7f060005
 			public const int buttonCreator = 2131099653;
 			
@@ -74,6 +71,9 @@ namespace Qvizzen
 			
 			// aapt resource value: 0x7f060003
 			public const int buttonMultiplayer = 2131099651;
+			
+			// aapt resource value: 0x7f060007
+			public const int buttonNewPackage = 2131099655;
 			
 			// aapt resource value: 0x7f060002
 			public const int buttonSingleplayer = 2131099650;
