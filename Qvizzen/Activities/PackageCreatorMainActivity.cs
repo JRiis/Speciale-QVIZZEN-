@@ -8,16 +8,23 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Qvizzen.Controller;
 
 namespace Qvizzen
-{
+{    
     [Activity(Label = "PackageCreatorMainActivity")]
     public class PackageCreatorMainActivity : Activity
     {
+        public ContentController ContentCtr;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            //Creates GUI
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PackageCreatorMain);
+
+            //Gets Controllers
+            ContentCtr = ContentController.GetInstance();
 
             //TODO: Figure out list yo.
             ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
