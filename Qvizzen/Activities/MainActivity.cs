@@ -17,15 +17,11 @@ namespace Qvizzen
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            //Creator Button
+            //Setups button activity.
             Button buttonCreator = FindViewById<Button>(Resource.Id.buttonCreator);
             buttonCreator.Click += delegate 
             {
-                //SetContentView(Resource.Layout.PackageCreatorMain);
                 StartActivity(typeof(PackageCreatorMainActivity));
-
-
-                //AddContentView(Resource.Layout.PackageCreatorMain);
             };
         }
     }

@@ -24,53 +24,28 @@ namespace Qvizzen
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PackageCreatorMain);
 
-            //Creates A List of Content.
+            //Setup content adapter for list.
             ContentCtr = ContentController.GetInstance();
-
+            
+            
+            
+            ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
+            var adapter = new PackAdapter(this, ContentCtr.Content);
+            listPackages.Adapter = adapter;
+            
             //TEST
             var test = new Pack();
             ContentCtr.Content.Add(test);
+            //TEST
 
 
+            //Setup Click Event for list.
+            listPackages.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
+            {
+                StartActivity(typeof(MainActivity));
 
-            //Test End
-
-
-
-            ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
-            //var ListAdapter = new ArrayAdapter<Pack>(this, Android.Resource.Layout.SimpleListItem1, ContentCtr.Content);
-            var adapter = new PackAdapter(this, ContentCtr.Content);
-
-            listPackages.Adapter = adapter;
-
-
-            //listPackages.ItemClick
-            /*
-            listPackages.add
-
-            listPackages.Adapter = new
-
-
-            listPackages
-
-                //TODO: How 2 Find color adaptor in funthyme stuff...
-
-
-            listView = FindViewById<ListView> (Resource.Id.myListView);
-
-            colorItems.Add (new ColorItem () { Color = Android.Graphics.Color.DarkRed,
-                                               ColorName = "Dark Red", Code = "8B0000" });
-            colorItems.Add (new ColorItem () { Color = Android.Graphics.Color.SlateBlue,
-                                               ColorName = "Slate Blue", Code = "6A5ACD" });
-            colorItems.Add (new ColorItem () { Color = Android.Graphics.Color.ForestGreen,
-                                               ColorName = "Forest Green", Code = "228B22" });
-
-            listView.Adapter = new ColorAdapter (this, colorItems);
-
-            */
-
-
-            // Create your application here
+                var i = e.Position;
+            };
         }
     }
 }
