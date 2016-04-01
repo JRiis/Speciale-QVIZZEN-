@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\PackageCreatorPackageActivity.cs" />
+    <Compile Include="Adapters\QuestionAdapter .cs" />
     <Compile Include="Adapters\PackAdapter.cs" />
     <Compile Include="Controller\ContentController.cs" />
     <Compile Include="Controller\GameplayController.cs" />
@@ -70,6 +72,9 @@
     </AndroidResource>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\PackageCreatorPackage.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

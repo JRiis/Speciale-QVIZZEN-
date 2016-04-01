@@ -16,6 +16,8 @@ namespace Qvizzen.Controller
     {
         private static ContentController Instance;
         public Pack CurrentPack;
+        public Question CurrentQuestion;
+        public Anwser CurrentAnwser;
         public List<Pack> Content;
 
         public ContentController()

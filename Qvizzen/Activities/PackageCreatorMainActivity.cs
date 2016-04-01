@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Qvizzen.Controller;
 using Qvizzen.Adapters;
+using Qvizzen.Activities;
 
 namespace Qvizzen
 {    
@@ -29,17 +30,12 @@ namespace Qvizzen
             ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
             var adapter = new PackAdapter(this, ContentCtr.Content);
             listPackages.Adapter = adapter;
-            
-            //TEST
-            var test = new Pack();
-            ContentCtr.Content.Add(test);
-            //TEST
 
-            //Setup Click Event for list.
+            //Setup Click Event for List Items.
             listPackages.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
                 ContentCtr.CurrentPack = ContentCtr.Content[e.Position];
-                StartActivity(typeof(MainActivity));
+                StartActivity(typeof(PackageCreatorPackageActivity));
             };
 
             //Setup Click Event for button.
@@ -49,7 +45,7 @@ namespace Qvizzen
                 Pack newPack = new Pack();
                 ContentCtr.CurrentPack = newPack;
                 ContentCtr.Content.Add(newPack);
-                StartActivity(typeof(PackageCreatorMainActivity));
+                StartActivity(typeof(PackageCreatorPackageActivity));
             };
         }
     }
