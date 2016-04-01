@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Qvizzen.Controller
 {
-    class MultiplayerController
+    public class MultiplayerController
     {
     }
 }

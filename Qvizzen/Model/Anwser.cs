@@ -12,12 +12,12 @@ using Android.Widget;
 
 namespace Qvizzen
 {
-    class Anwser
+    public class Anwser
     {
         public string Text;
         public bool IsCorrect;
 
-        Anwser()
+        public Anwser()
         {
             Text = "";
             IsCorrect = false;

@@ -9,13 +9,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Qvizzen.Controller;
+using Qvizzen.Adapters;
 
 namespace Qvizzen
 {    
     [Activity(Label = "PackageCreatorMainActivity")]
     public class PackageCreatorMainActivity : Activity
     {
-        public ContentController ContentCtr;
+        private ContentController ContentCtr;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -23,11 +24,24 @@ namespace Qvizzen
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PackageCreatorMain);
 
-            //Gets Controllers
+            //Creates A List of Content.
             ContentCtr = ContentController.GetInstance();
 
-            //TODO: Figure out list yo.
+            //TEST
+            var test = new Pack();
+            ContentCtr.Content.Add(test);
+
+
+
+            //Test End
+
+
+
             ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
+            //var ListAdapter = new ArrayAdapter<Pack>(this, Android.Resource.Layout.SimpleListItem1, ContentCtr.Content);
+            var adapter = new PackAdapter(this, ContentCtr.Content);
+
+            listPackages.Adapter = adapter;
 
 
             //listPackages.ItemClick

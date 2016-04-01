@@ -12,12 +12,12 @@ using Android.Widget;
 
 namespace Qvizzen
 {
-    class Question
+    public class Question
     {
         public string Text;
         public List<Anwser> Anwsers;
 
-        Question()
+        public Question()
         {
             Text = "";
             Anwsers = new List<Anwser>();

@@ -11,11 +11,11 @@ using Android.Widget;
 
 namespace Qvizzen
 {
-    class GamePack
+    public class GamePack
     {
         public List<Pack> Packs;
         
-        GamePack()
+        public GamePack()
         {
             Packs = new List<Pack>();
         }

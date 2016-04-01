@@ -12,14 +12,14 @@ using Android.Widget;
 
 namespace Qvizzen
 {
-    class Pack
+    public class Pack
     {
         public string Name;
         public List<Question> Questions;
 
-        Pack()
+        public Pack()
         {
-            Name = "";
+            Name = "Name Your Pack";
             Questions = new List<Question>();
         }
     }

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\PackAdapter.cs" />
     <Compile Include="Controller\ContentController.cs" />
     <Compile Include="Controller\GameplayController.cs" />
     <Compile Include="Controller\MultiplayerController.cs" />
