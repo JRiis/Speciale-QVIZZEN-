@@ -49,8 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Anwser.cs" />
+    <Compile Include="Model\GamePack.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Model\Pack.cs" />
     <Compile Include="PackageCreatorMainActivity.cs" />
+    <Compile Include="Model\Question.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
