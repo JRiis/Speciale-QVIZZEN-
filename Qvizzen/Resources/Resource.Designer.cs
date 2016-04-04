@@ -69,11 +69,17 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06000b
 			public const int buttonDeletePack = 2131099659;
 			
+			// aapt resource value: 0x7f06000e
+			public const int buttonDeleteQuestion = 2131099662;
+			
 			// aapt resource value: 0x7f060004
 			public const int buttonDownload = 2131099652;
 			
 			// aapt resource value: 0x7f060003
 			public const int buttonMultiplayer = 2131099651;
+			
+			// aapt resource value: 0x7f06000d
+			public const int buttonNewAnwser = 2131099661;
 			
 			// aapt resource value: 0x7f060007
 			public const int buttonNewPackage = 2131099655;
@@ -89,6 +95,9 @@ namespace Qvizzen
 			
 			// aapt resource value: 0x7f060009
 			public const int linearLayout2 = 2131099657;
+			
+			// aapt resource value: 0x7f06000c
+			public const int listViewAnwsers = 2131099660;
 			
 			// aapt resource value: 0x7f060006
 			public const int listViewPackages = 2131099654;
@@ -120,6 +129,9 @@ namespace Qvizzen
 			
 			// aapt resource value: 0x7f030002
 			public const int PackageCreatorPackage = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int PackageCreatorQuestion = 2130903043;
 			
 			static Layout()
 			{

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:orientation="vertical"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/linearLayout1"
+    p1:focusableInTouchMode="true">
+    <EditText
+        p1:text="Question Text"
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/textView1"
+        p1:textSize="30dp"
+        p1:gravity="center"
+        p1:paddingTop="15dp"
+        p1:paddingBottom="15dp"
+        p1:editable="true"
+        p1:singleLine="false" />
+    <ListView
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/listViewAnwsers"
+        p1:layout_weight="1" />
+    <LinearLayout
+        p1:orientation="horizontal"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/linearLayout2"
+        p1:layout_weight="0"
+        p1:layout_gravity="center">
+        <Button
+            p1:text="New Anwser"
+            p1:id="@+id/buttonNewAnwser"
+            p1:textSize="18dp"
+            p1:layout_width="wrap_content"
+            p1:layout_height="70.5dp"
+            p1:layout_weight="1" />
+        <Button
+            p1:text="Delete"
+            p1:layout_width="wrap_content"
+            p1:layout_height="70.5dp"
+            p1:id="@+id/buttonDeleteQuestion"
+            p1:textSize="18dp"
+            p1:layout_weight="2" />
+    </LinearLayout>
+</LinearLayout>
