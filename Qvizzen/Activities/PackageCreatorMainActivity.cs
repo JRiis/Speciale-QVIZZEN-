@@ -18,18 +18,20 @@ namespace Qvizzen
     public class PackageCreatorMainActivity : Activity
     {
         private ContentController ContentCtr;
+        private PackAdapter Adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //Creates GUI
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PackageCreatorMain);
+            //Window.SetSoftInputMode(SoftInput.StateAlwaysHidden);
 
             //Setup content adapter for list.
             ContentCtr = ContentController.GetInstance();
             ListView listPackages = FindViewById<ListView>(Resource.Id.listViewPackages);
-            var adapter = new PackAdapter(this, ContentCtr.Content);
-            listPackages.Adapter = adapter;
+            Adapter = new PackAdapter(this, ContentCtr.Content);
+            listPackages.Adapter = Adapter;
 
             //Setup Click Event for List Items.
             listPackages.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
@@ -47,6 +49,12 @@ namespace Qvizzen
                 ContentCtr.Content.Add(newPack);
                 StartActivity(typeof(PackageCreatorPackageActivity));
             };
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Adapter.NotifyDataSetChanged();
         }
     }
 }

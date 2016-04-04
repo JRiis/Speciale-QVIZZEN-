@@ -3,8 +3,9 @@
     p1:orientation="vertical"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
-    p1:id="@+id/linearLayout1">
-    <TextView
+    p1:id="@+id/linearLayout1"
+    p1:focusableInTouchMode="true">
+    <EditText
         p1:text="Package Name"
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
@@ -14,8 +15,8 @@
         p1:gravity="center"
         p1:paddingTop="15dp"
         p1:paddingBottom="15dp"
-        p1:clickable="true"
-        p1:editable="true" />
+        p1:editable="true"
+        p1:singleLine="true" />
     <ListView
         p1:minWidth="25px"
         p1:minHeight="25px"
