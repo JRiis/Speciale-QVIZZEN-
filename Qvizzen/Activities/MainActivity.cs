@@ -5,17 +5,24 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Qvizzen.Controller;
 
 namespace Qvizzen
 {
     [Activity(Label = "Qvizzen", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : ParentActivity
     {
+        private ContentController ContentCtr;
+        
         protected override void OnCreate(Bundle bundle)
         {
-            //Setup
+            //Setup GUI
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+
+            //Loads content from phone.
+            ContentCtr = ContentController.GetInstance();
+            ContentCtr.LoadContent();
 
             //Setups button activity.
             Button buttonCreator = FindViewById<Button>(Resource.Id.buttonCreator);

@@ -15,7 +15,7 @@ using Qvizzen.Adapters;
 namespace Qvizzen.Activities
 {
     [Activity(Label = "PackageCreatorPackageActivity")]
-    public class PackageCreatorPackageActivity : Activity
+    public class PackageCreatorPackageActivity : ParentActivity
     {
         private ContentController ContentCtr;
         private QuestionAdapter Adapter;
@@ -40,17 +40,17 @@ namespace Qvizzen.Activities
             listQuestions.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
                 ContentCtr.CurrentQuestion = ContentCtr.CurrentPack.Questions[e.Position];
-                StartActivity(typeof(MainActivity));
+                StartActivity(typeof(PackageCreatorQuestionActivity));
             };
 
             //Setup Click Event for Create Button.
             Button buttonNewQuestion = FindViewById<Button>(Resource.Id.buttonNewQuestion);
             buttonNewQuestion.Click += delegate
             {
-                Pack newPack = new Pack();
-                ContentCtr.CurrentPack = newPack;
-                ContentCtr.Content.Add(newPack);
-                StartActivity(typeof(PackageCreatorMainActivity));
+                Question newQuestion = new Question();
+                ContentCtr.CurrentQuestion = newQuestion;
+                ContentCtr.CurrentPack.Questions.Add(newQuestion);
+                StartActivity(typeof(PackageCreatorQuestionActivity));
             };
 
             //Setup Click Event for Delete Button.
@@ -68,6 +68,12 @@ namespace Qvizzen.Activities
                 string newText = e.Text.ToString();
                 ContentCtr.CurrentPack.Name = newText;
             };
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Adapter.NotifyDataSetChanged();
         }
     }
 }

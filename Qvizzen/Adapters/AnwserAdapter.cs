@@ -42,7 +42,17 @@ namespace Qvizzen.Adapters
             {
                 view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
             }
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = AnwserList[position].Text;
+
+            var label = view.FindViewById<TextView>(Android.Resource.Id.Text1);
+            label.Text = AnwserList[position].Text;
+            if (AnwserList[position].IsCorrect)
+            {
+                view.FindViewById<TextView>(Android.Resource.Id.Text1).SetTypeface(null, Android.Graphics.TypefaceStyle.Bold);
+            }
+            else
+            {
+                view.FindViewById<TextView>(Android.Resource.Id.Text1).SetTypeface(null, Android.Graphics.TypefaceStyle.Normal);
+            }
             return view;
         }
     }
