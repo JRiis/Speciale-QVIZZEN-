@@ -15,7 +15,7 @@ using Qvizzen.Adapters;
 namespace Qvizzen.Activities
 {
     [Activity(Label = "PackageCreatorPackageActivity")]
-    public class PackageCreatorQuestionActivity : Activity
+    public class PackageCreatorQuestionActivity : ParentActivity
     {
         private ContentController ContentCtr;
         private AnwserAdapter Adapter;
@@ -29,7 +29,7 @@ namespace Qvizzen.Activities
             //Updates the title
             ContentCtr = ContentController.GetInstance();
             TextView title = FindViewById<TextView>(Resource.Id.textView1);
-            title.Text = ContentCtr.CurrentPack.Name;
+            title.Text = ContentCtr.CurrentQuestion.Text;
 
             //Setup content adapter for list.
             ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
@@ -40,17 +40,17 @@ namespace Qvizzen.Activities
             listAnwsers.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
                 ContentCtr.CurrentQuestion = ContentCtr.CurrentPack.Questions[e.Position];
-                StartActivity(typeof(MainActivity));
+                StartActivity(typeof(PackageCreatorAnwserActivity));
             };
 
             //Setup Click Event for Create Button.
             Button buttonNewAnwser = FindViewById<Button>(Resource.Id.buttonNewAnwser);
             buttonNewAnwser.Click += delegate
             {
-                Pack newPack = new Pack();
-                ContentCtr.CurrentPack = newPack;
-                ContentCtr.Content.Add(newPack);
-                StartActivity(typeof(PackageCreatorMainActivity));
+                Anwser newAnwser = new Anwser();
+                ContentCtr.CurrentAnwser = newAnwser;
+                ContentCtr.CurrentQuestion.Anwsers.Add(newAnwser);
+                StartActivity(typeof(PackageCreatorAnwserActivity));
             };
 
             //Setup Click Event for Delete Button.
@@ -68,6 +68,12 @@ namespace Qvizzen.Activities
                 string newText = e.Text.ToString();
                 ContentCtr.CurrentQuestion.Text = newText;
             };
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Adapter.NotifyDataSetChanged();
         }
     }
 }
