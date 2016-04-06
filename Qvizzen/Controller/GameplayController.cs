@@ -14,5 +14,14 @@ namespace Qvizzen.Controller
 {
     public class GameplayController
     {
+        public GamePack GamePack;
+
+        public void StartGame(GamePack gamePack)
+        {
+            GamePack = gamePack;
+
+
+
+        }
     }
 }

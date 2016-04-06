@@ -24,12 +24,21 @@ namespace Qvizzen
             ContentCtr = ContentController.GetInstance();
             ContentCtr.LoadContent();
 
-            //Setups button activity.
+            //Setups singleplayer button.
+            Button buttonSingleplayer = FindViewById<Button>(Resource.Id.buttonSingleplayer);
+            buttonSingleplayer.Click += delegate
+            {
+                StartActivity(typeof(SingleplayerPackageSelectionActivity));
+            };
+
+            //Setups content creator button.
             Button buttonCreator = FindViewById<Button>(Resource.Id.buttonCreator);
             buttonCreator.Click += delegate 
             {
                 StartActivity(typeof(PackageCreatorMainActivity));
             };
+
+
         }
     }
 }

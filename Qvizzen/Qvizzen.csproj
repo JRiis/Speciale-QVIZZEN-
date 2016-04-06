@@ -52,11 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\GameplayActivity.cs" />
+    <Compile Include="Activities\SingleplayerPackageSelectionActivity.cs" />
     <Compile Include="Activities\ParentActivitiy.cs" />
     <Compile Include="Activities\PackageCreatorAnwserActivity.cs" />
     <Compile Include="Activities\PackageCreatorQuestionActivity.cs" />
     <Compile Include="Activities\PackageCreatorPackageActivity.cs" />
     <Compile Include="Adapters\AnwserAdapter.cs" />
+    <Compile Include="Adapters\MultiplePackAdapter.cs" />
     <Compile Include="Adapters\QuestionAdapter .cs" />
     <Compile Include="Adapters\PackAdapter.cs" />
     <Compile Include="Controller\ContentController.cs" />
@@ -87,6 +90,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\PackageCreatorAnwser.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SingleplayerPackageSelection.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Gameplay.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

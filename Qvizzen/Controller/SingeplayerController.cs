@@ -12,7 +12,17 @@ using Android.Widget;
 
 namespace Qvizzen.Controller
 {
-    public class SingeplayerController
+    public class SingeplayerController : GameplayController
     {
+        private static SingeplayerController Instance;
+
+        public static SingeplayerController GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new SingeplayerController();
+            }
+            return Instance;
+        }
     }
 }

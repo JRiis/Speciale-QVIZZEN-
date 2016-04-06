@@ -38,7 +38,7 @@ namespace Qvizzen.Controller
         }
 
         /// <summary>
-        /// Saves all content from memory to an Json file.
+        /// Saves all content from memory to an JSON file.
         /// </summary>
         public void SaveContent()
         {

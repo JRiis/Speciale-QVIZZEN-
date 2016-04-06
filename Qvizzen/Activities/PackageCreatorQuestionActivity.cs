@@ -14,7 +14,7 @@ using Qvizzen.Adapters;
 
 namespace Qvizzen.Activities
 {
-    [Activity(Label = "PackageCreatorPackageActivity")]
+    [Activity(Label = "PackageCreatorQuestionActivity")]
     public class PackageCreatorQuestionActivity : ParentActivity
     {
         private ContentController ContentCtr;

@@ -25,7 +25,6 @@ namespace Qvizzen
             //Creates GUI
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.PackageCreatorMain);
-            //Window.SetSoftInputMode(SoftInput.StateAlwaysHidden);
 
             //Setup content adapter for list.
             ContentCtr = ContentController.GetInstance();
