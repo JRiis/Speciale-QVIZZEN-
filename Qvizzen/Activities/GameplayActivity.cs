@@ -39,6 +39,9 @@ namespace Qvizzen
             CountdownTimer.Interval = 1000;
             CountdownTimer.Enabled = true;
             CountdownTimer.Elapsed += TimerTickEvent;
+
+            //Starts Gameplay
+            SingleplayerCtr.StartGame(this);
         }
 
 

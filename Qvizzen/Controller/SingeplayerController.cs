@@ -15,6 +15,11 @@ namespace Qvizzen.Controller
     public class SingeplayerController : GameplayController
     {
         private static SingeplayerController Instance;
+        public GameplayActivity Activity;
+        public int Score;
+
+        public const int DefaultTimer = 30;
+        public const string Playername = "Your Score";
 
         public static SingeplayerController GetInstance()
         {
@@ -24,5 +29,16 @@ namespace Qvizzen.Controller
             }
             return Instance;
         }
+
+        public void StartGame(GameplayActivity activity)
+        {
+            Score = 0;
+            Activity = activity;
+
+
+
+            Activity.UpdateGUI();
+        }
+
     }
 }
