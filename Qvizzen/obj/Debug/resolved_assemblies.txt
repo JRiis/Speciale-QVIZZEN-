@@ -1,0 +1,10 @@
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\Qvizzen.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\Mono.Android.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\mscorlib.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\Newtonsoft.Json.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\System.Core.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\System.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\System.Xml.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\System.Xml.Linq.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\System.Runtime.Serialization.dll
+C:\Users\Jonas\Source\Repos\NewRepo\Qvizzen\obj\Debug\assemblies\System.ServiceModel.Internals.dll
