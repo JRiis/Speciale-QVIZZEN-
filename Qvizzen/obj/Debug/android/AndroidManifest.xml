@@ -8,7 +8,7 @@
     <activity android:label="ParentActivity" android:name="md58f781388ab3fd39766255521c8847301.ParentActivity" />
     <activity android:label="GameplayActivity" android:name="md58f781388ab3fd39766255521c8847301.GameplayActivity" />
     <activity android:label="SingleplayerPackageSelectionActivity" android:name="md58f781388ab3fd39766255521c8847301.SingleplayerPackageSelectionActivity" />
-    <activity android:label="PackageCreatorPackageActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorAnwserActivity" />
+    <activity android:label="PackageCreatorAnwserActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorAnwserActivity" />
     <activity android:label="PackageCreatorQuestionActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorQuestionActivity" />
     <activity android:label="PackageCreatorPackageActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorPackageActivity" />
     <activity android:icon="@drawable/icon" android:label="Qvizzen" android:name="md58f781388ab3fd39766255521c8847301.MainActivity" />

@@ -19,10 +19,10 @@ namespace Qvizzen
     [Activity(Label = "GameplayActivity")]
     public class GameplayActivity : ParentActivity
     {
-        private ContentController ContentCtr;
         private SingeplayerController SingleplayerCtr;
-        private AnwserAdapter Adapter;
+        private AnwserAdapterGameplay Adapter;
         private Timer CountdownTimer;
+        
         private int DisplayTime;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -44,14 +44,12 @@ namespace Qvizzen
             SingleplayerCtr.StartGame(this);
         }
 
-
         public void TimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)
         {
             //Updates label with timer.
             DisplayTime -= 1;
             TextView timerLabel = FindViewById<TextView>(Resource.Id.textView2);
             timerLabel.Text = DisplayTime.ToString();
-
 
             //If timer is zero.
             if (DisplayTime == 0)
@@ -60,29 +58,26 @@ namespace Qvizzen
             }
         }
 
-        public void UpdateGUI(Question question, int time)
+        public void UpdateGUI(Question question, int time, int score, int count, int total)
         {
             //Restarts Timer
             DisplayTime = time;
             CountdownTimer.Enabled = true;
             
-
-            //Update question label.
-            TextView timerLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
-
+            //Updates Labels
+            TextView timeLabel = FindViewById<TextView>(Resource.Id.textViewTime);
+            timeLabel.Text = time.ToString();
+            TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
+            questionLabel.Text = question.Text;
+            TextView scoreLabel = FindViewById<TextView>(Resource.Id.textViewScore);
+            scoreLabel.Text = score.ToString();
+            TextView progressLabel = FindViewById<TextView>(Resource.Id.textViewProgress);
+            progressLabel.Text = count.ToString() + "/" + total.ToString();
 
             //Setup content adapter for list.
             ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
-            Adapter = new AnwserAdapter(this, question.Anwsers);
+            Adapter = new AnwserAdapterGameplay(this, question.Anwsers);
             listAnwsers.Adapter = Adapter;
-
-
-
-
         }
-
-
-
-
     }
 }
