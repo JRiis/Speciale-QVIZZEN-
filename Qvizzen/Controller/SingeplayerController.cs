@@ -24,6 +24,7 @@ namespace Qvizzen.Controller
 
         public const int DefaultTimer = 30;
         public const string Playername = "Your Score";
+        public const int QuestionValue = 1;
 
         public static SingeplayerController GetInstance()
         {
@@ -57,9 +58,36 @@ namespace Qvizzen.Controller
             Questions.Shuffle();
 
             //Update GUI
-            Activity.UpdateGUI(GetQuestion(), DefaultTimer, Score, 0, Questions.Count);
+            Activity.UpdateGUI(GetQuestion(), DefaultTimer, Score, 1, Questions.Count);
         }
 
+        
+        /// <summary>
+        /// Advances the gameplay a turn.
+        /// </summary>
+        public void NextTurn()
+        {
+            Activity.UpdateGUI(GetQuestion(), DefaultTimer, Score, CurrentIndex, Questions.Count);
+        }
+
+
+        /// <summary>
+        /// Checks if anwser is correct and updates score accordingly. 
+        /// </summary>
+        public bool AnwserQuestion(Anwser anwser)
+        {
+            if (anwser.IsCorrect)
+            {
+                //Correct Anwser
+                Score += QuestionValue;
+                return true;
+            }
+            else
+            {
+                //Wrong Anwser
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gets the next question from all questions and updates current index.
@@ -74,5 +102,9 @@ namespace Qvizzen.Controller
 
             return question;
         }
+
+
+
+
     }
 }

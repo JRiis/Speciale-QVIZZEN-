@@ -22,8 +22,12 @@ namespace Qvizzen
         private SingeplayerController SingleplayerCtr;
         private AnwserAdapterGameplay Adapter;
         private Timer CountdownTimer;
-        
+        private Timer AnwserTimer;
         private int DisplayTime;
+        private Question CurrentQuestion;
+        private bool CanClick;
+
+        private const double AnwserTime = 3000;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,11 +38,17 @@ namespace Qvizzen
             //Setup Controller
             SingleplayerCtr = SingeplayerController.GetInstance();
 
-            //Setup Timer
+            //Setup Countdown Timer
             CountdownTimer = new Timer();
             CountdownTimer.Interval = 1000;
             CountdownTimer.Enabled = true;
             CountdownTimer.Elapsed += TimerTickEvent;
+
+            //Setup Anwser Timer
+            AnwserTimer = new Timer();
+            AnwserTimer.Interval = AnwserTime;
+            AnwserTimer.Enabled = true;
+            AnwserTimer.Elapsed += AnwserTimerTickEvent;
 
             //Starts Gameplay
             SingleplayerCtr.StartGame(this);
@@ -55,14 +65,27 @@ namespace Qvizzen
             if (DisplayTime == 0)
             {
                 //TODO: Run time-up event.
+                //Stops Timer
             }
         }
 
+        public void AnwserTimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //Starts next question.
+            AnwserTimer.Stop();
+            SingleplayerCtr.NextTurn();
+        }
+
+        /// <summary>
+        /// Updates the GUI and sets it up for the next question.
+        /// </summary>
         public void UpdateGUI(Question question, int time, int score, int count, int total)
         {
-            //Restarts Timer
+            //Updates Variables
+            CountdownTimer.Start();
             DisplayTime = time;
-            CountdownTimer.Enabled = true;
+            CurrentQuestion = question;
+            CanClick = true;
             
             //Updates Labels
             TextView timeLabel = FindViewById<TextView>(Resource.Id.textViewTime);
@@ -70,7 +93,7 @@ namespace Qvizzen
             TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
             questionLabel.Text = question.Text;
             TextView scoreLabel = FindViewById<TextView>(Resource.Id.textViewScore);
-            scoreLabel.Text = score.ToString();
+            scoreLabel.Text = "Score: " + score.ToString();
             TextView progressLabel = FindViewById<TextView>(Resource.Id.textViewProgress);
             progressLabel.Text = count.ToString() + "/" + total.ToString();
 
@@ -78,6 +101,29 @@ namespace Qvizzen
             ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
             Adapter = new AnwserAdapterGameplay(this, question.Anwsers);
             listAnwsers.Adapter = Adapter;
+
+            //Setup Click Event for List Items.
+            listAnwsers.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
+            {
+                //Updates Variables.
+                CanClick = false;
+                CountdownTimer.Stop();
+                AnwserTimer.Start();
+
+                //Checks if correct anwser.
+                if ( SingleplayerCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position]) )
+                {
+                    questionLabel.Text = "Correct!";
+                    var color = new Android.Graphics.Color(50, 237, 50, 255);                    
+                    e.View.SetBackgroundColor(color);
+                }
+                else
+                {
+                    questionLabel.Text = "Incorrect!";
+                    var color = new Android.Graphics.Color(237, 50, 50, 255);
+                    e.View.SetBackgroundColor(color);
+                }
+            };
         }
     }
 }
