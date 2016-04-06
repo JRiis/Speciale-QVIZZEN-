@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 
 using Qvizzen.Extensions;
+using Qvizzen.Activities;
 
 namespace Qvizzen.Controller
 {
@@ -21,6 +22,7 @@ namespace Qvizzen.Controller
         public int Score;
         public List<Question> Questions;
         public int CurrentIndex;
+        public bool FinalQuestion;
 
         public const int DefaultTimer = 30;
         public const string Playername = "Your Score";
@@ -43,6 +45,7 @@ namespace Qvizzen.Controller
         {
             //Setup Variables
             Questions = new List<Question>();
+            FinalQuestion = false;
             CurrentIndex = 0;
             Activity = activity;
             Score = 0;
@@ -98,13 +101,12 @@ namespace Qvizzen.Controller
             Question question = Questions[CurrentIndex];
             CurrentIndex++;
 
-            //TODO: Check for final question.
+            if (CurrentIndex == Questions.Count)
+            {
+                FinalQuestion = true;
+            }
 
             return question;
         }
-
-
-
-
     }
 }

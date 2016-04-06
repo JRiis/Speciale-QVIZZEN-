@@ -20,12 +20,13 @@ public final class R {
         public static final int buttonDeletePack=0x7f060015;
         public static final int buttonDeleteQuestion=0x7f060017;
         public static final int buttonDownload=0x7f06000b;
+        public static final int buttonMainMenu=0x7f060019;
         public static final int buttonMultiplayer=0x7f06000a;
         public static final int buttonNewAnwser=0x7f060016;
         public static final int buttonNewPackage=0x7f060012;
         public static final int buttonNewQuestion=0x7f060014;
         public static final int buttonSingleplayer=0x7f060009;
-        public static final int buttonStartGame=0x7f060018;
+        public static final int buttonStartGame=0x7f06001a;
         public static final int checkBox1=0x7f06000e;
         public static final int linearLayout1=0x7f060000;
         public static final int linearLayout2=0x7f06000f;
@@ -33,6 +34,7 @@ public final class R {
         public static final int listViewAnwsers=0x7f060006;
         public static final int listViewPackages=0x7f060011;
         public static final int listViewQuestions=0x7f060013;
+        public static final int listViewScore=0x7f060018;
         public static final int space1=0x7f060004;
         public static final int textView1=0x7f060008;
         public static final int textView2=0x7f06000d;
@@ -48,7 +50,8 @@ public final class R {
         public static final int packagecreatormain=0x7f030003;
         public static final int packagecreatorpackage=0x7f030004;
         public static final int packagecreatorquestion=0x7f030005;
-        public static final int singleplayerpackageselection=0x7f030006;
+        public static final int scorescreen=0x7f030006;
+        public static final int singleplayerpackageselection=0x7f030007;
     }
     public static final class string {
         public static final int ApplicationName=0x7f040000;

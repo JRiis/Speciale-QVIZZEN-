@@ -6,10 +6,11 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Qvizzen.Controller;
+using Android.Content.PM;
 
 namespace Qvizzen
 {
-    [Activity(Label = "Qvizzen", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Qvizzen", MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : ParentActivity
     {
         private ContentController ContentCtr;

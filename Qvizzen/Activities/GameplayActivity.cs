@@ -38,42 +38,57 @@ namespace Qvizzen
             //Setup Controller
             SingleplayerCtr = SingeplayerController.GetInstance();
 
-            //Setup Countdown Timer
-            CountdownTimer = new Timer();
-            CountdownTimer.Interval = 1000;
-            CountdownTimer.Enabled = true;
-            CountdownTimer.Elapsed += TimerTickEvent;
-
-            //Setup Anwser Timer
-            AnwserTimer = new Timer();
-            AnwserTimer.Interval = AnwserTime;
-            AnwserTimer.Enabled = true;
-            AnwserTimer.Elapsed += AnwserTimerTickEvent;
-
             //Starts Gameplay
             SingleplayerCtr.StartGame(this);
+
+            //Funthyme
         }
 
         public void TimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //Updates label with timer.
-            DisplayTime -= 1;
-            TextView timerLabel = FindViewById<TextView>(Resource.Id.textView2);
-            timerLabel.Text = DisplayTime.ToString();
-
-            //If timer is zero.
-            if (DisplayTime == 0)
+            RunOnUiThread( () =>
             {
-                //TODO: Run time-up event.
-                //Stops Timer
-            }
+                //Updates label with timer.
+                DisplayTime -= 1;
+                TextView timerLabel = FindViewById<TextView>(Resource.Id.textViewTime);
+                timerLabel.Text = DisplayTime.ToString();
+
+                //If timer is zero.
+                if (DisplayTime == 0)
+                {
+                    //Updates Variables.
+                    CanClick = false;
+                    CountdownTimer.Stop();
+                    TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
+                    questionLabel.Text = "Times's Up!";
+
+                    //Setup Anwser Timer
+                    AnwserTimer = new Timer();
+                    AnwserTimer.Interval = AnwserTime;
+                    AnwserTimer.Elapsed += AnwserTimerTickEvent;
+                    AnwserTimer.Enabled = true;
+                    AnwserTimer.AutoReset = false;
+                }
+            });
         }
 
         public void AnwserTimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //Starts next question.
-            AnwserTimer.Stop();
-            SingleplayerCtr.NextTurn();
+            RunOnUiThread( () =>
+            {
+                //Checks if final question.
+                if (SingleplayerCtr.FinalQuestion)
+                {
+                    //Ends the game.
+                    StartActivity(typeof(Scorescreen));
+                }
+                else
+                {
+                    //Advances a turn.
+                    SingleplayerCtr.NextTurn();
+                }
+                AnwserTimer.Stop();
+            });    
         }
 
         /// <summary>
@@ -81,8 +96,15 @@ namespace Qvizzen
         /// </summary>
         public void UpdateGUI(Question question, int time, int score, int count, int total)
         {
+            //Setup Countdown Timer
+            CountdownTimer = new Timer();
+            CountdownTimer.Interval = 1000;
+            CountdownTimer.Enabled = false;
+            CountdownTimer.Elapsed += TimerTickEvent;
+            CountdownTimer.Enabled = true;
+            CountdownTimer.AutoReset = true;
+            
             //Updates Variables
-            CountdownTimer.Start();
             DisplayTime = time;
             CurrentQuestion = question;
             CanClick = true;
@@ -105,23 +127,33 @@ namespace Qvizzen
             //Setup Click Event for List Items.
             listAnwsers.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
-                //Updates Variables.
-                CanClick = false;
-                CountdownTimer.Stop();
-                AnwserTimer.Start();
+                //Checks if CanClick.
+                if (CanClick)
+                {
+                    //Updates Variables.
+                    CanClick = false;
+                    CountdownTimer.Stop();
 
-                //Checks if correct anwser.
-                if ( SingleplayerCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position]) )
-                {
-                    questionLabel.Text = "Correct!";
-                    var color = new Android.Graphics.Color(50, 237, 50, 255);                    
-                    e.View.SetBackgroundColor(color);
-                }
-                else
-                {
-                    questionLabel.Text = "Incorrect!";
-                    var color = new Android.Graphics.Color(237, 50, 50, 255);
-                    e.View.SetBackgroundColor(color);
+                    //Checks if correct anwser.
+                    if (SingleplayerCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position]))
+                    {
+                        questionLabel.Text = "Correct!";
+                        var color = new Android.Graphics.Color(50, 237, 50, 255);
+                        e.View.SetBackgroundColor(color);
+                    }
+                    else
+                    {
+                        questionLabel.Text = "Incorrect!";
+                        var color = new Android.Graphics.Color(237, 50, 50, 255);
+                        e.View.SetBackgroundColor(color);
+                    }
+
+                    //Setup Anwser Timer
+                    AnwserTimer = new Timer();
+                    AnwserTimer.Interval = AnwserTime;
+                    AnwserTimer.Elapsed += AnwserTimerTickEvent;
+                    AnwserTimer.Enabled = true;
+                    AnwserTimer.AutoReset = false;
                 }
             };
         }

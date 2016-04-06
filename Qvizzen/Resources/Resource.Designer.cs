@@ -78,6 +78,9 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06000b
 			public const int buttonDownload = 2131099659;
 			
+			// aapt resource value: 0x7f060019
+			public const int buttonMainMenu = 2131099673;
+			
 			// aapt resource value: 0x7f06000a
 			public const int buttonMultiplayer = 2131099658;
 			
@@ -93,8 +96,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060009
 			public const int buttonSingleplayer = 2131099657;
 			
-			// aapt resource value: 0x7f060018
-			public const int buttonStartGame = 2131099672;
+			// aapt resource value: 0x7f06001a
+			public const int buttonStartGame = 2131099674;
 			
 			// aapt resource value: 0x7f06000e
 			public const int checkBox1 = 2131099662;
@@ -116,6 +119,9 @@ namespace Qvizzen
 			
 			// aapt resource value: 0x7f060013
 			public const int listViewQuestions = 2131099667;
+			
+			// aapt resource value: 0x7f060018
+			public const int listViewScore = 2131099672;
 			
 			// aapt resource value: 0x7f060004
 			public const int space1 = 2131099652;
@@ -170,7 +176,10 @@ namespace Qvizzen
 			public const int PackageCreatorQuestion = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int SingleplayerPackageSelection = 2130903046;
+			public const int Scorescreen = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int SingleplayerPackageSelection = 2130903047;
 			
 			static Layout()
 			{
