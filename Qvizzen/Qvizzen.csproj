@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\GameplayActivity.cs" />
+    <Compile Include="Activities\ScorescreenActivity.cs" />
     <Compile Include="Activities\SingleplayerPackageSelectionActivity.cs" />
     <Compile Include="Activities\ParentActivitiy.cs" />
     <Compile Include="Activities\PackageCreatorAnwserActivity.cs" />
@@ -61,12 +62,13 @@
     <Compile Include="Adapters\AnwserAdapterGameplay.cs" />
     <Compile Include="Adapters\AnwserAdapter.cs" />
     <Compile Include="Adapters\MultiplePackAdapter.cs" />
+    <Compile Include="Adapters\ScoreAdapter.cs" />
     <Compile Include="Adapters\QuestionAdapter .cs" />
     <Compile Include="Adapters\PackAdapter.cs" />
     <Compile Include="Controller\ContentController.cs" />
     <Compile Include="Controller\GameplayController.cs" />
     <Compile Include="Controller\MultiplayerController.cs" />
-    <Compile Include="Controller\SingeplayerController.cs" />
+    <Compile Include="Controller\SingleplayerController.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Model\Anwser.cs" />
     <Compile Include="Model\GamePack.cs" />

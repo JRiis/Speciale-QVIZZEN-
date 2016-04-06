@@ -19,7 +19,7 @@ namespace Qvizzen
     [Activity(Label = "GameplayActivity")]
     public class GameplayActivity : ParentActivity
     {
-        private SingeplayerController SingleplayerCtr;
+        private SingleplayerController SingleplayerCtr;
         private AnwserAdapterGameplay Adapter;
         private Timer CountdownTimer;
         private Timer AnwserTimer;
@@ -36,7 +36,7 @@ namespace Qvizzen
             SetContentView(Resource.Layout.Gameplay);
 
             //Setup Controller
-            SingleplayerCtr = SingeplayerController.GetInstance();
+            SingleplayerCtr = SingleplayerController.GetInstance();
 
             //Starts Gameplay
             SingleplayerCtr.StartGame(this);
@@ -80,7 +80,7 @@ namespace Qvizzen
                 if (SingleplayerCtr.FinalQuestion)
                 {
                     //Ends the game.
-                    StartActivity(typeof(Scorescreen));
+                    StartActivity(typeof(ScorescreenActivity));
                 }
                 else
                 {

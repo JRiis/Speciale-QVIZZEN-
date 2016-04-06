@@ -19,7 +19,7 @@ namespace Qvizzen
     public class SingleplayerPackageSelectionActivity : ParentActivity
     {
         private ContentController ContentCtr;
-        private SingeplayerController SingleplayerCtr;
+        private SingleplayerController SingleplayerCtr;
         private MultiplePackAdapter Adapter;
         private List<Pack> SelectedPacks;
 
@@ -50,7 +50,7 @@ namespace Qvizzen
             };
 
             //Setup Click Event for button.
-            SingleplayerCtr = SingeplayerController.GetInstance();
+            SingleplayerCtr = SingleplayerController.GetInstance();
             Button buttonStartGame = FindViewById<Button>(Resource.Id.buttonStartGame);
             buttonStartGame.Click += delegate
             {

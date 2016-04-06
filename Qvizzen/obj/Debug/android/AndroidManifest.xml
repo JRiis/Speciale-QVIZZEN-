@@ -7,11 +7,12 @@
   <application android:label="Qvizzen" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" android:name="mono.android.app.Application" android:allowBackup="true" android:debuggable="true">
     <activity android:label="ParentActivity" android:name="md58f781388ab3fd39766255521c8847301.ParentActivity" />
     <activity android:label="GameplayActivity" android:name="md58f781388ab3fd39766255521c8847301.GameplayActivity" />
+    <activity android:label="ScorescreenActivity" android:name="md58f781388ab3fd39766255521c8847301.ScorescreenActivity" />
     <activity android:label="SingleplayerPackageSelectionActivity" android:name="md58f781388ab3fd39766255521c8847301.SingleplayerPackageSelectionActivity" />
     <activity android:label="PackageCreatorAnwserActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorAnwserActivity" />
     <activity android:label="PackageCreatorQuestionActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorQuestionActivity" />
     <activity android:label="PackageCreatorPackageActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorPackageActivity" />
-    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MainActivity" />
+    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:launchMode="singleTop" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MainActivity" />
     <activity android:label="PackageCreatorMainActivity" android:name="md58f781388ab3fd39766255521c8847301.PackageCreatorMainActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="Qvizzen.Qvizzen.mono.MonoRuntimeProvider.__mono_init__" />
     <!--suppress ExportedReceiver-->
@@ -21,7 +22,7 @@
         <category android:name="mono.android.intent.category.SEPPUKU.Qvizzen.Qvizzen" />
       </intent-filter>
     </receiver>
-    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:screenOrientation="portrait" android:name="qvizzen.qvizzen.TrialSplashScreen" android:theme="@style/Mono.Android.Theme.Splash" android:noHistory="true">
+    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:launchMode="singleTop" android:screenOrientation="portrait" android:name="qvizzen.qvizzen.TrialSplashScreen" android:theme="@style/Mono.Android.Theme.Splash" android:noHistory="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
