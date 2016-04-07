@@ -27,7 +27,7 @@ namespace Qvizzen
         private Question CurrentQuestion;
         private bool CanClick;
 
-        private const double AnwserTime = 3000;
+        private const double AnwserTime = 1500;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -38,10 +38,12 @@ namespace Qvizzen
             //Setup Controller
             SingleplayerCtr = SingleplayerController.GetInstance();
 
+
+            //new ViewSwitcher();
+
+
             //Starts Gameplay
             SingleplayerCtr.StartGame(this);
-
-            //Funthyme
         }
 
         public void TimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)

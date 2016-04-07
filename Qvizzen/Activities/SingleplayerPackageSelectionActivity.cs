@@ -54,10 +54,15 @@ namespace Qvizzen
             Button buttonStartGame = FindViewById<Button>(Resource.Id.buttonStartGame);
             buttonStartGame.Click += delegate
             {
-                GamePack gamePack = new GamePack();
-                SingleplayerCtr.GamePack = gamePack;
-                gamePack.Packs = SelectedPacks;
-                StartActivity(typeof(GameplayActivity));
+                //Confirms selected packages.
+                if (SelectedPacks.Count > 0)
+                {
+
+                    GamePack gamePack = new GamePack();
+                    SingleplayerCtr.GamePack = gamePack;
+                    gamePack.Packs = SelectedPacks;
+                    StartActivity(typeof(GameplayActivity));
+                }
             };
         }
     }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -19,6 +18,7 @@ namespace Qvizzen.Activities
     {
         private ContentController ContentCtr;
         private AnwserAdapter Adapter;
+        private const int AnwserLimit = 4;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -47,10 +47,27 @@ namespace Qvizzen.Activities
             Button buttonNewAnwser = FindViewById<Button>(Resource.Id.buttonNewAnwser);
             buttonNewAnwser.Click += delegate
             {
-                Anwser newAnwser = new Anwser();
-                ContentCtr.CurrentAnwser = newAnwser;
-                ContentCtr.CurrentQuestion.Anwsers.Add(newAnwser);
-                StartActivity(typeof(PackageCreatorAnwserActivity));
+                //Confirms under the question limit.
+                if (ContentCtr.CurrentQuestion.Anwsers.Count < AnwserLimit)
+                {
+                    Anwser newAnwser = new Anwser();
+                    ContentCtr.CurrentAnwser = newAnwser;
+                    ContentCtr.CurrentQuestion.Anwsers.Add(newAnwser);
+                    StartActivity(typeof(PackageCreatorAnwserActivity));
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    AlertDialog dialog = builder.Create();
+                    dialog.SetMessage(string.Format("You can only have {0} Anwsers", AnwserLimit));
+                    dialog.SetTitle("Epic Fail!");
+                    dialog.SetButton("OK", (sender, evnt) => 
+                    {
+                        dialog.Dismiss();
+
+                    });
+                    dialog.Show();
+                }
             };
 
             //Setup Click Event for Delete Button.

@@ -45,6 +45,7 @@ namespace Qvizzen.Adapters
 
             var label = view.FindViewById<TextView>(Android.Resource.Id.Text1);
             label.Text = AnwserList[position].Text;
+            label.TextSize = 20;
             if (AnwserList[position].IsCorrect)
             {
                 view.FindViewById<TextView>(Android.Resource.Id.Text1).SetTypeface(null, Android.Graphics.TypefaceStyle.Bold);

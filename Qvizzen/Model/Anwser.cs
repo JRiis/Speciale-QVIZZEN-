@@ -19,7 +19,7 @@ namespace Qvizzen
 
         public Anwser()
         {
-            Text = "Anwser";
+            Text = "";
             IsCorrect = false;
         }
     }

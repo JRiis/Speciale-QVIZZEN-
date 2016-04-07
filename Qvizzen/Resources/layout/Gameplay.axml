@@ -33,6 +33,12 @@
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/space1" />
+    <LinearLayout
+        p1:layout_width="match_parent"
+        p1:layout_height="5dp"
+        p1:id="@+id/space1"
+        p1:background="@android:color/background_dark"
+        p1:layout_marginTop="20dp" />
     <TextView
         p1:text="Question Text"
         p1:textAppearance="?android:attr/textAppearanceLarge"
@@ -44,13 +50,20 @@
         p1:layout_marginTop="30dp"
         p1:layout_marginBottom="30dp"
         p1:textSize="35dp" />
+    <LinearLayout
+        p1:layout_width="match_parent"
+        p1:layout_height="5dp"
+        p1:id="@+id/space1"
+        p1:background="@android:color/background_dark" />
     <ListView
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/listViewAnwsers"
-        p1:layout_weight="1" />
+        p1:layout_weight="1"
+        p1:divider="@android:color/black"
+        p1:dividerHeight="1dp" />
     <TextView
         p1:text="x/y"
         p1:textAppearance="?android:attr/textAppearanceLarge"

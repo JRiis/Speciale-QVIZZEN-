@@ -41,7 +41,9 @@ namespace Qvizzen.Adapters
             {
                 view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
             }
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = PackList[position].Name;
+            var cell = view.FindViewById<TextView>(Android.Resource.Id.Text1);
+            cell.Text = PackList[position].Name;
+            cell.TextSize = 20;
             return view;
         }
     }

@@ -12,7 +12,6 @@ c:\users\eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug
 c:\users\eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\drawable\icon.png
 c:\users\eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\R.cs.flag
 c:\users\eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\uploadflags.txt
-C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\Qvizzen.csprojResolveAssemblyReference.cache
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\packagecreatormain.xml
 C:\Users\Eventyr\Documents\Visual Studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\packagecreatorpackage.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\packagecreatorquestion.xml

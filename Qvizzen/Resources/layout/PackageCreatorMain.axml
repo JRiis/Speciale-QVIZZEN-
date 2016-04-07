@@ -14,13 +14,20 @@
         p1:gravity="center"
         p1:paddingTop="15dp"
         p1:paddingBottom="15dp" />
+    <LinearLayout
+        p1:layout_width="match_parent"
+        p1:layout_height="5dp"
+        p1:id="@+id/space1"
+        p1:background="@android:color/background_dark" />
     <ListView
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/listViewPackages"
-        p1:layout_weight="1" />
+        p1:layout_weight="1"
+        p1:divider="@android:color/black"
+        p1:dividerHeight="1dp" />
     <Button
         p1:text="Create New Package"
         p1:layout_width="match_parent"

@@ -43,6 +43,7 @@ namespace Qvizzen.Adapters
                 view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
             }
             view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = QuestionList[position].Text;
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).TextSize = 20;
             return view;
         }
     }

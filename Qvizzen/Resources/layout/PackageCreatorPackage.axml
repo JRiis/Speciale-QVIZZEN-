@@ -16,14 +16,23 @@
         p1:paddingTop="15dp"
         p1:paddingBottom="15dp"
         p1:editable="true"
-        p1:singleLine="true" />
+        p1:singleLine="true"
+        p1:hint="Package Name"
+        p1:maxLength="25" />
+    <LinearLayout
+        p1:layout_width="match_parent"
+        p1:layout_height="5dp"
+        p1:id="@+id/space1"
+        p1:background="@android:color/background_dark" />
     <ListView
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/listViewQuestions"
-        p1:layout_weight="1" />
+        p1:layout_weight="1"
+        p1:divider="@android:color/black"
+        p1:dividerHeight="1dp" />
     <LinearLayout
         p1:orientation="horizontal"
         p1:layout_width="match_parent"

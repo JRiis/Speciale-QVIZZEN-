@@ -16,7 +16,9 @@
         p1:paddingTop="15dp"
         p1:paddingBottom="15dp"
         p1:editable="true"
-        p1:singleLine="false" />
+        p1:singleLine="false"
+        p1:hint="Answer Text"
+        p1:maxLength="50" />
     <LinearLayout
         p1:orientation="horizontal"
         p1:layout_width="match_parent"

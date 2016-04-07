@@ -19,7 +19,7 @@ namespace Qvizzen
 
         public Pack()
         {
-            Name = "Name Your Pack";
+            Name = "";
             Questions = new List<Question>();
         }
     }

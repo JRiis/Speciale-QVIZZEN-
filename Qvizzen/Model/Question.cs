@@ -19,7 +19,7 @@ namespace Qvizzen
 
         public Question()
         {
-            Text = "Question";
+            Text = "";
             Anwsers = new List<Anwser>();
         }
     }
