@@ -10,10 +10,11 @@ using Android.Views;
 using Android.Widget;
 using Qvizzen.Controller;
 using Qvizzen.Adapters;
+using Android.Content.PM;
 
 namespace Qvizzen.Activities
 {
-    [Activity(Label = "PackageCreatorQuestionActivity")]
+    [Activity(Label = "PackageCreatorQuestionActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class PackageCreatorQuestionActivity : ParentActivity
     {
         private ContentController ContentCtr;
@@ -39,7 +40,7 @@ namespace Qvizzen.Activities
             //Setup Click Event for List Items.
             listAnwsers.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
-                ContentCtr.CurrentQuestion = ContentCtr.CurrentPack.Questions[e.Position];
+                ContentCtr.CurrentAnwser = ContentCtr.CurrentQuestion.Anwsers[e.Position];
                 StartActivity(typeof(PackageCreatorAnwserActivity));
             };
 
@@ -64,7 +65,6 @@ namespace Qvizzen.Activities
                     dialog.SetButton("OK", (sender, evnt) => 
                     {
                         dialog.Dismiss();
-
                     });
                     dialog.Show();
                 }

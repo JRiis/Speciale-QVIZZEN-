@@ -12,10 +12,11 @@ using Qvizzen.Controller;
 using Qvizzen.Adapters;
 using Qvizzen.Activities;
 using Android.Util;
+using Android.Content.PM;
 
 namespace Qvizzen
-{    
-    [Activity(Label = "SingleplayerPackageSelectionActivity")]
+{
+    [Activity(Label = "SingleplayerPackageSelectionActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class SingleplayerPackageSelectionActivity : ParentActivity
     {
         private ContentController ContentCtr;

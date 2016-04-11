@@ -6,6 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Qvizzen.Controller;
+using Android.Content.PM;
 
 namespace Qvizzen
 {

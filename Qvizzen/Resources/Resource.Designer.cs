@@ -31,6 +31,27 @@ namespace Qvizzen
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f010004
+			public const int bottomEdgeSwipeOffset = 2130771972;
+			
+			// aapt resource value: 0x7f010006
+			public const int clickToClose = 2130771974;
+			
+			// aapt resource value: 0x7f010000
+			public const int drag_edge = 2130771968;
+			
+			// aapt resource value: 0x7f010001
+			public const int leftEdgeSwipeOffset = 2130771969;
+			
+			// aapt resource value: 0x7f010002
+			public const int rightEdgeSwipeOffset = 2130771970;
+			
+			// aapt resource value: 0x7f010005
+			public const int show_mode = 2130771973;
+			
+			// aapt resource value: 0x7f010003
+			public const int topEdgeSwipeOffset = 2130771971;
+			
 			static Attribute()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -63,86 +84,119 @@ namespace Qvizzen
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06000c
-			public const int buttonCreator = 2131099660;
+			// aapt resource value: 0x7f060023
+			public const int Text1 = 2131099683;
 			
-			// aapt resource value: 0x7f060010
-			public const int buttonDeleteAnwser = 2131099664;
-			
-			// aapt resource value: 0x7f060015
-			public const int buttonDeletePack = 2131099669;
-			
-			// aapt resource value: 0x7f060017
-			public const int buttonDeleteQuestion = 2131099671;
-			
-			// aapt resource value: 0x7f06000b
-			public const int buttonDownload = 2131099659;
-			
-			// aapt resource value: 0x7f060019
-			public const int buttonMainMenu = 2131099673;
-			
-			// aapt resource value: 0x7f06000a
-			public const int buttonMultiplayer = 2131099658;
-			
-			// aapt resource value: 0x7f060016
-			public const int buttonNewAnwser = 2131099670;
-			
-			// aapt resource value: 0x7f060012
-			public const int buttonNewPackage = 2131099666;
-			
-			// aapt resource value: 0x7f060014
-			public const int buttonNewQuestion = 2131099668;
-			
-			// aapt resource value: 0x7f060009
-			public const int buttonSingleplayer = 2131099657;
-			
-			// aapt resource value: 0x7f06001a
-			public const int buttonStartGame = 2131099674;
-			
-			// aapt resource value: 0x7f06000e
-			public const int checkBox1 = 2131099662;
+			// aapt resource value: 0x7f060024
+			public const int Text2 = 2131099684;
 			
 			// aapt resource value: 0x7f060000
-			public const int linearLayout1 = 2131099648;
-			
-			// aapt resource value: 0x7f06000f
-			public const int linearLayout2 = 2131099663;
-			
-			// aapt resource value: 0x7f060001
-			public const int linearLayout3 = 2131099649;
-			
-			// aapt resource value: 0x7f060006
-			public const int listViewAnwsers = 2131099654;
-			
-			// aapt resource value: 0x7f060011
-			public const int listViewPackages = 2131099665;
-			
-			// aapt resource value: 0x7f060013
-			public const int listViewQuestions = 2131099667;
+			public const int bottom = 2131099648;
 			
 			// aapt resource value: 0x7f060018
-			public const int listViewScore = 2131099672;
+			public const int buttonCreator = 2131099672;
+			
+			// aapt resource value: 0x7f06001b
+			public const int buttonDeleteAnwser = 2131099675;
+			
+			// aapt resource value: 0x7f060020
+			public const int buttonDeletePack = 2131099680;
+			
+			// aapt resource value: 0x7f060022
+			public const int buttonDeleteQuestion = 2131099682;
+			
+			// aapt resource value: 0x7f060017
+			public const int buttonDownload = 2131099671;
+			
+			// aapt resource value: 0x7f060013
+			public const int buttonMainMenu = 2131099667;
+			
+			// aapt resource value: 0x7f060016
+			public const int buttonMultiplayer = 2131099670;
+			
+			// aapt resource value: 0x7f060021
+			public const int buttonNewAnwser = 2131099681;
+			
+			// aapt resource value: 0x7f06001d
+			public const int buttonNewPackage = 2131099677;
+			
+			// aapt resource value: 0x7f06001f
+			public const int buttonNewQuestion = 2131099679;
+			
+			// aapt resource value: 0x7f060015
+			public const int buttonSingleplayer = 2131099669;
+			
+			// aapt resource value: 0x7f060025
+			public const int buttonStartGame = 2131099685;
+			
+			// aapt resource value: 0x7f06001a
+			public const int checkBox1 = 2131099674;
 			
 			// aapt resource value: 0x7f060004
-			public const int space1 = 2131099652;
+			public const int lay_down = 2131099652;
+			
+			// aapt resource value: 0x7f060001
+			public const int left = 2131099649;
+			
+			// aapt resource value: 0x7f060014
+			public const int linearLayout1 = 2131099668;
+			
+			// aapt resource value: 0x7f060012
+			public const int linearLayout2 = 2131099666;
 			
 			// aapt resource value: 0x7f060008
-			public const int textView1 = 2131099656;
-			
-			// aapt resource value: 0x7f06000d
-			public const int textView2 = 2131099661;
+			public const int linearLayout3 = 2131099656;
 			
 			// aapt resource value: 0x7f060007
-			public const int textViewProgress = 2131099655;
+			public const int linearLayoutGameplay = 2131099655;
+			
+			// aapt resource value: 0x7f06000f
+			public const int linearLayoutScorescreen = 2131099663;
+			
+			// aapt resource value: 0x7f06000d
+			public const int listViewAnwsers = 2131099661;
+			
+			// aapt resource value: 0x7f06001c
+			public const int listViewPackages = 2131099676;
+			
+			// aapt resource value: 0x7f06001e
+			public const int listViewQuestions = 2131099678;
+			
+			// aapt resource value: 0x7f060011
+			public const int listViewScore = 2131099665;
 			
 			// aapt resource value: 0x7f060005
-			public const int textViewQuestion = 2131099653;
+			public const int pull_out = 2131099653;
 			
 			// aapt resource value: 0x7f060002
-			public const int textViewScore = 2131099650;
+			public const int right = 2131099650;
+			
+			// aapt resource value: 0x7f06000b
+			public const int space1 = 2131099659;
+			
+			// aapt resource value: 0x7f060006
+			public const int swipeLayout1 = 2131099654;
+			
+			// aapt resource value: 0x7f060010
+			public const int textView1 = 2131099664;
+			
+			// aapt resource value: 0x7f060019
+			public const int textView2 = 2131099673;
+			
+			// aapt resource value: 0x7f06000e
+			public const int textViewProgress = 2131099662;
+			
+			// aapt resource value: 0x7f06000c
+			public const int textViewQuestion = 2131099660;
+			
+			// aapt resource value: 0x7f060009
+			public const int textViewScore = 2131099657;
+			
+			// aapt resource value: 0x7f06000a
+			public const int textViewTime = 2131099658;
 			
 			// aapt resource value: 0x7f060003
-			public const int textViewTime = 2131099651;
+			public const int top = 2131099651;
 			
 			static Id()
 			{
@@ -176,10 +230,13 @@ namespace Qvizzen
 			public const int PackageCreatorQuestion = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int Scorescreen = 2130903046;
+			public const int ScoreCustomListItem = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int SingleplayerPackageSelection = 2130903047;
+			public const int Scorescreen = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int SingleplayerPackageSelection = 2130903048;
 			
 			static Layout()
 			{
@@ -219,6 +276,49 @@ namespace Qvizzen
 			}
 			
 			private Style()
+			{
+			}
+		}
+		
+		public partial class Styleable
+		{
+			
+			public static int[] SwipeLayout = new int[] {
+					2130771968,
+					2130771969,
+					2130771970,
+					2130771971,
+					2130771972,
+					2130771973,
+					2130771974};
+			
+			// aapt resource value: 4
+			public const int SwipeLayout_bottomEdgeSwipeOffset = 4;
+			
+			// aapt resource value: 6
+			public const int SwipeLayout_clickToClose = 6;
+			
+			// aapt resource value: 0
+			public const int SwipeLayout_drag_edge = 0;
+			
+			// aapt resource value: 1
+			public const int SwipeLayout_leftEdgeSwipeOffset = 1;
+			
+			// aapt resource value: 2
+			public const int SwipeLayout_rightEdgeSwipeOffset = 2;
+			
+			// aapt resource value: 5
+			public const int SwipeLayout_show_mode = 5;
+			
+			// aapt resource value: 3
+			public const int SwipeLayout_topEdgeSwipeOffset = 3;
+			
+			static Styleable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Styleable()
 			{
 			}
 		}

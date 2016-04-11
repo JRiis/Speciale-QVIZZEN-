@@ -11,10 +11,11 @@ using Android.Views;
 using Android.Widget;
 using Qvizzen.Controller;
 using Qvizzen.Adapters;
+using Android.Content.PM;
 
 namespace Qvizzen.Activities
 {
-    [Activity(Label = "PackageCreatorPackageActivity")]
+    [Activity(Label = "PackageCreatorPackageActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class PackageCreatorPackageActivity : ParentActivity
     {
         private ContentController ContentCtr;

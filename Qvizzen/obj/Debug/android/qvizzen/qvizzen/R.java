@@ -9,39 +9,122 @@ package qvizzen.qvizzen;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int bottomEdgeSwipeOffset=0x7f010004;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int clickToClose=0x7f010006;
+        /** <p>Must be one or more (separated by '|') of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>left</code></td><td>1</td><td></td></tr>
+<tr><td><code>right</code></td><td>2</td><td></td></tr>
+<tr><td><code>top</code></td><td>4</td><td></td></tr>
+<tr><td><code>bottom</code></td><td>8</td><td></td></tr>
+</table>
+         */
+        public static final int drag_edge=0x7f010000;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int leftEdgeSwipeOffset=0x7f010001;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int rightEdgeSwipeOffset=0x7f010002;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>lay_down</code></td><td>0</td><td></td></tr>
+<tr><td><code>pull_out</code></td><td>1</td><td></td></tr>
+</table>
+         */
+        public static final int show_mode=0x7f010005;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int topEdgeSwipeOffset=0x7f010003;
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
         public static final int monoandroidsplash=0x7f020001;
     }
     public static final class id {
-        public static final int buttonCreator=0x7f06000c;
-        public static final int buttonDeleteAnwser=0x7f060010;
-        public static final int buttonDeletePack=0x7f060015;
-        public static final int buttonDeleteQuestion=0x7f060017;
-        public static final int buttonDownload=0x7f06000b;
-        public static final int buttonMainMenu=0x7f060019;
-        public static final int buttonMultiplayer=0x7f06000a;
-        public static final int buttonNewAnwser=0x7f060016;
-        public static final int buttonNewPackage=0x7f060012;
-        public static final int buttonNewQuestion=0x7f060014;
-        public static final int buttonSingleplayer=0x7f060009;
-        public static final int buttonStartGame=0x7f06001a;
-        public static final int checkBox1=0x7f06000e;
-        public static final int linearLayout1=0x7f060000;
-        public static final int linearLayout2=0x7f06000f;
-        public static final int linearLayout3=0x7f060001;
-        public static final int listViewAnwsers=0x7f060006;
-        public static final int listViewPackages=0x7f060011;
-        public static final int listViewQuestions=0x7f060013;
-        public static final int listViewScore=0x7f060018;
-        public static final int space1=0x7f060004;
-        public static final int textView1=0x7f060008;
-        public static final int textView2=0x7f06000d;
-        public static final int textViewProgress=0x7f060007;
-        public static final int textViewQuestion=0x7f060005;
-        public static final int textViewScore=0x7f060002;
-        public static final int textViewTime=0x7f060003;
+        public static final int Text1=0x7f060023;
+        public static final int Text2=0x7f060024;
+        public static final int bottom=0x7f060000;
+        public static final int buttonCreator=0x7f060018;
+        public static final int buttonDeleteAnwser=0x7f06001b;
+        public static final int buttonDeletePack=0x7f060020;
+        public static final int buttonDeleteQuestion=0x7f060022;
+        public static final int buttonDownload=0x7f060017;
+        public static final int buttonMainMenu=0x7f060013;
+        public static final int buttonMultiplayer=0x7f060016;
+        public static final int buttonNewAnwser=0x7f060021;
+        public static final int buttonNewPackage=0x7f06001d;
+        public static final int buttonNewQuestion=0x7f06001f;
+        public static final int buttonSingleplayer=0x7f060015;
+        public static final int buttonStartGame=0x7f060025;
+        public static final int checkBox1=0x7f06001a;
+        public static final int lay_down=0x7f060004;
+        public static final int left=0x7f060001;
+        public static final int linearLayout1=0x7f060014;
+        public static final int linearLayout2=0x7f060012;
+        public static final int linearLayout3=0x7f060008;
+        public static final int linearLayoutGameplay=0x7f060007;
+        public static final int linearLayoutScorescreen=0x7f06000f;
+        public static final int listViewAnwsers=0x7f06000d;
+        public static final int listViewPackages=0x7f06001c;
+        public static final int listViewQuestions=0x7f06001e;
+        public static final int listViewScore=0x7f060011;
+        public static final int pull_out=0x7f060005;
+        public static final int right=0x7f060002;
+        public static final int space1=0x7f06000b;
+        public static final int swipeLayout1=0x7f060006;
+        public static final int textView1=0x7f060010;
+        public static final int textView2=0x7f060019;
+        public static final int textViewProgress=0x7f06000e;
+        public static final int textViewQuestion=0x7f06000c;
+        public static final int textViewScore=0x7f060009;
+        public static final int textViewTime=0x7f06000a;
+        public static final int top=0x7f060003;
     }
     public static final class layout {
         public static final int gameplay=0x7f030000;
@@ -50,8 +133,9 @@ public final class R {
         public static final int packagecreatormain=0x7f030003;
         public static final int packagecreatorpackage=0x7f030004;
         public static final int packagecreatorquestion=0x7f030005;
-        public static final int scorescreen=0x7f030006;
-        public static final int singleplayerpackageselection=0x7f030007;
+        public static final int scorecustomlistitem=0x7f030006;
+        public static final int scorescreen=0x7f030007;
+        public static final int singleplayerpackageselection=0x7f030008;
     }
     public static final class string {
         public static final int ApplicationName=0x7f040000;
@@ -59,4 +143,146 @@ public final class R {
     public static final class style {
         public static final int Mono_Android_Theme_Splash=0x7f050000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a SwipeLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SwipeLayout_bottomEdgeSwipeOffset Qvizzen.Qvizzen:bottomEdgeSwipeOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeLayout_clickToClose Qvizzen.Qvizzen:clickToClose}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeLayout_drag_edge Qvizzen.Qvizzen:drag_edge}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeLayout_leftEdgeSwipeOffset Qvizzen.Qvizzen:leftEdgeSwipeOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeLayout_rightEdgeSwipeOffset Qvizzen.Qvizzen:rightEdgeSwipeOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeLayout_show_mode Qvizzen.Qvizzen:show_mode}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeLayout_topEdgeSwipeOffset Qvizzen.Qvizzen:topEdgeSwipeOffset}</code></td><td></td></tr>
+           </table>
+           @see #SwipeLayout_bottomEdgeSwipeOffset
+           @see #SwipeLayout_clickToClose
+           @see #SwipeLayout_drag_edge
+           @see #SwipeLayout_leftEdgeSwipeOffset
+           @see #SwipeLayout_rightEdgeSwipeOffset
+           @see #SwipeLayout_show_mode
+           @see #SwipeLayout_topEdgeSwipeOffset
+         */
+        public static final int[] SwipeLayout = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006
+        };
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#bottomEdgeSwipeOffset}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name Qvizzen.Qvizzen:bottomEdgeSwipeOffset
+        */
+        public static final int SwipeLayout_bottomEdgeSwipeOffset = 4;
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#clickToClose}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name Qvizzen.Qvizzen:clickToClose
+        */
+        public static final int SwipeLayout_clickToClose = 6;
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#drag_edge}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be one or more (separated by '|') of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>left</code></td><td>1</td><td></td></tr>
+<tr><td><code>right</code></td><td>2</td><td></td></tr>
+<tr><td><code>top</code></td><td>4</td><td></td></tr>
+<tr><td><code>bottom</code></td><td>8</td><td></td></tr>
+</table>
+          @attr name Qvizzen.Qvizzen:drag_edge
+        */
+        public static final int SwipeLayout_drag_edge = 0;
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#leftEdgeSwipeOffset}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name Qvizzen.Qvizzen:leftEdgeSwipeOffset
+        */
+        public static final int SwipeLayout_leftEdgeSwipeOffset = 1;
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#rightEdgeSwipeOffset}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name Qvizzen.Qvizzen:rightEdgeSwipeOffset
+        */
+        public static final int SwipeLayout_rightEdgeSwipeOffset = 2;
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#show_mode}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>lay_down</code></td><td>0</td><td></td></tr>
+<tr><td><code>pull_out</code></td><td>1</td><td></td></tr>
+</table>
+          @attr name Qvizzen.Qvizzen:show_mode
+        */
+        public static final int SwipeLayout_show_mode = 5;
+        /**
+          <p>This symbol is the offset where the {@link Qvizzen.Qvizzen.R.attr#topEdgeSwipeOffset}
+          attribute's value can be found in the {@link #SwipeLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name Qvizzen.Qvizzen:topEdgeSwipeOffset
+        */
+        public static final int SwipeLayout_topEdgeSwipeOffset = 3;
+    };
 }

@@ -40,11 +40,12 @@ namespace Qvizzen.Adapters
             View view = convertView; // re-use an existing view, if one is available
             if (view == null) // otherwise create a new one
             {
-                view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
-
+                view = Context.LayoutInflater.Inflate(Resource.Layout.ScoreCustomListItem, null);
             }
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = ScoreList[position].Item1;
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).TextSize = 20;
+            view.FindViewById<TextView>(Resource.Id.Text1).Text = ScoreList[position].Item1;
+            view.FindViewById<TextView>(Resource.Id.Text2).Text = ScoreList[position].Item2.ToString();
+            view.FindViewById<TextView>(Resource.Id.Text1).TextSize = 20;
+            view.FindViewById<TextView>(Resource.Id.Text2).TextSize = 20;
             return view;
         }
     }

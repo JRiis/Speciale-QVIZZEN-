@@ -11,10 +11,11 @@ using Android.Widget;
 using Qvizzen.Controller;
 using Qvizzen.Adapters;
 using Qvizzen.Activities;
+using Android.Content.PM;
 
 namespace Qvizzen
-{    
-    [Activity(Label = "ScorescreenActivity")]
+{
+    [Activity(Label = "ScorescreenActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ScorescreenActivity : ParentActivity
     {
         private SingleplayerController SingleplayerCtr;

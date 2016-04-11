@@ -21,5 +21,5 @@ C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\singleplayerpackageselection.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\gameplay.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\scorescreen.xml
-C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\Qvizzen.dll.mdb
-C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Qvizzen.dll.mdb
+C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\scorecustomlistitem.xml
+C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\AndroidSwipeLayout.dll

@@ -53,10 +53,17 @@ namespace Qvizzen.Controller
         /// </summary>
         public void LoadContent()
         {
-            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            var filePath = Path.Combine(documentsPath, Filename);
-            var json = System.IO.File.ReadAllText(filePath);    
-            Content = JsonConvert.DeserializeObject<List<Pack>>(json);
+            try
+            {
+                var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                var filePath = Path.Combine(documentsPath, Filename);
+                var json = System.IO.File.ReadAllText(filePath);
+                Content = JsonConvert.DeserializeObject<List<Pack>>(json);
+            }
+            catch (System.IO.FileNotFoundException) { }
+            {
+
+            }
         }
     }
 }

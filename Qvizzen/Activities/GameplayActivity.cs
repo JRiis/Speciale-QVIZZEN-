@@ -13,14 +13,17 @@ using Qvizzen.Controller;
 using Qvizzen.Adapters;
 using Qvizzen.Activities;
 using Android.Util;
+using Android.Content.PM;
+using AndroidSwipeLayout;
 
 namespace Qvizzen
-{    
-    [Activity(Label = "GameplayActivity")]
+{
+    [Activity(Label = "GameplayActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class GameplayActivity : ParentActivity
     {
         private SingleplayerController SingleplayerCtr;
         private AnwserAdapterGameplay Adapter;
+        private ScoreAdapter ScoreAdapter;
         private Timer CountdownTimer;
         private Timer AnwserTimer;
         private int DisplayTime;
@@ -38,8 +41,31 @@ namespace Qvizzen
             //Setup Controller
             SingleplayerCtr = SingleplayerController.GetInstance();
 
+            //Setup content adapter for list.
+            SingleplayerCtr = SingleplayerController.GetInstance();
+            ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
+            var ScoreTuple = new Tuple<string, int>(SingleplayerController.Playername, SingleplayerCtr.Score);
+            var TupleList = new List<Tuple<string, int>>();
+            TupleList.Add(ScoreTuple);
+            ScoreAdapter = new ScoreAdapter(this, TupleList);
+            listScore.Adapter = Adapter;
 
-            //new ViewSwitcher();
+            //Setup Click Event for Main Menu Button.
+            Button buttonMainMenu = FindViewById<Button>(Resource.Id.buttonMainMenu);
+            buttonMainMenu.Click += delegate
+            {
+                StartActivity(typeof(MainActivity));
+            };
+
+            
+
+
+            //Swipe Adventurah!
+            var swipeLayout = FindViewById<SwipeLayout>(Resource.Id.swipeLayout1);
+            swipeLayout.SetShowMode(SwipeLayout.ShowMode.LayDown);
+            var scorescreenView = FindViewById(Resource.Id.linearLayoutScorescreen);
+            swipeLayout.AddDrag(SwipeLayout.DragEdge.Right, scorescreenView);
+
 
 
             //Starts Gameplay
@@ -158,6 +184,22 @@ namespace Qvizzen
                     AnwserTimer.AutoReset = false;
                 }
             };
+        }
+
+        protected override void OnStop()
+        {
+            //Creates GUI
+            base.OnStop();
+
+            //Stops Timers
+            try
+            {
+                CountdownTimer.Stop();
+                AnwserTimer.Stop();
+                CountdownTimer.Dispose();
+                AnwserTimer.Dispose();
+            }
+            catch (System.NullReferenceException) { }
         }
     }
 }

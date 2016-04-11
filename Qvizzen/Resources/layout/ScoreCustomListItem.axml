@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:orientation="horizontal"
+    p1:layout_width="fill_parent"
+    p1:layout_height="wrap_content"
+    p1:id="@+id/linearLayout1"
+    p1:padding="8dp">
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="wrap_content"
+        p1:layout_height="match_parent"
+        p1:id="@+id/Text1" />
+    <TextView
+        p1:textAppearance="?android:attr/textAppearanceLarge"
+        p1:layout_width="wrap_content"
+        p1:layout_height="match_parent"
+        p1:id="@+id/Text2"
+        p1:gravity="right"
+        p1:layout_weight="1" />
+</LinearLayout>
