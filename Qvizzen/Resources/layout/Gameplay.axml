@@ -3,13 +3,58 @@
     p1:id="@+id/swipeLayout1"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent">
+<!--Scorescreen Layout-->
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:layout_width="match_parent"
+        p1:layout_height="match_parent"
+        p1:id="@+id/linearLayoutScorescreen"
+        p1:layout_gravity="right|top"
+        p1:weightSum="1">
+        <TextView
+            p1:text="Scoreboard"
+            p1:textAppearance="?android:attr/textAppearanceLarge"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/textView1"
+            p1:textSize="30dp"
+            p1:gravity="center"
+            p1:paddingTop="15dp"
+            p1:paddingBottom="15dp" />
+        <LinearLayout
+            p1:layout_width="match_parent"
+            p1:layout_height="2dp"
+            p1:id="@+id/space1"
+            p1:background="@android:color/background_dark" />
+        <ListView
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/listViewScore"
+            p1:layout_weight="1" />
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/linearLayout2"
+            p1:layout_weight="0"
+            p1:layout_gravity="center">
+            <Button
+                p1:text="Main Menu"
+                p1:id="@+id/buttonMainMenu"
+                p1:textSize="18dp"
+                p1:layout_width="wrap_content"
+                p1:layout_height="70.5dp"
+                p1:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
 <!--Gameplay Layout-->
     <LinearLayout
         p1:orientation="vertical"
         p1:layout_width="match_parent"
         p1:layout_height="match_parent"
-        p1:id="@+id/linearLayoutGameplay"
-        p1:focusableInTouchMode="true">
+        p1:id="@+id/linearLayoutGameplay">
         <LinearLayout
             p1:orientation="horizontal"
             p1:layout_width="match_parent"
@@ -82,50 +127,5 @@
             p1:layout_marginRight="20dp"
             p1:layout_marginStart="20dp"
             p1:layout_marginBottom="20dp" />
-    </LinearLayout>
-<!--Scorescreen Layout-->
-    <LinearLayout
-        p1:orientation="vertical"
-        p1:layout_width="match_parent"
-        p1:layout_height="match_parent"
-        p1:id="@+id/linearLayoutScorescreen"
-        p1:focusableInTouchMode="true">
-        <TextView
-            p1:text="Scoreboard"
-            p1:textAppearance="?android:attr/textAppearanceLarge"
-            p1:layout_width="match_parent"
-            p1:layout_height="wrap_content"
-            p1:id="@+id/textView1"
-            p1:textSize="30dp"
-            p1:gravity="center"
-            p1:paddingTop="15dp"
-            p1:paddingBottom="15dp" />
-        <LinearLayout
-            p1:layout_width="match_parent"
-            p1:layout_height="2dp"
-            p1:id="@+id/space1"
-            p1:background="@android:color/background_dark" />
-        <ListView
-            p1:minWidth="25px"
-            p1:minHeight="25px"
-            p1:layout_width="match_parent"
-            p1:layout_height="wrap_content"
-            p1:id="@+id/listViewScore"
-            p1:layout_weight="1" />
-        <LinearLayout
-            p1:orientation="horizontal"
-            p1:layout_width="match_parent"
-            p1:layout_height="wrap_content"
-            p1:id="@+id/linearLayout2"
-            p1:layout_weight="0"
-            p1:layout_gravity="center">
-            <Button
-                p1:text="Main Menu"
-                p1:id="@+id/buttonMainMenu"
-                p1:textSize="18dp"
-                p1:layout_width="wrap_content"
-                p1:layout_height="70.5dp"
-                p1:layout_weight="1" />
-        </LinearLayout>
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

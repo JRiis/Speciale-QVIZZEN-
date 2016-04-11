@@ -1582,8 +1582,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060068
 			public const int buttonDownload = 2131099752;
 			
-			// aapt resource value: 0x7f060064
-			public const int buttonMainMenu = 2131099748;
+			// aapt resource value: 0x7f06005d
+			public const int buttonMainMenu = 2131099741;
 			
 			// aapt resource value: 0x7f060067
 			public const int buttonMultiplayer = 2131099751;
@@ -1690,23 +1690,23 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060065
 			public const int linearLayout1 = 2131099749;
 			
-			// aapt resource value: 0x7f060063
-			public const int linearLayout2 = 2131099747;
+			// aapt resource value: 0x7f06005c
+			public const int linearLayout2 = 2131099740;
 			
-			// aapt resource value: 0x7f060059
-			public const int linearLayout3 = 2131099737;
+			// aapt resource value: 0x7f06005f
+			public const int linearLayout3 = 2131099743;
+			
+			// aapt resource value: 0x7f06005e
+			public const int linearLayoutGameplay = 2131099742;
 			
 			// aapt resource value: 0x7f060058
-			public const int linearLayoutGameplay = 2131099736;
-			
-			// aapt resource value: 0x7f060060
-			public const int linearLayoutScorescreen = 2131099744;
+			public const int linearLayoutScorescreen = 2131099736;
 			
 			// aapt resource value: 0x7f06000a
 			public const int listMode = 2131099658;
 			
-			// aapt resource value: 0x7f06005e
-			public const int listViewAnwsers = 2131099742;
+			// aapt resource value: 0x7f060063
+			public const int listViewAnwsers = 2131099747;
 			
 			// aapt resource value: 0x7f06007a
 			public const int listViewPackages = 2131099770;
@@ -1714,8 +1714,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06007c
 			public const int listViewQuestions = 2131099772;
 			
-			// aapt resource value: 0x7f060062
-			public const int listViewScore = 2131099746;
+			// aapt resource value: 0x7f06005b
+			public const int listViewScore = 2131099739;
 			
 			// aapt resource value: 0x7f06002f
 			public const int list_item = 2131099695;
@@ -1813,8 +1813,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060012
 			public const int showTitle = 2131099666;
 			
-			// aapt resource value: 0x7f06005c
-			public const int space1 = 2131099740;
+			// aapt resource value: 0x7f06005a
+			public const int space1 = 2131099738;
 			
 			// aapt resource value: 0x7f060033
 			public const int spacer = 2131099699;
@@ -1852,23 +1852,23 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06003b
 			public const int textSpacerNoButtons = 2131099707;
 			
-			// aapt resource value: 0x7f060061
-			public const int textView1 = 2131099745;
+			// aapt resource value: 0x7f060059
+			public const int textView1 = 2131099737;
 			
 			// aapt resource value: 0x7f060077
 			public const int textView2 = 2131099767;
 			
-			// aapt resource value: 0x7f06005f
-			public const int textViewProgress = 2131099743;
+			// aapt resource value: 0x7f060064
+			public const int textViewProgress = 2131099748;
 			
-			// aapt resource value: 0x7f06005d
-			public const int textViewQuestion = 2131099741;
+			// aapt resource value: 0x7f060062
+			public const int textViewQuestion = 2131099746;
 			
-			// aapt resource value: 0x7f06005a
-			public const int textViewScore = 2131099738;
+			// aapt resource value: 0x7f060060
+			public const int textViewScore = 2131099744;
 			
-			// aapt resource value: 0x7f06005b
-			public const int textViewTime = 2131099739;
+			// aapt resource value: 0x7f060061
+			public const int textViewTime = 2131099745;
 			
 			// aapt resource value: 0x7f060070
 			public const int time = 2131099760;

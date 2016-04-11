@@ -57,16 +57,12 @@ namespace Qvizzen
                 StartActivity(typeof(MainActivity));
             };
 
-            
-
 
             //Swipe Adventurah!
             var swipeLayout = FindViewById<SwipeLayout>(Resource.Id.swipeLayout1);
-            swipeLayout.SetShowMode(SwipeLayout.ShowMode.LayDown);
+            swipeLayout.SetShowMode(SwipeLayout.ShowMode.PullOut);
             var scorescreenView = FindViewById(Resource.Id.linearLayoutScorescreen);
             swipeLayout.AddDrag(SwipeLayout.DragEdge.Right, scorescreenView);
-
-
 
             //Starts Gameplay
             SingleplayerCtr.StartGame(this);
