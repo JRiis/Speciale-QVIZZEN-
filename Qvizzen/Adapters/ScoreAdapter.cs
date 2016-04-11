@@ -41,6 +41,7 @@ namespace Qvizzen.Adapters
             if (view == null) // otherwise create a new one
             {
                 view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
+
             }
             view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = ScoreList[position].Item1;
             view.FindViewById<TextView>(Android.Resource.Id.Text1).TextSize = 20;
