@@ -39,15 +39,7 @@
             p1:layout_height="wrap_content"
             p1:id="@+id/linearLayout2"
             p1:layout_weight="0"
-            p1:layout_gravity="center">
-            <Button
-                p1:text="Main Menu"
-                p1:id="@+id/buttonMainMenu"
-                p1:textSize="18dp"
-                p1:layout_width="wrap_content"
-                p1:layout_height="70.5dp"
-                p1:layout_weight="1" />
-        </LinearLayout>
+            p1:layout_gravity="center" />
     </LinearLayout>
 <!--Gameplay Layout-->
     <LinearLayout

@@ -173,14 +173,34 @@ namespace Qvizzen
 
         protected override void OnStop()
         {
-            //Creates GUI
             base.OnStop();
-
-            //Stops Timers
             try
             {
+                //Pauses Timers
                 CountdownTimer.Stop();
                 AnwserTimer.Stop();
+            }
+            catch (System.NullReferenceException) { }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            try
+            {
+                //Resumes Timers
+                CountdownTimer.Start();
+                AnwserTimer.Start();
+            }
+            catch (System.NullReferenceException) { }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            try
+            {
+                //Destroys Timers
                 CountdownTimer.Dispose();
                 AnwserTimer.Dispose();
             }
