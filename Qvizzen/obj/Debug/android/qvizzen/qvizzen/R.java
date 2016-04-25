@@ -1714,8 +1714,7 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020049;
         public static final int abc_textfield_search_material=0x7f02004a;
         public static final int icon=0x7f02004b;
-        public static final int monoandroidsplash=0x7f02004c;
-        public static final int notification_template_icon_bg=0x7f02004d;
+        public static final int notification_template_icon_bg=0x7f02004c;
     }
     public static final class id {
         public static final int Text1=0x7f060081;
@@ -2076,7 +2075,6 @@ containing a value of this type.
         public static final int Base_Widget_AppCompat_TextView_SpinnerItem=0x7f090078;
         public static final int Base_Widget_AppCompat_Toolbar=0x7f0900b5;
         public static final int Base_Widget_AppCompat_Toolbar_Button_Navigation=0x7f090079;
-        public static final int Mono_Android_Theme_Splash=0x7f09013e;
         public static final int Platform_AppCompat=0x7f090017;
         public static final int Platform_AppCompat_Light=0x7f090018;
         public static final int Platform_ThemeOverlay_AppCompat=0x7f09007a;

@@ -1483,10 +1483,7 @@ namespace Qvizzen
 			public const int Icon = 2130837579;
 			
 			// aapt resource value: 0x7f02004c
-			public const int monoandroidsplash = 2130837580;
-			
-			// aapt resource value: 0x7f02004d
-			public const int notification_template_icon_bg = 2130837581;
+			public const int notification_template_icon_bg = 2130837580;
 			
 			static Drawable()
 			{
@@ -2602,9 +2599,6 @@ namespace Qvizzen
 			
 			// aapt resource value: 0x7f090079
 			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131296377;
-			
-			// aapt resource value: 0x7f09013e
-			public const int Mono_Android_Theme_Splash = 2131296574;
 			
 			// aapt resource value: 0x7f090017
 			public const int Platform_AppCompat = 2131296279;

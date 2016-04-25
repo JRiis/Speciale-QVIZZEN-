@@ -44,21 +44,10 @@ namespace Qvizzen
             //Setup content adapter for list.
             SingleplayerCtr = SingleplayerController.GetInstance();
             ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            var ScoreTuple = new Tuple<string, int>(SingleplayerController.Playername, SingleplayerCtr.Score);
-            var TupleList = new List<Tuple<string, int>>();
-            TupleList.Add(ScoreTuple);
-            ScoreAdapter = new ScoreAdapter(this, TupleList);
+            ScoreAdapter = new ScoreAdapter(this, SingleplayerCtr.Players);
             listScore.Adapter = Adapter;
 
-            //Setup Click Event for Main Menu Button.
-            Button buttonMainMenu = FindViewById<Button>(Resource.Id.buttonMainMenu);
-            buttonMainMenu.Click += delegate
-            {
-                StartActivity(typeof(MainActivity));
-            };
-
-
-            //Swipe Adventurah!
+            //Setup Swipe Layout
             var swipeLayout = FindViewById<SwipeLayout>(Resource.Id.swipeLayout1);
             swipeLayout.SetShowMode(SwipeLayout.ShowMode.PullOut);
             var scorescreenView = FindViewById(Resource.Id.linearLayoutScorescreen);

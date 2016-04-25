@@ -30,10 +30,7 @@ namespace Qvizzen
             //Setup content adapter for list.
             SingleplayerCtr = SingleplayerController.GetInstance();
             ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            var ScoreTuple = new Tuple<string, int>(SingleplayerController.Playername, SingleplayerCtr.Score);
-            var TupleList = new List<Tuple<string, int>>();
-            TupleList.Add(ScoreTuple);
-            Adapter = new ScoreAdapter(this, TupleList);
+            Adapter = new ScoreAdapter(this, SingleplayerCtr.Players);
             listScore.Adapter = Adapter;
 
             //Setup Click Event for button.

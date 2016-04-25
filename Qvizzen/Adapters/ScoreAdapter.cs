@@ -9,15 +9,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Qvizzen.Controller;
 
 namespace Qvizzen.Adapters
 {
-    public class ScoreAdapter : BaseAdapter<Tuple<string, int>>
+    public class ScoreAdapter : BaseAdapter<GameplayController.Player>
     {
-        private List<Tuple<string, int>> ScoreList;
+        private List<GameplayController.Player> ScoreList;
         private Activity Context;
 
-        public ScoreAdapter(Activity context, List<Tuple<string, int>> scoreList)
+        public ScoreAdapter(Activity context, List<GameplayController.Player> scoreList)
             : base()
         {
             Context = context;
@@ -27,7 +28,7 @@ namespace Qvizzen.Adapters
         {
             return position;
         }
-        public override Tuple<string, int> this[int position]
+        public override GameplayController.Player this[int position]
         {
             get { return ScoreList[position]; }
         }
@@ -42,8 +43,8 @@ namespace Qvizzen.Adapters
             {
                 view = Context.LayoutInflater.Inflate(Resource.Layout.ScoreCustomListItem, null);
             }
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = ScoreList[position].Item1;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = ScoreList[position].Item2.ToString();
+            view.FindViewById<TextView>(Resource.Id.Text1).Text = ScoreList[position].Name;
+            view.FindViewById<TextView>(Resource.Id.Text2).Text = ScoreList[position].Score.ToString();
             view.FindViewById<TextView>(Resource.Id.Text1).TextSize = 20;
             view.FindViewById<TextView>(Resource.Id.Text2).TextSize = 20;
             return view;
