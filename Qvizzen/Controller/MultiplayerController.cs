@@ -13,6 +13,7 @@ using Android.Widget;
 using Qvizzen.Model;
 using Qvizzen.Networking;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace Qvizzen.Controller
 {
@@ -23,6 +24,7 @@ namespace Qvizzen.Controller
         private static MultiplayerController Instance;
         public bool IsHost;
         public List<Lobby> Lobbies;
+        private Thread ServerThread;
 
         private const int Port = 4444;
 
@@ -53,15 +55,22 @@ namespace Qvizzen.Controller
         public void HostServer()
         {
             Server = new Server();
-            Server.StartServer(Port);
+            ServerThread = new Thread(new ThreadStart(delegate
+            {
+                Server.StartServer(Port);
+            }));
+            ServerThread.Start();
             SetupGamePack();
             IsHost = true;
         }
 
         public void UnhostServer()
         {
+            ServerThread.Abort();
             Server.StopServer();
+            ServerThread = null;
             Server = null;
+            Players.Clear();
             IsHost = false;
         }
 
