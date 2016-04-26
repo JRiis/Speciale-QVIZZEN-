@@ -16,6 +16,8 @@ namespace Qvizzen.Controller
 {
     public class ContentController
     {
+        public string Name;
+        public const string Playername = "Name";
         public const string Filename = "Content";
         private static ContentController Instance;
         public Pack CurrentPack;
@@ -26,6 +28,7 @@ namespace Qvizzen.Controller
         public ContentController()
         {
             Content = new List<Pack>();
+            Name = "";
         }
 
         public static ContentController GetInstance()
@@ -42,10 +45,15 @@ namespace Qvizzen.Controller
         /// </summary>
         public void SaveContent()
         {
+            //Packages
             var json = JsonConvert.SerializeObject(Content);
             var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var filePath = Path.Combine(documentsPath, Filename);
             System.IO.File.WriteAllText(filePath, json);
+
+            //Playername
+            filePath = Path.Combine(documentsPath, Playername);
+            System.IO.File.WriteAllText(filePath, Name);
         }
 
         /// <summary>
@@ -53,6 +61,7 @@ namespace Qvizzen.Controller
         /// </summary>
         public void LoadContent()
         {
+            //Packages
             try
             {
                 var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
@@ -61,9 +70,16 @@ namespace Qvizzen.Controller
                 Content = JsonConvert.DeserializeObject<List<Pack>>(json);
             }
             catch (System.IO.FileNotFoundException) { }
-            {
 
+            //Playername
+            try
+            {
+                var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                var filePath = Path.Combine(documentsPath, Playername);
+                var name = System.IO.File.ReadAllText(filePath);
+                Name = name;
             }
+            catch (System.IO.FileNotFoundException) { }
         }
     }
 }

@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using Qvizzen.Controller;
 using Android.Content.PM;
+using Qvizzen.Activities;
 
 namespace Qvizzen
 {
@@ -37,6 +38,13 @@ namespace Qvizzen
             buttonCreator.Click += delegate 
             {
                 StartActivity(typeof(PackageCreatorMainActivity));
+            };
+
+            //Setups content multiplayer button.
+            Button multiplayerButton = FindViewById<Button>(Resource.Id.buttonMultiplayer);
+            multiplayerButton.Click += delegate
+            {
+                StartActivity(typeof(MultiplayerActivity));
             };
         }
     }

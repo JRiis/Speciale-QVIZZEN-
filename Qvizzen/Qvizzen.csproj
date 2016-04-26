@@ -72,7 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\GameplayActivity.cs" />
+    <Compile Include="Activities\MultiplayerActivity.cs" />
+    <Compile Include="Activities\MultiplayerLobbyActivity.cs" />
     <Compile Include="Activities\ScorescreenActivity.cs" />
+    <Compile Include="Activities\MultiplayerPackageSelectionActivity.cs" />
     <Compile Include="Activities\SingleplayerPackageSelectionActivity.cs" />
     <Compile Include="Activities\ParentActivitiy.cs" />
     <Compile Include="Activities\PackageCreatorAnwserActivity.cs" />

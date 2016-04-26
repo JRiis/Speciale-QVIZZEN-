@@ -14,25 +14,27 @@ using Android.Content.PM;
 
 namespace Qvizzen.Activities
 {
-    [Activity(Label = "PackageCreatorQuestionActivity", ScreenOrientation = ScreenOrientation.Portrait)]
-    public class PackageCreatorQuestionActivity : ParentActivity
+    [Activity(Label = "MultiplayerActivity", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class MultiplayerActivity : ParentActivity
     {
         private ContentController ContentCtr;
         private AnwserAdapter Adapter;
-        private const int AnwserLimit = 5;
+        private const int AnwserLimit = 4;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //Creates GUI
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.PackageCreatorQuestion);
+            SetContentView(Resource.Layout.Multiplayer);
 
             //Updates the title
             ContentCtr = ContentController.GetInstance();
-            TextView title = FindViewById<TextView>(Resource.Id.textView1);
-            title.Text = ContentCtr.CurrentQuestion.Text;
+            TextView title = FindViewById<TextView>(Resource.Id.textViewPlayerName);
+            title.Text = ContentCtr.Name;
 
             //Setup content adapter for list.
+
+            //TODO: Listen for ports n shit, all buncha crazy stuff!
             ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
             Adapter = new AnwserAdapter(this, ContentCtr.CurrentQuestion.Anwsers);
             listAnwsers.Adapter = Adapter;
@@ -44,46 +46,25 @@ namespace Qvizzen.Activities
                 StartActivity(typeof(PackageCreatorAnwserActivity));
             };
 
-            //Setup Click Event for Create Button.
+            //Setup Click Event for Host Button.
             Button buttonNewAnwser = FindViewById<Button>(Resource.Id.buttonNewAnwser);
             buttonNewAnwser.Click += delegate
             {
-                //Confirms under the question limit.
-                if (ContentCtr.CurrentQuestion.Anwsers.Count < AnwserLimit)
-                {
-                    Anwser newAnwser = new Anwser();
-                    ContentCtr.CurrentAnwser = newAnwser;
-                    ContentCtr.CurrentQuestion.Anwsers.Add(newAnwser);
-                    StartActivity(typeof(PackageCreatorAnwserActivity));
-                }
-                else
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    AlertDialog dialog = builder.Create();
-                    dialog.SetMessage(string.Format("You can only have {0} Anwsers", AnwserLimit));
-                    dialog.SetTitle("Epic Fail!");
-                    dialog.SetButton("OK", (sender, evnt) => 
-                    {
-                        dialog.Dismiss();
-                    });
-                    dialog.Show();
-                }
+                //TODO: Host a friggin lobby.
             };
 
-            //Setup Click Event for Delete Button.
+            //Setup Click Event for Join Button.
             Button buttonDeleteQuestion = FindViewById<Button>(Resource.Id.buttonDeleteQuestion);
             buttonDeleteQuestion.Click += delegate
             {   
-                ContentCtr.CurrentPack.Questions.Remove(ContentCtr.CurrentQuestion);
-                ContentCtr.CurrentQuestion = null;
-                Finish();
+                //TODO: Join a friggin lobby.
             };
 
             //Setup Edit Event for Title.
             title.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
             {
                 string newText = e.Text.ToString();
-                ContentCtr.CurrentQuestion.Text = newText;
+                ContentCtr.Name = newText;
             };
         }
 
