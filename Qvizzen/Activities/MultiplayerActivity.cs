@@ -47,8 +47,12 @@ namespace Qvizzen.Activities
             {
                 if (SelectedLobbyAddress != "")
                 {
-                    MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
-                    StartActivity(typeof(MultiplayerLobbyActivityClient));
+                    Thread threadJoin = new Thread(new ThreadStart(delegate
+                    {
+                        MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
+                        StartActivity(typeof(MultiplayerLobbyActivityClient));
+                    }));
+                    threadJoin.Start();
                 }    
             };
 
@@ -60,7 +64,7 @@ namespace Qvizzen.Activities
             };
 
             //Starts a thread to setup adapter.
-            Thread thread = new Thread(new ThreadStart(delegate 
+            Thread threadAdapter = new Thread(new ThreadStart(delegate 
             {
                 //Setup content adapter for list.
                 MultiplayerCtr = MultiplayerController.GetInstance();
@@ -84,7 +88,7 @@ namespace Qvizzen.Activities
                 };
             }));
 
-            thread.Start();
+            threadAdapter.Start();
         }
 
         protected override void OnStop()

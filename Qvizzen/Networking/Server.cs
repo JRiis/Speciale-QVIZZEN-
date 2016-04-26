@@ -68,21 +68,35 @@ namespace Qvizzen.Networking
                 mstrMessage = Encoding.ASCII.GetString(bytesReceived, 0, bytesReceived.Length);
                 mscClient = client;
 
-                switch (mstrMessage)
+                String command;
+                if (mstrMessage.Length < 6)
                 {
-                    case "GetLobbyInfo":
+                    command = mstrMessage;
+                }
+                else
+                {
+                    command = mstrMessage.Substring(0, 6);
+                }
+
+                switch (command)
+                {
+                    case "GLobby":
                         mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
                         break;
                     
-                    case "GetGamePack":
+                    case "GPacks":
                         mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.GamePack);
                         break;
 
-                    case "GetQuestionList":
+                    case "GQList":
                         mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Questions);
                         break;
 
-                    case "SendAnwser":
+                    case "Status":
+                        mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Server.InGame);
+                        break;
+
+                    case "Anwser":
 
                         //TODO: how to receive anwsers?
 
@@ -90,11 +104,11 @@ namespace Qvizzen.Networking
 
                         break;
 
-                    case "JoinLobby":
+                    case "JLobby":
                         //TODO
                         break;
 
-                    case "LeaveLobby":
+                    case "LLobby":
                         //TODO
                         break;
 

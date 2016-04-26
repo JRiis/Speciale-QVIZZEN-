@@ -18,7 +18,7 @@ namespace Qvizzen.Controller
 {
     public class MultiplayerController : GameplayController
     {
-        private Server Server;
+        public Server Server { private set; get; }
         private Client Client;
         private static MultiplayerController Instance;
         public bool IsHost;
@@ -68,7 +68,19 @@ namespace Qvizzen.Controller
         public void JoinLobby(String ipAddress)
         {
             Client.Connect(ipAddress, Port);
+            
+            String responseData = Client.SendMessage("GetGamePack");
+            GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(responseData);
+            MultiplayerController.GetInstance().GamePack = gamePack;
+            foreach (Pack pack in gamePack.Packs)
+            {
+                ContentController.GetInstance().Content.Add(pack);
+            }
 
+            responseData = Client.SendMessage("GetQuestionList");
+            Questions = JsonConvert.DeserializeObject<List<Question>>(responseData);
+
+            Client.SendMessage("");
             //TODO:
             //Download GamePack
             //Download QuestionList

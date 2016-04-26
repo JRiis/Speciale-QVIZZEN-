@@ -49,6 +49,10 @@ namespace Qvizzen.Networking
             {
                 Connect(ip.ToString(), port);
                 String responseData = SendMessage("GetLobbyInfo");
+
+
+
+
                 List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
 
                 string hostname = "";
@@ -65,6 +69,7 @@ namespace Qvizzen.Networking
 
                 Lobby lobby = new Lobby(ip.ToString(), hostname, count);
                 lobbies.Add(lobby);
+                Disconnect();
             }
             return lobbies;
         }
