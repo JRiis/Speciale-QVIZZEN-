@@ -47,7 +47,6 @@ namespace Qvizzen.Controller
 
         }
 
-
         /// <summary>
         /// Creates and adds a new player to players list.
         /// </summary>

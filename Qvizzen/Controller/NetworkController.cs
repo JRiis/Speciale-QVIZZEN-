@@ -24,6 +24,7 @@ namespace Qvizzen.Controller
         public class Server
         {
             TcpListener TCPListener = null;
+            bool InGame = false;
             
             /// <summary>
             /// Starts the server and listens for connections.
@@ -121,14 +122,37 @@ namespace Qvizzen.Controller
 
         public class Client
         {
-            public void Connect(string serverIP, string message)
+            TcpClient TCPClient;
+            
+            /// <summary>
+            /// Connects the client to the server.
+            /// </summary>
+            /// <param name="serverIP">IPAdress of the server.</param>
+            public void Connect(string serverIP)
             {
                 Int32 port = Port;
-                TcpClient client = new TcpClient(serverIP, port);
+                TCPClient = new TcpClient(serverIP, port);
+            }
+
+            /// <summary>
+            /// Disconnects client from server.
+            /// </summary>
+            public void Disconnect()
+            {
+                TCPClient.Close();
+            }
+
+            /// <summary>
+            /// Sends the given message to the server. Server returns a string appropiate for given message.
+            /// Handling of these returned values can be done in the switch statement.
+            /// </summary>
+            public void SendMessage(string message)
+            {
                 Byte[] SendData = new Byte[256];
                 SendData = System.Text.Encoding.ASCII.GetBytes(message);
-                NetworkStream stream = client.GetStream();
+                NetworkStream stream = TCPClient.GetStream();
                 stream.Write(SendData, 0, SendData.Length);
+                
                 Byte[] ReciveData = new byte[256];
                 String reponseData = String.Empty;
                 Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
@@ -169,9 +193,8 @@ namespace Qvizzen.Controller
                         //Nothing
                         break;
                 }
-
+                
                 stream.Close();
-                client.Close();
             }
         }
 
