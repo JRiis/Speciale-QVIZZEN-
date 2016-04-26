@@ -43,15 +43,8 @@ namespace Qvizzen
                 //TODO: Start multiplayer gameplay.
             };
 
-
-
-
-
-
-            //TEST - Start server n crash dat phone.
-            var server = NetworkController.GetInstance().Host();
-            var thread = new Thread(new ThreadStart(server.StartServer));
-            thread.Start();
+            //Starts hosting the server on a thread.
+            Thread thread = new Thread(new ThreadStart(MultiplayerCtr.HostServer));
         }
 
         protected override void OnResume()
