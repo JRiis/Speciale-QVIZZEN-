@@ -52,7 +52,7 @@ namespace Qvizzen
 
             //TEST - Start server n crash dat phone.
             var server = NetworkController.GetInstance().Host();
-            var thread = new Thread(new ThreadStart(server.CreateListener));
+            var thread = new Thread(new ThreadStart(server.StartServer));
             thread.Start();
         }
 

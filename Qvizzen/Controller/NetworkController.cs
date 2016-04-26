@@ -19,26 +19,40 @@ namespace Qvizzen.Controller
     class NetworkController
     {
         private static NetworkController Instance;
+        public const int Port = 4444;
 
         public class Server
         {
-            public void CreateListener()
+            TcpListener TCPListener = null;
+            
+            /// <summary>
+            /// Starts the server and listens for connections.
+            /// Returned values can be found in the SocketHelper class.
+            /// </summary>
+            public void StartServer()
             {
-                TcpListener tcpListener = null;
-                IPAddress ipAddress = Dns.GetHostEntry("10.28.53.28").AddressList[0];
-                tcpListener = new TcpListener(ipAddress, 4444);
-                tcpListener.Start();
+                IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
+                TCPListener = new TcpListener(ipAddress, Port);
+                TCPListener.Start();
 
                 while (true)
                 {
                     Thread.Sleep(10);
-                    TcpClient tcpClient = tcpListener.AcceptTcpClient();
+                    TcpClient tcpClient = TCPListener.AcceptTcpClient();
                     byte[] bytes = new byte[256];
                     NetworkStream stream = tcpClient.GetStream();
                     stream.Read(bytes, 0, bytes.Length);
                     SocketHelper helper = new SocketHelper();
                     helper.ProcessMsg(tcpClient, stream, bytes);
                 }
+            }
+
+            /// <summary>
+            /// Stops the server from running.
+            /// </summary>
+            public void StopServer()
+            {
+                TCPListener.Stop();
             }
 
             private class SocketHelper
@@ -48,6 +62,9 @@ namespace Qvizzen.Controller
                 string mstrResponse;
                 byte[] bytesSent;
 
+                /// <summary>
+                /// Processes the message and returns the requested information.
+                /// </summary>
                 public void ProcessMsg(TcpClient client, NetworkStream stream, byte[] bytesReceived)
                 {
                     mstrMessage = Encoding.ASCII.GetString(bytesReceived, 0, bytesReceived.Length);
@@ -60,11 +77,15 @@ namespace Qvizzen.Controller
                             break;
 
                         case "GetQuestionList":
-                            //TODO
+                            mstrResponse = JsonConvert.SerializeObject(MultiplayerController.GetInstance().Questions);
                             break;
 
                         case "SendAnwser":
-                            //TODO
+                            
+                            //TODO: how to receive anwsers?
+
+
+
                             break;
 
                         case "JoinLobby":
@@ -80,9 +101,14 @@ namespace Qvizzen.Controller
                             break;
 
                         default:
-                            //Nothing
+                            
+                            //Check if string anwser.
+                            if (mstrMessage.Substring(0, 5) == "Anwser")
+                            {
+                                //TODO: Funtimes...
+                            }
+
                             mstrResponse = "Error";
-                            mstrResponse = JsonConvert.SerializeObject(MultiplayerController.GetInstance().GamePack);
                             break;
                     }
 
@@ -97,7 +123,7 @@ namespace Qvizzen.Controller
         {
             public void Connect(string serverIP, string message)
             {
-                Int32 port = 4444;
+                Int32 port = Port;
                 TcpClient client = new TcpClient(serverIP, port);
                 Byte[] SendData = new Byte[256];
                 SendData = System.Text.Encoding.ASCII.GetBytes(message);
