@@ -47,6 +47,21 @@ namespace Qvizzen.Controller
         }
 
         /// <summary>
+        /// Creates and adds a new player to players list.
+        /// </summary>
+        /// <param name="name">Name of the player.</param>
+        public void RemovePlayer(string name)
+        {            
+            foreach (Player player in Players)
+            {
+                if (player.Name == name)
+                {
+                    Players.Remove(player);
+                }
+            }
+        }
+
+        /// <summary>
         /// Checks if anwser is correct and updates score accordingly. 
         /// </summary>
         public new bool AnwserQuestion(Anwser anwser)
