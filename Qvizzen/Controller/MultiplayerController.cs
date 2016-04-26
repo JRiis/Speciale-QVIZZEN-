@@ -49,9 +49,9 @@ namespace Qvizzen.Controller
         /// Creates and adds a new player to players list.
         /// </summary>
         /// <param name="name">Name of the player.</param>
-        public void AddPlayer(string name)
+        public void AddPlayer(string name, bool host)
         {
-            Players.Add(new Player(name));
+            Players.Add(new Player(name, host));
         }
 
         /// <summary>

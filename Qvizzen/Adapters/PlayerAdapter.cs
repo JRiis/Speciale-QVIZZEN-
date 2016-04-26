@@ -15,14 +15,14 @@ namespace Qvizzen.Adapters
 {
     public class PlayerAdapter : BaseAdapter<GameplayController.Player>
     {
-        private List<GameplayController.Player> ScoreList;
+        private List<GameplayController.Player> PlayerList;
         private Activity Context;
 
         public PlayerAdapter(Activity context, List<GameplayController.Player> scoreList)
             : base()
         {
             Context = context;
-            ScoreList = scoreList;
+            PlayerList = scoreList;
         }
         public override long GetItemId(int position)
         {
@@ -30,11 +30,11 @@ namespace Qvizzen.Adapters
         }
         public override GameplayController.Player this[int position]
         {
-            get { return ScoreList[position]; }
+            get { return PlayerList[position]; }
         }
         public override int Count
         {
-            get { return ScoreList.Count; }
+            get { return PlayerList.Count; }
         }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
@@ -43,10 +43,22 @@ namespace Qvizzen.Adapters
             {
                 view = Context.LayoutInflater.Inflate(Resource.Layout.ScoreCustomListItem, null);
             }
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = ScoreList[position].Name;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = "";
+            
+            //Setup text elements.
+            view.FindViewById<TextView>(Resource.Id.Text1).Text = PlayerList[position].Name;
             view.FindViewById<TextView>(Resource.Id.Text1).TextSize = 20;
-            view.FindViewById<TextView>(Resource.Id.Text2).TextSize = 20;
+            
+            //Check if host, to make host bold.
+            if (PlayerList[position].Host)
+            {
+                view.FindViewById<TextView>(Resource.Id.Text1).SetTypeface(null, Android.Graphics.TypefaceStyle.Bold);
+            }
+            else
+            {
+                view.FindViewById<TextView>(Resource.Id.Text1).SetTypeface(null, Android.Graphics.TypefaceStyle.Normal);
+            }
+
+
             return view;
         }
     }

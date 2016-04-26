@@ -15,14 +15,14 @@ namespace Qvizzen.Adapters
 {
     public class LobbyAdapter : BaseAdapter<MultiplayerController.Lobby>
     {
-        private List<MultiplayerController.Lobby> ScoreList;
+        private List<MultiplayerController.Lobby> LobbyList;
         private Activity Context;
 
         public LobbyAdapter(Activity context, List<MultiplayerController.Lobby> scoreList)
             : base()
         {
             Context = context;
-            ScoreList = scoreList;
+            LobbyList = scoreList;
         }
         public override long GetItemId(int position)
         {
@@ -30,11 +30,11 @@ namespace Qvizzen.Adapters
         }
         public override MultiplayerController.Lobby this[int position]
         {
-            get { return ScoreList[position]; }
+            get { return LobbyList[position]; }
         }
         public override int Count
         {
-            get { return ScoreList.Count; }
+            get { return LobbyList.Count; }
         }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
@@ -43,8 +43,8 @@ namespace Qvizzen.Adapters
             {
                 view = Context.LayoutInflater.Inflate(Resource.Layout.ScoreCustomListItem, null);
             }
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = ScoreList[position].Hostname;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = ScoreList[position].Count.ToString();
+            view.FindViewById<TextView>(Resource.Id.Text1).Text = LobbyList[position].Hostname;
+            view.FindViewById<TextView>(Resource.Id.Text2).Text = LobbyList[position].Count.ToString();
             view.FindViewById<TextView>(Resource.Id.Text1).TextSize = 20;
             view.FindViewById<TextView>(Resource.Id.Text2).TextSize = 20;
             return view;

@@ -25,7 +25,7 @@ namespace Qvizzen.Controller
         public SingleplayerController()
         {
             Players = new List<Player>();
-            Player player = new Player("Your Score");
+            Player player = new Player("Your Score", true);
             Players.Add(player);
         }
 
