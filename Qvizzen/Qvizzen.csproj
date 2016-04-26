@@ -92,7 +92,6 @@
     <Compile Include="Controller\ContentController.cs" />
     <Compile Include="Controller\GameplayController.cs" />
     <Compile Include="Controller\MultiplayerController.cs" />
-    <Compile Include="Controller\NetworkController.cs" />
     <Compile Include="Controller\SingleplayerController.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Model\Anwser.cs" />
@@ -103,6 +102,8 @@
     <Compile Include="Activities\PackageCreatorMainActivity.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\Question.cs" />
+    <Compile Include="Networking\Client.cs" />
+    <Compile Include="Networking\Server.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
