@@ -50,7 +50,10 @@ namespace Qvizzen.Activities
                     Thread threadJoin = new Thread(new ThreadStart(delegate
                     {
                         MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
-                        StartActivity(typeof(MultiplayerLobbyActivityClient));
+                        RunOnUiThread( () =>
+                        {
+                            StartActivity(typeof(MultiplayerLobbyActivityClient));
+                        });
                     }));
                     threadJoin.Start();
                 }    
@@ -69,23 +72,27 @@ namespace Qvizzen.Activities
                 //Setup content adapter for list.
                 MultiplayerCtr = MultiplayerController.GetInstance();
                 MultiplayerCtr.GetLobbies();
-                ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
-                Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
-                listLobbies.Adapter = Adapter;
 
-                //Setup Click Event for List Items.
-                listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
+                RunOnUiThread( () =>
                 {
-                    String selectedIPAddress = MultiplayerCtr.Lobbies[e.Position].IPAddress;
-                    if (selectedIPAddress == SelectedLobbyAddress)
+                    ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
+                    Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
+                    listLobbies.Adapter = Adapter;
+
+                    //Setup Click Event for List Items.
+                    listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
                     {
-                        SelectedLobbyAddress = "";
-                    }
-                    else
-                    {
-                        SelectedLobbyAddress = selectedIPAddress;
-                    }
-                };
+                        String selectedIPAddress = MultiplayerCtr.Lobbies[e.Position].IPAddress;
+                        if (selectedIPAddress == SelectedLobbyAddress)
+                        {
+                            SelectedLobbyAddress = "";
+                        }
+                        else
+                        {
+                            SelectedLobbyAddress = selectedIPAddress;
+                        }
+                    };
+                }); 
             }));
 
             threadAdapter.Start();
