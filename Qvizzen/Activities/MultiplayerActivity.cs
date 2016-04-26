@@ -11,6 +11,7 @@ using Android.Widget;
 using Qvizzen.Controller;
 using Qvizzen.Adapters;
 using Android.Content.PM;
+using System.Threading;
 
 namespace Qvizzen.Activities
 {
@@ -20,7 +21,7 @@ namespace Qvizzen.Activities
         private MultiplayerController MultiplayerCtr;
         private ContentController ContentCtr;
         private LobbyAdapter Adapter;
-        private const int AnwserLimit = 4;
+        private String SelectedLobbyAddress;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,36 +34,20 @@ namespace Qvizzen.Activities
             TextView title = FindViewById<TextView>(Resource.Id.textViewPlayerName);
             title.Text = ContentCtr.Name;
 
-            //Setup content adapter for list.
-            MultiplayerCtr = MultiplayerController.GetInstance();
-            ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
-            Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
-            listLobbies.Adapter = Adapter;
-
-            //Setup Click Event for List Items.
-            listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
-            {
-                //TODO: Select lobby funthyme.
-                
-                ContentCtr.CurrentAnwser = ContentCtr.CurrentQuestion.Anwsers[e.Position];
-                StartActivity(typeof(PackageCreatorAnwserActivity));
-            };
-
             //Setup Click Event for Host Button.
             Button buttonHost = FindViewById<Button>(Resource.Id.buttonHost);
             buttonHost.Click += delegate
             {
-                //TODO: Host a friggin lobby.
                 StartActivity(typeof(MultiplayerPackageSelectionActivity));
             };
 
             //Setup Click Event for Join Button.
             Button buttonJoin = FindViewById<Button>(Resource.Id.buttonJoin);
             buttonJoin.Click += delegate
-            {   
-                //TODO: Join a friggin lobby.
-                var client = new NetworkController.Client();
-                client.Connect("10.28.53.28", "GetGamePack");
+            {
+                //TODO Check if null.
+                
+                MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
             };
 
             //Setup Edit Event for Title.
@@ -71,6 +56,33 @@ namespace Qvizzen.Activities
                 string newText = e.Text.ToString();
                 ContentCtr.Name = newText;
             };
+
+            //Starts a thread to setup adapter.
+            Thread thread = new Thread(new ThreadStart(delegate 
+            {
+                //Setup content adapter for list.
+                MultiplayerCtr = MultiplayerController.GetInstance();
+                MultiplayerCtr.GetLobbies();
+                ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
+                Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
+                listLobbies.Adapter = Adapter;
+
+                //Setup Click Event for List Items.
+                listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
+                {
+                    String selectedIPAddress = MultiplayerCtr.Lobbies[e.Position].IPAddress;
+                    if (selectedIPAddress == SelectedLobbyAddress)
+                    {
+                        SelectedLobbyAddress = "";
+                    }
+                    else
+                    {
+                        SelectedLobbyAddress = selectedIPAddress;
+                    }
+                };
+            }));
+
+            thread.Start();
         }
 
         protected override void OnResume()

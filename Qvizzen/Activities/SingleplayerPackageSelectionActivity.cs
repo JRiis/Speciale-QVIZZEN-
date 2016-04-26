@@ -58,7 +58,6 @@ namespace Qvizzen
                 //Confirms selected packages.
                 if (SelectedPacks.Count > 0)
                 {
-
                     GamePack gamePack = new GamePack();
                     SingleplayerCtr.GamePack = gamePack;
                     gamePack.Packs = SelectedPacks;

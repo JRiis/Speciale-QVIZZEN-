@@ -20,7 +20,7 @@
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/listViewScore"
+        p1:id="@+id/listViewPlayers"
         p1:layout_weight="1" />
     <LinearLayout
         p1:orientation="horizontal"

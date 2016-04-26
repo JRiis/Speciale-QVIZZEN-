@@ -71,6 +71,10 @@ namespace Qvizzen.Controller
             //TODO: Stuff
         }
 
+        public void GetLobbies()
+        {
+            Lobbies = Client.RetriveHosts(Port);
+        }
 
         //public void Connect(string serverIP, string message)
         //{

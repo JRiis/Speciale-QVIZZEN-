@@ -29,12 +29,10 @@ namespace Qvizzen
             SetContentView(Resource.Layout.MultiplayerLobby);
 
             //Setup content adapter for list.
-
-            //TODO: List players or add em or something when join n stuff ye dig?
             MultiplayerCtr = MultiplayerController.GetInstance();
-            ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
+            ListView listPlayers = FindViewById<ListView>(Resource.Id.listViewPlayers);
             Adapter = new PlayerAdapter(this, MultiplayerCtr.Players);
-            listScore.Adapter = Adapter;
+            listPlayers.Adapter = Adapter;
 
             //Setup Click Event for button.
             Button buttonStartGame = FindViewById<Button>(Resource.Id.buttonStartMultiplayerGame);
