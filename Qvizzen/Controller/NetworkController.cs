@@ -20,13 +20,13 @@ namespace Qvizzen.Controller
     {
         private static NetworkController Instance;
 
-        private class Server
+        public class Server
         {
             public void CreateListener()
             {
                 TcpListener tcpListener = null;
-                IPAddress ipAddress = Dns.GetHostEntry("localhost").AddressList[0];
-                tcpListener = new TcpListener(ipAddress, 13);
+                IPAddress ipAddress = Dns.GetHostEntry("10.28.53.28").AddressList[0];
+                tcpListener = new TcpListener(ipAddress, 4444);
                 tcpListener.Start();
 
                 while (true)
@@ -81,6 +81,8 @@ namespace Qvizzen.Controller
 
                         default:
                             //Nothing
+                            mstrResponse = "Error";
+                            mstrResponse = JsonConvert.SerializeObject(MultiplayerController.GetInstance().GamePack);
                             break;
                     }
 
@@ -91,11 +93,11 @@ namespace Qvizzen.Controller
             }
         }
 
-        private class Client
+        public class Client
         {
             public void Connect(string serverIP, string message)
             {
-                Int32 port = 13;
+                Int32 port = 4444;
                 TcpClient client = new TcpClient(serverIP, port);
                 Byte[] SendData = new Byte[256];
                 SendData = System.Text.Encoding.ASCII.GetBytes(message);
@@ -166,6 +168,13 @@ namespace Qvizzen.Controller
                 Instance = new NetworkController();
             }
             return Instance;
+        }
+
+
+        public Server Host()
+        {
+            Server server = new Server();
+            return server;
         }
     }
 }

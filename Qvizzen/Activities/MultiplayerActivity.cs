@@ -61,6 +61,8 @@ namespace Qvizzen.Activities
             buttonJoin.Click += delegate
             {   
                 //TODO: Join a friggin lobby.
+                var client = new NetworkController.Client();
+                client.Connect("10.28.53.28", "GetGamePack");
             };
 
             //Setup Edit Event for Title.

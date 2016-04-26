@@ -12,6 +12,7 @@ using Qvizzen.Controller;
 using Qvizzen.Adapters;
 using Qvizzen.Activities;
 using Android.Content.PM;
+using System.Threading;
 
 namespace Qvizzen
 {
@@ -42,8 +43,17 @@ namespace Qvizzen
                 StartActivity(typeof(GameplayActivity));
 
                 //TODO: Start multiplayer gameplay.
-
             };
+
+
+
+
+
+
+            //TEST - Start server n crash dat phone.
+            var server = NetworkController.GetInstance().Host();
+            var thread = new Thread(new ThreadStart(server.CreateListener));
+            thread.Start();
         }
 
         protected override void OnResume()
