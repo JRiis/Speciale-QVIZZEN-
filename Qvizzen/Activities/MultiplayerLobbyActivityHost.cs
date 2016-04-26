@@ -16,8 +16,8 @@ using System.Threading;
 
 namespace Qvizzen
 {
-    [Activity(Label = "MultiplayerLobbyActivity", ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MultiplayerLobbyActivity : ParentActivity
+    [Activity(Label = "MultiplayerLobbyActivityHost", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class MultiplayerLobbyActivityHost : ParentActivity
     {
         private MultiplayerController MultiplayerCtr;
         private PlayerAdapter Adapter;
@@ -26,7 +26,7 @@ namespace Qvizzen
         {
             //Creates GUI
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.MultiplayerLobby);
+            SetContentView(Resource.Layout.MultiplayerLobbyHost);
 
             //Setup content adapter for list.
             MultiplayerCtr = MultiplayerController.GetInstance();

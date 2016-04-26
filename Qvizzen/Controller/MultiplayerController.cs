@@ -21,6 +21,7 @@ namespace Qvizzen.Controller
         private Server Server;
         private Client Client;
         private static MultiplayerController Instance;
+        public bool IsHost;
         public List<Lobby> Lobbies;
 
         private const int Port = 4444;
@@ -33,6 +34,7 @@ namespace Qvizzen.Controller
             Client = new Client();
             Players = new List<Player>();
             Lobbies = new List<Lobby>();
+            IsHost = false;
         }
 
         /// <summary>
@@ -52,23 +54,35 @@ namespace Qvizzen.Controller
         {
             Server = new Server();
             Server.StartServer(Port);
+            SetupGamePack();
+            IsHost = true;
         }
 
         public void UnhostServer()
         {
             Server.StopServer();
             Server = null;
+            IsHost = false;
         }
 
         public void JoinLobby(String ipAddress)
         {
             Client.Connect(ipAddress, Port);
+
+            //TODO:
+            //Download GamePack
+            //Download QuestionList
+            //AddPlayer to Lobby
+            //Call ready once downloads are done.
+
+
             //TODO: Stuff
         }
 
         public void LeaveLobby()
         {
             //TODO: Stuff
+            //Remove Player From Lobby
         }
 
         public void GetLobbies()

@@ -73,7 +73,8 @@
   <ItemGroup>
     <Compile Include="Activities\GameplayActivity.cs" />
     <Compile Include="Activities\MultiplayerActivity.cs" />
-    <Compile Include="Activities\MultiplayerLobbyActivity.cs" />
+    <Compile Include="Activities\MultiplayerLobbyActivityClient.cs" />
+    <Compile Include="Activities\MultiplayerLobbyActivityHost.cs" />
     <Compile Include="Activities\ScorescreenActivity.cs" />
     <Compile Include="Activities\MultiplayerPackageSelectionActivity.cs" />
     <Compile Include="Activities\SingleplayerPackageSelectionActivity.cs" />
@@ -142,7 +143,10 @@
     <AndroidResource Include="Resources\layout\MultiplayerPackageSelection.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\MultiplayerLobby.axml">
+    <AndroidResource Include="Resources\layout\MultiplayerLobbyHost.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MultiplayerLobbyClient.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

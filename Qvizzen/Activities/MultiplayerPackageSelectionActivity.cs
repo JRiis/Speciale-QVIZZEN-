@@ -62,7 +62,7 @@ namespace Qvizzen
                     gamePack.Packs = SelectedPacks;
                     MultiplayerCtr.GamePack = gamePack;
                     MultiplayerCtr.AddPlayer(ContentCtr.Name, true);
-                    StartActivity(typeof(MultiplayerLobbyActivity));
+                    StartActivity(typeof(MultiplayerLobbyActivityHost));
                     //TODO: Host multiplayer lobby.
 
                 }

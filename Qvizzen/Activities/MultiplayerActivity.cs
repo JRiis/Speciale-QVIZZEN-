@@ -45,9 +45,11 @@ namespace Qvizzen.Activities
             Button buttonJoin = FindViewById<Button>(Resource.Id.buttonJoin);
             buttonJoin.Click += delegate
             {
-                //TODO Check if null.
-                
-                MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
+                if (SelectedLobbyAddress != "")
+                {
+                    MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
+                    StartActivity(typeof(MultiplayerLobbyActivityClient));
+                }    
             };
 
             //Setup Edit Event for Title.
@@ -85,10 +87,23 @@ namespace Qvizzen.Activities
             thread.Start();
         }
 
+        protected override void OnStop()
+        {
+            base.OnStop();
+            //TODO: Disconnect? Also perhaps boolean to check if player is host.
+        }
+
         protected override void OnResume()
         {
             base.OnResume();
             //Adapter.NotifyDataSetChanged();
+            //TODO: Reconnect.
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            //TODO: Disconnect/Unhost.
         }
     }
 }
