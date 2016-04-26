@@ -22,16 +22,14 @@ namespace Qvizzen.Networking
         TcpListener TCPListener = null;
         bool InGame = false;
 
-        public const int Port = 4444;
-
         /// <summary>
         /// Starts the server and listens for connections.
         /// Returned values can be found in the SocketHelper class.
         /// </summary>
-        public void StartServer()
+        public void StartServer(int port)
         {
             IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
-            TCPListener = new TcpListener(ipAddress, Port);
+            TCPListener = new TcpListener(ipAddress, port);
             TCPListener.Start();
 
             while (true)

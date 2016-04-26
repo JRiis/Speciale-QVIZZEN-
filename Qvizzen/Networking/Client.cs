@@ -21,15 +21,12 @@ namespace Qvizzen.Networking
     {
         TcpClient TCPClient;
 
-        public const int Port = 4444;
-
         /// <summary>
         /// Connects the client to the server.
         /// </summary>
         /// <param name="serverIP">IPAdress of the server.</param>
-        public void Connect(string serverIP)
+        public void Connect(string serverIP, int port)
         {
-            Int32 port = Port;
             TCPClient = new TcpClient(serverIP, port);
         }
 
@@ -44,13 +41,13 @@ namespace Qvizzen.Networking
         /// <summary>
         /// Retrives a list of hosts on the local network and creates a list of lobbies from it.
         /// </summary>
-        public List<Lobby> RetriveHosts()
+        public List<Lobby> RetriveHosts(int port)
         {
             List<Lobby> lobbies = new List<Lobby>();
             IPAddress[] hosts = Dns.GetHostEntry(String.Empty).AddressList;
             foreach (IPAddress ip in hosts)
             {
-                Connect(ip.ToString());
+                Connect(ip.ToString(), port);
                 String responseData = SendMessage("GetLobbyInfo");
                 List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
 
