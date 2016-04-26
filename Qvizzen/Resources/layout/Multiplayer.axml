@@ -29,10 +29,11 @@
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/listViewQuestions"
+        p1:id="@+id/listViewLobbies"
         p1:layout_weight="1"
         p1:divider="@android:color/black"
-        p1:dividerHeight="1dp" />
+        p1:dividerHeight="1dp"
+        p1:choiceMode="singleChoice" />
     <LinearLayout
         p1:orientation="horizontal"
         p1:layout_width="match_parent"
@@ -42,7 +43,7 @@
         p1:layout_gravity="center">
         <Button
             p1:text="Host"
-            p1:id="@+id/buttonNewQuestion"
+            p1:id="@+id/buttonHost"
             p1:textSize="18dp"
             p1:layout_width="wrap_content"
             p1:layout_height="70.5dp"
@@ -51,7 +52,7 @@
             p1:text="Join"
             p1:layout_width="wrap_content"
             p1:layout_height="70.5dp"
-            p1:id="@+id/buttonDeletePack"
+            p1:id="@+id/buttonJoin"
             p1:textSize="18dp"
             p1:layout_weight="2" />
     </LinearLayout>

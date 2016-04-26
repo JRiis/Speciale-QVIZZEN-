@@ -21,7 +21,7 @@ namespace Qvizzen
     [Activity(Label = "GameplayActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class GameplayActivity : ParentActivity
     {
-        private SingleplayerController SingleplayerCtr;
+        private GameplayController GameplayCtr;
         private AnwserAdapterGameplay Adapter;
         private ScoreAdapter ScoreAdapter;
         private Timer CountdownTimer;
@@ -38,13 +38,15 @@ namespace Qvizzen
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Gameplay);
 
+            //TODO: Boolean for multiplayer/singleplayer.
+
             //Setup Controller
-            SingleplayerCtr = SingleplayerController.GetInstance();
+            GameplayCtr = SingleplayerController.GetInstance();
 
             //Setup content adapter for list.
-            SingleplayerCtr = SingleplayerController.GetInstance();
+            GameplayCtr = SingleplayerController.GetInstance();
             ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            ScoreAdapter = new ScoreAdapter(this, SingleplayerCtr.Players);
+            ScoreAdapter = new ScoreAdapter(this, GameplayCtr.Players);
             listScore.Adapter = Adapter;
 
             //Setup Swipe Layout
@@ -54,7 +56,8 @@ namespace Qvizzen
             swipeLayout.AddDrag(SwipeLayout.DragEdge.Right, scorescreenView);
 
             //Starts Gameplay
-            SingleplayerCtr.StartGame(this);
+            GameplayCtr.SetupGamePack();
+            GameplayCtr.StartGame(this);
         }
 
         public void TimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)
@@ -90,7 +93,7 @@ namespace Qvizzen
             RunOnUiThread( () =>
             {
                 //Checks if final question.
-                if (SingleplayerCtr.FinalQuestion)
+                if (GameplayCtr.FinalQuestion)
                 {
                     //Ends the game.
                     StartActivity(typeof(ScorescreenActivity));
@@ -98,7 +101,7 @@ namespace Qvizzen
                 else
                 {
                     //Advances a turn.
-                    SingleplayerCtr.NextTurn();
+                    GameplayCtr.NextTurn();
                 }
                 AnwserTimer.Stop();
             });    
@@ -148,7 +151,7 @@ namespace Qvizzen
                     CountdownTimer.Stop();
 
                     //Checks if correct anwser.
-                    if (SingleplayerCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position]))
+                    if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position]))
                     {
                         questionLabel.Text = "Correct!";
                         var color = new Android.Graphics.Color(50, 237, 50, 255);

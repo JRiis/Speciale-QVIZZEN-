@@ -44,21 +44,12 @@ namespace Qvizzen.Controller
         }  
         
         /// <summary>
-        /// Starts gameplay on current gameplay activity.
+        /// Unwraps the current GamePack on controller to a list of questions and
+        /// randomizes their order in the list.
         /// </summary>
-        /// <param name="activity">GameplayActivity</param>
-        public void StartGame(GameplayActivity activity)
+        public void SetupGamePack()
         {
-            //Setup Variables
             Questions = new List<Question>();
-            FinalQuestion = false;
-            CurrentIndex = 0;
-            PlayerIndex = 0;
-            Activity = activity;
-            CurrentPlayer = GetNextPlayer();
-            CurrentPlayer.Score = 0;
-
-            //Unwrap the GamePack and shuffle the Questions.
             foreach (Pack pack in GamePack.Packs)
             {
                 foreach (Question question in pack.Questions)
@@ -67,6 +58,21 @@ namespace Qvizzen.Controller
                 }
             }
             Questions.Shuffle();
+        }
+
+        /// <summary>
+        /// Starts gameplay on current gameplay activity.
+        /// </summary>
+        /// <param name="activity">GameplayActivity</param>
+        public void StartGame(GameplayActivity activity)
+        {
+            //Setup Variables
+            FinalQuestion = false;
+            CurrentIndex = 0;
+            PlayerIndex = 0;
+            Activity = activity;
+            CurrentPlayer = GetNextPlayer();
+            CurrentPlayer.Score = 0;
 
             //Update GUI
             Activity.UpdateGUI(GetQuestion(), DefaultTimer, CurrentPlayer.Score, 1, Questions.Count);

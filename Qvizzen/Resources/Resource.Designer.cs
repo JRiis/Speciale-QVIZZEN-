@@ -1498,11 +1498,11 @@ namespace Qvizzen
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060084
-			public const int Text1 = 2131099780;
+			// aapt resource value: 0x7f060087
+			public const int Text1 = 2131099783;
 			
-			// aapt resource value: 0x7f060085
-			public const int Text2 = 2131099781;
+			// aapt resource value: 0x7f060088
+			public const int Text2 = 2131099784;
 			
 			// aapt resource value: 0x7f060071
 			public const int action0 = 2131099761;
@@ -1573,29 +1573,35 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060080
 			public const int buttonDeleteAnwser = 2131099776;
 			
-			// aapt resource value: 0x7f06006c
-			public const int buttonDeletePack = 2131099756;
+			// aapt resource value: 0x7f060084
+			public const int buttonDeletePack = 2131099780;
 			
-			// aapt resource value: 0x7f060083
-			public const int buttonDeleteQuestion = 2131099779;
+			// aapt resource value: 0x7f060086
+			public const int buttonDeleteQuestion = 2131099782;
 			
 			// aapt resource value: 0x7f060067
 			public const int buttonDownload = 2131099751;
 			
-			// aapt resource value: 0x7f060086
-			public const int buttonMainMenu = 2131099782;
+			// aapt resource value: 0x7f06006b
+			public const int buttonHost = 2131099755;
+			
+			// aapt resource value: 0x7f06006c
+			public const int buttonJoin = 2131099756;
+			
+			// aapt resource value: 0x7f060089
+			public const int buttonMainMenu = 2131099785;
 			
 			// aapt resource value: 0x7f060066
 			public const int buttonMultiplayer = 2131099750;
 			
-			// aapt resource value: 0x7f060082
-			public const int buttonNewAnwser = 2131099778;
+			// aapt resource value: 0x7f060085
+			public const int buttonNewAnwser = 2131099781;
 			
 			// aapt resource value: 0x7f060081
 			public const int buttonNewPackage = 2131099777;
 			
-			// aapt resource value: 0x7f06006b
-			public const int buttonNewQuestion = 2131099755;
+			// aapt resource value: 0x7f060083
+			public const int buttonNewQuestion = 2131099779;
 			
 			// aapt resource value: 0x7f060032
 			public const int buttonPanel = 2131099698;
@@ -1603,8 +1609,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060065
 			public const int buttonSingleplayer = 2131099749;
 			
-			// aapt resource value: 0x7f060087
-			public const int buttonStartGame = 2131099783;
+			// aapt resource value: 0x7f06008a
+			public const int buttonStartGame = 2131099786;
 			
 			// aapt resource value: 0x7f06006e
 			public const int buttonStartMultiplayerGame = 2131099758;
@@ -1711,11 +1717,14 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060062
 			public const int listViewAnwsers = 2131099746;
 			
+			// aapt resource value: 0x7f06006a
+			public const int listViewLobbies = 2131099754;
+			
 			// aapt resource value: 0x7f06006f
 			public const int listViewPackages = 2131099759;
 			
-			// aapt resource value: 0x7f06006a
-			public const int listViewQuestions = 2131099754;
+			// aapt resource value: 0x7f060082
+			public const int listViewQuestions = 2131099778;
 			
 			// aapt resource value: 0x7f06005b
 			public const int listViewScore = 2131099739;

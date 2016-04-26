@@ -17,8 +17,9 @@ namespace Qvizzen.Activities
     [Activity(Label = "MultiplayerActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MultiplayerActivity : ParentActivity
     {
+        private MultiplayerController MultiplayerCtr;
         private ContentController ContentCtr;
-        private AnwserAdapter Adapter;
+        private LobbyAdapter Adapter;
         private const int AnwserLimit = 4;
         
         protected override void OnCreate(Bundle savedInstanceState)
@@ -33,29 +34,31 @@ namespace Qvizzen.Activities
             title.Text = ContentCtr.Name;
 
             //Setup content adapter for list.
-
-            //TODO: Listen for ports n shit, all buncha crazy stuff!
-            ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
-            Adapter = new AnwserAdapter(this, ContentCtr.CurrentQuestion.Anwsers);
-            listAnwsers.Adapter = Adapter;
+            MultiplayerCtr = MultiplayerController.GetInstance();
+            ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
+            Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
+            listLobbies.Adapter = Adapter;
 
             //Setup Click Event for List Items.
-            listAnwsers.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
+            listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
+                //TODO: Select lobby funthyme.
+                
                 ContentCtr.CurrentAnwser = ContentCtr.CurrentQuestion.Anwsers[e.Position];
                 StartActivity(typeof(PackageCreatorAnwserActivity));
             };
 
             //Setup Click Event for Host Button.
-            Button buttonNewAnwser = FindViewById<Button>(Resource.Id.buttonNewAnwser);
-            buttonNewAnwser.Click += delegate
+            Button buttonHost = FindViewById<Button>(Resource.Id.buttonHost);
+            buttonHost.Click += delegate
             {
                 //TODO: Host a friggin lobby.
+                StartActivity(typeof(MultiplayerPackageSelectionActivity));
             };
 
             //Setup Click Event for Join Button.
-            Button buttonDeleteQuestion = FindViewById<Button>(Resource.Id.buttonDeleteQuestion);
-            buttonDeleteQuestion.Click += delegate
+            Button buttonJoin = FindViewById<Button>(Resource.Id.buttonJoin);
+            buttonJoin.Click += delegate
             {   
                 //TODO: Join a friggin lobby.
             };
@@ -71,7 +74,7 @@ namespace Qvizzen.Activities
         protected override void OnResume()
         {
             base.OnResume();
-            Adapter.NotifyDataSetChanged();
+            //Adapter.NotifyDataSetChanged();
         }
     }
 }

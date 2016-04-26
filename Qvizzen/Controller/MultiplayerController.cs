@@ -15,13 +15,21 @@ namespace Qvizzen.Controller
     public class MultiplayerController : GameplayController
     {
         private static MultiplayerController Instance;
-        
+        public List<Lobby> Lobbies;
+
+        public class Lobby
+        {
+            public string Hostname;
+            public int Count;
+        }
+
         /// <summary>
         /// Constructor for MultiplayerController
         /// </summary>
         public MultiplayerController()
         {
             Players = new List<Player>();
+            Lobbies = new List<Lobby>();
         }
 
         /// <summary>

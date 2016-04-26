@@ -52,18 +52,19 @@ namespace Qvizzen
 
             //Setup Click Event for button.
             MultiplayerCtr = MultiplayerController.GetInstance();
-            Button buttonStartGame = FindViewById<Button>(Resource.Id.buttonStartGame);
-            buttonStartGame.Click += delegate
+            Button buttonCreateLobby = FindViewById<Button>(Resource.Id.buttonCreateLobby);
+            buttonCreateLobby.Click += delegate
             {
                 //Confirms selected packages.
                 if (SelectedPacks.Count > 0)
                 {
                     GamePack gamePack = new GamePack();
-                    MultiplayerCtr.GamePack = gamePack;
                     gamePack.Packs = SelectedPacks;
-                    StartActivity(typeof(GameplayActivity));
+                    MultiplayerCtr.GamePack = gamePack;
+                    MultiplayerCtr.AddPlayer(ContentCtr.Name);
+                    StartActivity(typeof(MultiplayerLobbyActivity));
 
-
+                    
                     //TODO: Host multiplayer lobby.
 
                 }

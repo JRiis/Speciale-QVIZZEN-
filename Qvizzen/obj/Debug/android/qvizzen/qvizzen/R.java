@@ -1717,8 +1717,8 @@ containing a value of this type.
         public static final int notification_template_icon_bg=0x7f02004c;
     }
     public static final class id {
-        public static final int Text1=0x7f060084;
-        public static final int Text2=0x7f060085;
+        public static final int Text1=0x7f060087;
+        public static final int Text2=0x7f060088;
         public static final int action0=0x7f060071;
         public static final int action_bar=0x7f060048;
         public static final int action_bar_activity_content=0x7f060001;
@@ -1742,17 +1742,19 @@ containing a value of this type.
         public static final int buttonCreateLobby=0x7f060070;
         public static final int buttonCreator=0x7f060068;
         public static final int buttonDeleteAnwser=0x7f060080;
-        public static final int buttonDeletePack=0x7f06006c;
-        public static final int buttonDeleteQuestion=0x7f060083;
+        public static final int buttonDeletePack=0x7f060084;
+        public static final int buttonDeleteQuestion=0x7f060086;
         public static final int buttonDownload=0x7f060067;
-        public static final int buttonMainMenu=0x7f060086;
+        public static final int buttonHost=0x7f06006b;
+        public static final int buttonJoin=0x7f06006c;
+        public static final int buttonMainMenu=0x7f060089;
         public static final int buttonMultiplayer=0x7f060066;
-        public static final int buttonNewAnwser=0x7f060082;
+        public static final int buttonNewAnwser=0x7f060085;
         public static final int buttonNewPackage=0x7f060081;
-        public static final int buttonNewQuestion=0x7f06006b;
+        public static final int buttonNewQuestion=0x7f060083;
         public static final int buttonPanel=0x7f060032;
         public static final int buttonSingleplayer=0x7f060065;
-        public static final int buttonStartGame=0x7f060087;
+        public static final int buttonStartGame=0x7f06008a;
         public static final int buttonStartMultiplayerGame=0x7f06006e;
         public static final int cancel_action=0x7f060072;
         public static final int checkBox1=0x7f06007f;
@@ -1788,8 +1790,9 @@ containing a value of this type.
         public static final int linearLayoutScorescreen=0x7f060058;
         public static final int listMode=0x7f06000a;
         public static final int listViewAnwsers=0x7f060062;
+        public static final int listViewLobbies=0x7f06006a;
         public static final int listViewPackages=0x7f06006f;
-        public static final int listViewQuestions=0x7f06006a;
+        public static final int listViewQuestions=0x7f060082;
         public static final int listViewScore=0x7f06005b;
         public static final int list_item=0x7f06002f;
         public static final int media_actions=0x7f060074;

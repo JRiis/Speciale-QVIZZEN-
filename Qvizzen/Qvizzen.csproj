@@ -84,6 +84,8 @@
     <Compile Include="Adapters\AnwserAdapterGameplay.cs" />
     <Compile Include="Adapters\AnwserAdapter.cs" />
     <Compile Include="Adapters\MultiplePackAdapter.cs" />
+    <Compile Include="Adapters\LobbyAdapter.cs" />
+    <Compile Include="Adapters\PlayerAdapter.cs" />
     <Compile Include="Adapters\ScoreAdapter.cs" />
     <Compile Include="Adapters\QuestionAdapter .cs" />
     <Compile Include="Adapters\PackAdapter.cs" />

@@ -19,7 +19,7 @@ namespace Qvizzen
     public class MultiplayerLobbyActivity : ParentActivity
     {
         private MultiplayerController MultiplayerCtr;
-        private ScoreAdapter Adapter;
+        private PlayerAdapter Adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,10 +30,9 @@ namespace Qvizzen
             //Setup content adapter for list.
 
             //TODO: List players or add em or something when join n stuff ye dig?
-
             MultiplayerCtr = MultiplayerController.GetInstance();
             ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            Adapter = new ScoreAdapter(this, MultiplayerCtr.Players);
+            Adapter = new PlayerAdapter(this, MultiplayerCtr.Players);
             listScore.Adapter = Adapter;
 
             //Setup Click Event for button.
