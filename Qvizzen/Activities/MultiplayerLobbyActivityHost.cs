@@ -51,6 +51,20 @@ namespace Qvizzen
         {
             base.OnResume();
             Adapter.NotifyDataSetChanged();
+            //TODO: Reconnect
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            //TODO: Disconnect? Also perhaps boolean to check if player is host.
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            //TODO: Disconnect/Unhost.
+            MultiplayerCtr.UnhostServer();
         }
     }
 }
