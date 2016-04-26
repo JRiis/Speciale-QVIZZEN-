@@ -48,11 +48,7 @@ namespace Qvizzen.Networking
             foreach (IPAddress ip in hosts)
             {
                 Connect(ip.ToString(), port);
-                String responseData = SendMessage("GetLobbyInfo");
-
-
-
-
+                String responseData = SendMessage("GLobby");
                 List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
 
                 string hostname = "";

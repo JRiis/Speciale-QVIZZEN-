@@ -96,16 +96,22 @@ namespace Qvizzen.Networking
                         mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Server.InGame);
                         break;
 
-                    case "Anwser":
-
-                        //TODO: how to receive anwsers?
-
-
-
-                        break;
-
                     case "JLobby":
-                        //TODO
+
+                        //string playername = 
+
+                        ////Check if string anwser.
+                        //if (mstrMessage.Substring(0, 5) == "Anwser")
+                        //{
+                        //    //TODO: Funtimes...
+                        //}
+
+                        //MultiplayerCtr.Players.Add(new Model.Player(playername, false));
+                    
+                    
+                    //TODO
+
+
                         break;
 
                     case "LLobby":
@@ -116,14 +122,16 @@ namespace Qvizzen.Networking
                         //TODO
                         break;
 
+                    case "Anwser":
+
+                        //TODO: how to receive anwsers?
+
+
+
+                        break;
+
+
                     default:
-
-                        //Check if string anwser.
-                        if (mstrMessage.Substring(0, 5) == "Anwser")
-                        {
-                            //TODO: Funtimes...
-                        }
-
                         mstrResponse = "Error";
                         break;
                 }

@@ -68,8 +68,8 @@ namespace Qvizzen.Controller
         public void JoinLobby(String ipAddress)
         {
             Client.Connect(ipAddress, Port);
-            
-            String responseData = Client.SendMessage("GetGamePack");
+
+            String responseData = Client.SendMessage("GPacks");
             GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(responseData);
             MultiplayerController.GetInstance().GamePack = gamePack;
             foreach (Pack pack in gamePack.Packs)
@@ -77,14 +77,19 @@ namespace Qvizzen.Controller
                 ContentController.GetInstance().Content.Add(pack);
             }
 
-            responseData = Client.SendMessage("GetQuestionList");
+            responseData = Client.SendMessage("GQList");
             Questions = JsonConvert.DeserializeObject<List<Question>>(responseData);
 
-            Client.SendMessage("");
+            responseData = Client.SendMessage("GLobby");
+            Players = JsonConvert.DeserializeObject<List<Player>>(responseData);
+
+            //Client.SendMessage("");
             //TODO:
             //Download GamePack
             //Download QuestionList
+            //Download PlayerList
             //AddPlayer to Lobby
+            
             //Call ready once downloads are done.
 
 
