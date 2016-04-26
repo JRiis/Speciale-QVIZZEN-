@@ -10,15 +10,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Qvizzen.Controller;
+using Qvizzen.Model;
 
 namespace Qvizzen.Adapters
 {
-    public class LobbyAdapter : BaseAdapter<MultiplayerController.Lobby>
+    public class LobbyAdapter : BaseAdapter<Lobby>
     {
-        private List<MultiplayerController.Lobby> LobbyList;
+        private List<Lobby> LobbyList;
         private Activity Context;
 
-        public LobbyAdapter(Activity context, List<MultiplayerController.Lobby> scoreList)
+        public LobbyAdapter(Activity context, List<Lobby> scoreList)
             : base()
         {
             Context = context;
@@ -28,7 +29,7 @@ namespace Qvizzen.Adapters
         {
             return position;
         }
-        public override MultiplayerController.Lobby this[int position]
+        public override Lobby this[int position]
         {
             get { return LobbyList[position]; }
         }

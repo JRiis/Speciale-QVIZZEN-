@@ -12,6 +12,7 @@ using Android.Widget;
 
 using Qvizzen.Extensions;
 using Qvizzen.Activities;
+using Qvizzen.Model;
 
 namespace Qvizzen.Controller
 {

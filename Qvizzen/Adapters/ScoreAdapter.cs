@@ -10,15 +10,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Qvizzen.Controller;
+using Qvizzen.Model;
 
 namespace Qvizzen.Adapters
 {
-    public class ScoreAdapter : BaseAdapter<GameplayController.Player>
+    public class ScoreAdapter : BaseAdapter<Player>
     {
-        private List<GameplayController.Player> ScoreList;
+        private List<Player> ScoreList;
         private Activity Context;
 
-        public ScoreAdapter(Activity context, List<GameplayController.Player> scoreList)
+        public ScoreAdapter(Activity context, List<Player> scoreList)
             : base()
         {
             Context = context;
@@ -28,7 +29,7 @@ namespace Qvizzen.Adapters
         {
             return position;
         }
-        public override GameplayController.Player this[int position]
+        public override Player this[int position]
         {
             get { return ScoreList[position]; }
         }

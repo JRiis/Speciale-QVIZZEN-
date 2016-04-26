@@ -10,18 +10,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Qvizzen.Model;
+
 namespace Qvizzen.Controller
 {
     public class MultiplayerController : GameplayController
     {
         private static MultiplayerController Instance;
         public List<Lobby> Lobbies;
-
-        public class Lobby
-        {
-            public string Hostname;
-            public int Count;
-        }
 
         /// <summary>
         /// Constructor for MultiplayerController
@@ -44,6 +40,13 @@ namespace Qvizzen.Controller
             }
             return Instance;
         }
+
+        public void Connect(string serverIP, string message)
+        {
+
+
+        }
+
 
         /// <summary>
         /// Creates and adds a new player to players list.

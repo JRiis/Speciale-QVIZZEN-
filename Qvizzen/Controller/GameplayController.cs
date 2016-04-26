@@ -12,6 +12,7 @@ using Android.Widget;
 
 using Qvizzen.Extensions;
 using Qvizzen.Activities;
+using Qvizzen.Model;
 
 namespace Qvizzen.Controller
 {
@@ -28,20 +29,6 @@ namespace Qvizzen.Controller
 
         public const int DefaultTimer = 30;
         public const int QuestionValue = 1;
-
-        public class Player
-        {
-            public string Name;
-            public int Score;
-            public bool Host;
-
-            public Player(string name, bool host)
-            {
-                Name = name;
-                Host = host;
-                Score = 0;
-            }
-        }  
         
         /// <summary>
         /// Unwraps the current GamePack on controller to a list of questions and
