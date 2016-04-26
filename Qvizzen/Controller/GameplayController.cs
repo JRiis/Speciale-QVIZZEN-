@@ -79,7 +79,7 @@ namespace Qvizzen.Controller
         {
             Player player = Players[PlayerIndex];
             PlayerIndex += 1;
-            if (PlayerIndex > Players.Count)
+            if (PlayerIndex == Players.Count)
             {
                 PlayerIndex = 0;
             }
@@ -91,6 +91,7 @@ namespace Qvizzen.Controller
         /// </summary>
         public void NextTurn()
         {
+            CurrentPlayer = GetNextPlayer();
             Activity.UpdateGUI(GetQuestion(), DefaultTimer, CurrentPlayer.Score, CurrentIndex, Questions.Count);
         }
 

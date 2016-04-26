@@ -45,5 +45,41 @@ namespace Qvizzen.Controller
         {
             Players.Add(new Player(name));
         }
+
+        /// <summary>
+        /// Checks if anwser is correct and updates score accordingly. 
+        /// </summary>
+        public new bool AnwserQuestion(Anwser anwser)
+        {
+            
+            
+            //TODO: Async send to players.
+            
+            
+            if (anwser.IsCorrect)
+            {
+                //Correct Anwser
+                CurrentPlayer.Score += QuestionValue;
+                return true;
+            }
+            else
+            {
+                //Wrong Anwser
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Advances the gameplay a turn.
+        /// </summary>
+        public new void NextTurn()
+        {
+            
+            //TODO: Async send to players.
+
+            //Condition, all players have recived input and responded they have been recived.
+            
+            Activity.UpdateGUI(GetQuestion(), DefaultTimer, CurrentPlayer.Score, CurrentIndex, Questions.Count);
+        }
     }
 }
