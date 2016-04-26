@@ -11,19 +11,26 @@ using Android.Views;
 using Android.Widget;
 
 using Qvizzen.Model;
+using Qvizzen.Networking;
+using Newtonsoft.Json;
 
 namespace Qvizzen.Controller
 {
     public class MultiplayerController : GameplayController
     {
+        private Server Server;
+        private Client Client;
         private static MultiplayerController Instance;
         public List<Lobby> Lobbies;
+
+        private const int Port = 4444;
 
         /// <summary>
         /// Constructor for MultiplayerController
         /// </summary>
         public MultiplayerController()
         {
+            Client = new Client();
             Players = new List<Player>();
             Lobbies = new List<Lobby>();
         }
@@ -41,46 +48,70 @@ namespace Qvizzen.Controller
             return Instance;
         }
 
-        public void Connect(string serverIP, string message)
+        public void HostServer()
         {
-            
-            switch (message)
-            {
-                case "GetGamePack":
-                    GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(reponseData);
-                    MultiplayerController.GetInstance().GamePack = gamePack;
-                    foreach (Pack pack in gamePack.Packs)
-                    {
-                        ContentController.GetInstance().Content.Add(pack);
-                    }
-                    break;
-
-                case "GetQuestionList":
-                    //TODO
-                    break;
-
-                case "SendAnwser":
-                    //TODO
-                    break;
-
-                case "JoinLobby":
-                    //TODO
-                    break;
-
-                case "LeaveLobby":
-                    //TODO
-                    break;
-
-                case "LeaveGame":
-                    //TODO
-                    break;
-
-                default:
-                    //Nothing
-                    break;
-            }
-
+            Server = new Server();
+            Server.StartServer(Port);
         }
+
+        public void UnhostServer()
+        {
+            Server.StopServer();
+            Server = null;
+        }
+
+        public void JoinLobby(String ipAddress)
+        {
+            Client.Connect(ipAddress, Port);
+            //TODO: Stuff
+        }
+
+        public void LeaveLobby()
+        {
+            //TODO: Stuff
+        }
+
+
+        //public void Connect(string serverIP, string message)
+        //{
+            
+        //    switch (message)
+        //    {
+        //        case "GetGamePack":
+        //            GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(reponseData);
+        //            MultiplayerController.GetInstance().GamePack = gamePack;
+        //            foreach (Pack pack in gamePack.Packs)
+        //            {
+        //                ContentController.GetInstance().Content.Add(pack);
+        //            }
+        //            break;
+
+        //        case "GetQuestionList":
+        //            //TODO
+        //            break;
+
+        //        case "SendAnwser":
+        //            //TODO
+        //            break;
+
+        //        case "JoinLobby":
+        //            //TODO
+        //            break;
+
+        //        case "LeaveLobby":
+        //            //TODO
+        //            break;
+
+        //        case "LeaveGame":
+        //            //TODO
+        //            break;
+
+        //        default:
+        //            //Nothing
+        //            break;
+        //    }
+
+        //}
 
         /// <summary>
         /// Creates and adds a new player to players list.
