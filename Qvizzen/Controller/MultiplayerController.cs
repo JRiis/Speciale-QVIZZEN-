@@ -93,7 +93,9 @@ namespace Qvizzen.Controller
             //TODO: Async send to players.
 
             //Condition, all players have recived input and responded they have been recived.
-            
+
+
+            CurrentPlayer = GetNextPlayer();
             Activity.UpdateGUI(GetQuestion(), DefaultTimer, CurrentPlayer.Score, CurrentIndex, Questions.Count);
         }
     }

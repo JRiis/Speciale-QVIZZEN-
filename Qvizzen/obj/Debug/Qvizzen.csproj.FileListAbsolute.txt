@@ -27,5 +27,8 @@ C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Xamarin.Android.Support.v7.RecyclerView.dll
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Xamarin.Android.Support.Vector.Drawable.dll
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\Qvizzen.csprojResolveAssemblyReference.cache
+C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\multiplayer.xml
+C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\multiplayerpackageselection.xml
+C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\multiplayerlobby.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\Qvizzen.dll.mdb
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Qvizzen.dll.mdb

@@ -6,22 +6,33 @@
     p1:id="@+id/linearLayout1"
     p1:focusableInTouchMode="true">
     <EditText
-        p1:text="Lobby"
+        p1:text="Playername"
         p1:textAppearance="?android:attr/textAppearanceLarge"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/textView1"
+        p1:id="@+id/textViewPlayerName"
         p1:textSize="30dp"
         p1:gravity="center"
         p1:paddingTop="15dp"
-        p1:paddingBottom="15dp" />
+        p1:paddingBottom="15dp"
+        p1:editable="true"
+        p1:singleLine="true"
+        p1:hint="Enter Your Name"
+        p1:maxLength="25" />
+    <LinearLayout
+        p1:layout_width="match_parent"
+        p1:layout_height="5dp"
+        p1:id="@+id/space1"
+        p1:background="@android:color/background_dark" />
     <ListView
         p1:minWidth="25px"
         p1:minHeight="25px"
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
-        p1:id="@+id/listViewScore"
-        p1:layout_weight="1" />
+        p1:id="@+id/listViewQuestions"
+        p1:layout_weight="1"
+        p1:divider="@android:color/black"
+        p1:dividerHeight="1dp" />
     <LinearLayout
         p1:orientation="horizontal"
         p1:layout_width="match_parent"
@@ -30,11 +41,18 @@
         p1:layout_weight="0"
         p1:layout_gravity="center">
         <Button
-            p1:text="Start Game"
-            p1:id="@+id/buttonStartGame"
+            p1:text="Host"
+            p1:id="@+id/buttonNewQuestion"
             p1:textSize="18dp"
             p1:layout_width="wrap_content"
             p1:layout_height="70.5dp"
             p1:layout_weight="1" />
+        <Button
+            p1:text="Join"
+            p1:layout_width="wrap_content"
+            p1:layout_height="70.5dp"
+            p1:id="@+id/buttonDeletePack"
+            p1:textSize="18dp"
+            p1:layout_weight="2" />
     </LinearLayout>
 </LinearLayout>

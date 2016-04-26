@@ -33,11 +33,13 @@ namespace Qvizzen.Controller
         {
             public string Name;
             public int Score;
+            public bool Host;
 
             public Player(string name)
             {
                 Name = name;
                 Score = 0;
+                Host = false;
             }
         }  
         

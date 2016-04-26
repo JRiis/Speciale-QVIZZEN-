@@ -1498,14 +1498,14 @@ namespace Qvizzen
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060080
-			public const int Text1 = 2131099776;
+			// aapt resource value: 0x7f060083
+			public const int Text1 = 2131099779;
 			
-			// aapt resource value: 0x7f060081
-			public const int Text2 = 2131099777;
+			// aapt resource value: 0x7f060084
+			public const int Text2 = 2131099780;
 			
-			// aapt resource value: 0x7f060069
-			public const int action0 = 2131099753;
+			// aapt resource value: 0x7f060070
+			public const int action0 = 2131099760;
 			
 			// aapt resource value: 0x7f060048
 			public const int action_bar = 2131099720;
@@ -1531,8 +1531,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060049
 			public const int action_context_bar = 2131099721;
 			
-			// aapt resource value: 0x7f06006d
-			public const int action_divider = 2131099757;
+			// aapt resource value: 0x7f060074
+			public const int action_divider = 2131099764;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -1564,35 +1564,38 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060022
 			public const int bottom = 2131099682;
 			
+			// aapt resource value: 0x7f06006f
+			public const int buttonCreateLobby = 2131099759;
+			
 			// aapt resource value: 0x7f060068
 			public const int buttonCreator = 2131099752;
 			
-			// aapt resource value: 0x7f060078
-			public const int buttonDeleteAnwser = 2131099768;
-			
-			// aapt resource value: 0x7f06007d
-			public const int buttonDeletePack = 2131099773;
-			
 			// aapt resource value: 0x7f06007f
-			public const int buttonDeleteQuestion = 2131099775;
+			public const int buttonDeleteAnwser = 2131099775;
+			
+			// aapt resource value: 0x7f06006c
+			public const int buttonDeletePack = 2131099756;
+			
+			// aapt resource value: 0x7f060082
+			public const int buttonDeleteQuestion = 2131099778;
 			
 			// aapt resource value: 0x7f060067
 			public const int buttonDownload = 2131099751;
 			
-			// aapt resource value: 0x7f060082
-			public const int buttonMainMenu = 2131099778;
+			// aapt resource value: 0x7f06006d
+			public const int buttonMainMenu = 2131099757;
 			
 			// aapt resource value: 0x7f060066
 			public const int buttonMultiplayer = 2131099750;
 			
-			// aapt resource value: 0x7f06007e
-			public const int buttonNewAnwser = 2131099774;
+			// aapt resource value: 0x7f060081
+			public const int buttonNewAnwser = 2131099777;
 			
-			// aapt resource value: 0x7f06007a
-			public const int buttonNewPackage = 2131099770;
+			// aapt resource value: 0x7f060080
+			public const int buttonNewPackage = 2131099776;
 			
-			// aapt resource value: 0x7f06007c
-			public const int buttonNewQuestion = 2131099772;
+			// aapt resource value: 0x7f06006b
+			public const int buttonNewQuestion = 2131099755;
 			
 			// aapt resource value: 0x7f060032
 			public const int buttonPanel = 2131099698;
@@ -1600,20 +1603,20 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060065
 			public const int buttonSingleplayer = 2131099749;
 			
-			// aapt resource value: 0x7f060083
-			public const int buttonStartGame = 2131099779;
+			// aapt resource value: 0x7f060085
+			public const int buttonStartGame = 2131099781;
 			
-			// aapt resource value: 0x7f06006a
-			public const int cancel_action = 2131099754;
+			// aapt resource value: 0x7f060071
+			public const int cancel_action = 2131099761;
 			
-			// aapt resource value: 0x7f060077
-			public const int checkBox1 = 2131099767;
+			// aapt resource value: 0x7f06007e
+			public const int checkBox1 = 2131099774;
 			
 			// aapt resource value: 0x7f060040
 			public const int checkbox = 2131099712;
 			
-			// aapt resource value: 0x7f060070
-			public const int chronometer = 2131099760;
+			// aapt resource value: 0x7f060077
+			public const int chronometer = 2131099767;
 			
 			// aapt resource value: 0x7f06001e
 			public const int collapseActionView = 2131099678;
@@ -1642,8 +1645,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06001b
 			public const int end = 2131099675;
 			
-			// aapt resource value: 0x7f060075
-			public const int end_padder = 2131099765;
+			// aapt resource value: 0x7f06007c
+			public const int end_padder = 2131099772;
 			
 			// aapt resource value: 0x7f06002c
 			public const int expand_activities_button = 2131099692;
@@ -1666,8 +1669,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06002d
 			public const int image = 2131099693;
 			
-			// aapt resource value: 0x7f060074
-			public const int info = 2131099764;
+			// aapt resource value: 0x7f06007b
+			public const int info = 2131099771;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -1678,11 +1681,11 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060023
 			public const int left = 2131099683;
 			
-			// aapt resource value: 0x7f06006e
-			public const int line1 = 2131099758;
+			// aapt resource value: 0x7f060075
+			public const int line1 = 2131099765;
 			
-			// aapt resource value: 0x7f060072
-			public const int line3 = 2131099762;
+			// aapt resource value: 0x7f060079
+			public const int line3 = 2131099769;
 			
 			// aapt resource value: 0x7f060064
 			public const int linearLayout1 = 2131099748;
@@ -1705,11 +1708,11 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060062
 			public const int listViewAnwsers = 2131099746;
 			
-			// aapt resource value: 0x7f060079
-			public const int listViewPackages = 2131099769;
+			// aapt resource value: 0x7f06006e
+			public const int listViewPackages = 2131099758;
 			
-			// aapt resource value: 0x7f06007b
-			public const int listViewQuestions = 2131099771;
+			// aapt resource value: 0x7f06006a
+			public const int listViewQuestions = 2131099754;
 			
 			// aapt resource value: 0x7f06005b
 			public const int listViewScore = 2131099739;
@@ -1717,8 +1720,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06002f
 			public const int list_item = 2131099695;
 			
-			// aapt resource value: 0x7f06006c
-			public const int media_actions = 2131099756;
+			// aapt resource value: 0x7f060073
+			public const int media_actions = 2131099763;
 			
 			// aapt resource value: 0x7f06001c
 			public const int middle = 2131099676;
@@ -1828,8 +1831,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060019
 			public const int src_over = 2131099673;
 			
-			// aapt resource value: 0x7f06006b
-			public const int status_bar_latest_event_content = 2131099755;
+			// aapt resource value: 0x7f060072
+			public const int status_bar_latest_event_content = 2131099762;
 			
 			// aapt resource value: 0x7f060053
 			public const int submit_area = 2131099731;
@@ -1840,11 +1843,11 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06000c
 			public const int tabMode = 2131099660;
 			
-			// aapt resource value: 0x7f060073
-			public const int text = 2131099763;
+			// aapt resource value: 0x7f06007a
+			public const int text = 2131099770;
 			
-			// aapt resource value: 0x7f060071
-			public const int text2 = 2131099761;
+			// aapt resource value: 0x7f060078
+			public const int text2 = 2131099768;
 			
 			// aapt resource value: 0x7f06003b
 			public const int textSpacerNoButtons = 2131099707;
@@ -1852,8 +1855,11 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060059
 			public const int textView1 = 2131099737;
 			
-			// aapt resource value: 0x7f060076
-			public const int textView2 = 2131099766;
+			// aapt resource value: 0x7f06007d
+			public const int textView2 = 2131099773;
+			
+			// aapt resource value: 0x7f060069
+			public const int textViewPlayerName = 2131099753;
 			
 			// aapt resource value: 0x7f060063
 			public const int textViewProgress = 2131099747;
@@ -1867,8 +1873,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060060
 			public const int textViewTime = 2131099744;
 			
-			// aapt resource value: 0x7f06006f
-			public const int time = 2131099759;
+			// aapt resource value: 0x7f060076
+			public const int time = 2131099766;
 			
 			// aapt resource value: 0x7f060031
 			public const int title = 2131099697;
@@ -2017,61 +2023,70 @@ namespace Qvizzen
 			public const int Main = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int notification_media_action = 2130903067;
+			public const int Multiplayer = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int notification_media_cancel_action = 2130903068;
+			public const int MultiplayerLobby = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int notification_template_big_media = 2130903069;
+			public const int MultiplayerPackageSelection = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int notification_template_big_media_narrow = 2130903070;
+			public const int notification_media_action = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int notification_template_lines = 2130903071;
+			public const int notification_media_cancel_action = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int notification_template_media = 2130903072;
+			public const int notification_template_big_media = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int notification_template_part_chronometer = 2130903073;
+			public const int notification_template_big_media_narrow = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int notification_template_part_time = 2130903074;
+			public const int notification_template_lines = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int PackageCreatorAnwser = 2130903075;
+			public const int notification_template_media = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int PackageCreatorMain = 2130903076;
+			public const int notification_template_part_chronometer = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int PackageCreatorPackage = 2130903077;
+			public const int notification_template_part_time = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int PackageCreatorQuestion = 2130903078;
+			public const int PackageCreatorAnwser = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int ScoreCustomListItem = 2130903079;
+			public const int PackageCreatorMain = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int Scorescreen = 2130903080;
+			public const int PackageCreatorPackage = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int select_dialog_item_material = 2130903081;
+			public const int PackageCreatorQuestion = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int select_dialog_multichoice_material = 2130903082;
+			public const int ScoreCustomListItem = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int select_dialog_singlechoice_material = 2130903083;
+			public const int Scorescreen = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int SingleplayerPackageSelection = 2130903084;
+			public const int select_dialog_item_material = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int support_simple_spinner_dropdown_item = 2130903085;
+			public const int select_dialog_multichoice_material = 2130903085;
+			
+			// aapt resource value: 0x7f03002e
+			public const int select_dialog_singlechoice_material = 2130903086;
+			
+			// aapt resource value: 0x7f03002f
+			public const int SingleplayerPackageSelection = 2130903087;
+			
+			// aapt resource value: 0x7f030030
+			public const int support_simple_spinner_dropdown_item = 2130903088;
 			
 			static Layout()
 			{
