@@ -43,7 +43,42 @@ namespace Qvizzen.Controller
 
         public void Connect(string serverIP, string message)
         {
+            
+            switch (message)
+            {
+                case "GetGamePack":
+                    GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(reponseData);
+                    MultiplayerController.GetInstance().GamePack = gamePack;
+                    foreach (Pack pack in gamePack.Packs)
+                    {
+                        ContentController.GetInstance().Content.Add(pack);
+                    }
+                    break;
 
+                case "GetQuestionList":
+                    //TODO
+                    break;
+
+                case "SendAnwser":
+                    //TODO
+                    break;
+
+                case "JoinLobby":
+                    //TODO
+                    break;
+
+                case "LeaveLobby":
+                    //TODO
+                    break;
+
+                case "LeaveGame":
+                    //TODO
+                    break;
+
+                default:
+                    //Nothing
+                    break;
+            }
 
         }
 

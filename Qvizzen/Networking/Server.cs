@@ -12,6 +12,8 @@ using Android.Widget;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using Newtonsoft.Json;
+using Qvizzen.Controller;
 
 namespace Qvizzen.Networking
 {
@@ -54,6 +56,7 @@ namespace Qvizzen.Networking
 
         private class SocketHelper
         {
+            MultiplayerController MultiplayerCtr = MultiplayerController.GetInstance();
             TcpClient mscClient;
             string mstrMessage;
             string mstrResponse;
@@ -69,12 +72,16 @@ namespace Qvizzen.Networking
 
                 switch (mstrMessage)
                 {
+                    case "GetLobbyInfo":
+                        mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
+                        break;
+                    
                     case "GetGamePack":
-                        mstrResponse = JsonConvert.SerializeObject(MultiplayerController.GetInstance().GamePack);
+                        mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.GamePack);
                         break;
 
                     case "GetQuestionList":
-                        mstrResponse = JsonConvert.SerializeObject(MultiplayerController.GetInstance().Questions);
+                        mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Questions);
                         break;
 
                     case "SendAnwser":
@@ -112,7 +119,6 @@ namespace Qvizzen.Networking
                 bytesSent = Encoding.ASCII.GetBytes(mstrResponse);
                 stream.Write(bytesSent, 0, bytesSent.Length);
             }
-
         }
     }
 }

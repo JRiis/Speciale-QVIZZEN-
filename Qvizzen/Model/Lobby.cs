@@ -14,11 +14,13 @@ namespace Qvizzen.Model
 {
     public class Lobby
     {
+        public string IPAddress;
         public string Hostname;
         public int Count;
 
-        public Lobby(string hostname, int count)
+        public Lobby(string ipAddress, string hostname, int count)
         {
+            IPAddress = ipAddress;
             Hostname = hostname;
             Count = count;
         }
