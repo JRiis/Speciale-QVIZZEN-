@@ -45,10 +45,29 @@ namespace Qvizzen.Networking
         {
             List<Lobby> lobbies = new List<Lobby>();
             IPAddress[] hosts = Dns.GetHostEntry(String.Empty).AddressList;
+            
+            
+            //Hax maybe....
+            IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
+            
+            
             foreach (IPAddress ip in hosts)
             {
+                if (ip.ToString() == ipAddress.ToString())
+                {
+                    continue;
+                }
+
                 Connect(ip.ToString(), port);
-                String responseData = SendMessage("GLobby");
+                
+                String responseData = SendMessage("Status");
+                bool status = JsonConvert.DeserializeObject<bool>(responseData);
+                if (status)
+                {
+                    continue;
+                }
+
+                responseData = SendMessage("GLobby");
                 List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
 
                 string hostname = "";
