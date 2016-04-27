@@ -71,7 +71,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\GameplayActivity.cs" />
+    <Compile Include="Activities\GameplayParentActivity.cs" />
+    <Compile Include="Activities\GameplayMultiplayerActivity.cs" />
+    <Compile Include="Activities\GameplaySingleplayerActivity.cs" />
     <Compile Include="Activities\MultiplayerActivity.cs" />
     <Compile Include="Activities\MultiplayerLobbyActivityClient.cs" />
     <Compile Include="Activities\MultiplayerLobbyActivityHost.cs" />

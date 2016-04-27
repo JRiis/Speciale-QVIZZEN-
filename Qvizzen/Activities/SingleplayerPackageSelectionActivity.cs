@@ -61,7 +61,7 @@ namespace Qvizzen
                     GamePack gamePack = new GamePack();
                     SingleplayerCtr.GamePack = gamePack;
                     gamePack.Packs = SelectedPacks;
-                    StartActivity(typeof(GameplayActivity));
+                    StartActivity(typeof(GameplaySingleplayerActivity));
                 }
             };
         }

@@ -18,19 +18,19 @@ using AndroidSwipeLayout;
 
 namespace Qvizzen
 {
-    [Activity(Label = "GameplayActivity", ScreenOrientation = ScreenOrientation.Portrait)]
-    public class GameplayActivity : ParentActivity
+    [Activity(Label = "GameplayParentActivity", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class GameplayParentActivity : ParentActivity
     {
-        private GameplayController GameplayCtr;
-        private AnwserAdapterGameplay Adapter;
-        private ScoreAdapter ScoreAdapter;
-        private Timer CountdownTimer;
-        private Timer AnwserTimer;
-        private int DisplayTime;
-        private Question CurrentQuestion;
-        private bool CanClick;
+        internal GameplayController GameplayCtr;
+        internal AnwserAdapterGameplay Adapter;
+        internal ScoreAdapter ScoreAdapter;
+        internal Timer CountdownTimer;
+        internal Timer AnwserTimer;
+        internal int DisplayTime;
+        internal Question CurrentQuestion;
+        internal bool CanClick;
 
-        private const double AnwserTime = 1500;
+        internal const double AnwserTime = 1500;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

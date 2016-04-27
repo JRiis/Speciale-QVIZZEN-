@@ -22,6 +22,7 @@ namespace Qvizzen.Activities
         private ContentController ContentCtr;
         private LobbyAdapter Adapter;
         private String SelectedLobbyAddress;
+        private Thread AdapterThread;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -67,7 +68,7 @@ namespace Qvizzen.Activities
             };
 
             //Starts a thread to setup adapter.
-            Thread threadAdapter = new Thread(new ThreadStart(delegate 
+            AdapterThread = new Thread(new ThreadStart(delegate 
             {
                 //Setup content adapter for list.
                 MultiplayerCtr = MultiplayerController.GetInstance();
@@ -95,7 +96,26 @@ namespace Qvizzen.Activities
                 }); 
             }));
 
-            threadAdapter.Start();
+            AdapterThread.Start();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Adapter.NotifyDataSetChanged();
+            //TODO: Reconnect
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            //TODO: Disconnect? Also perhaps boolean to check if player is host.
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            AdapterThread.Abort();
         }
     }
 }

@@ -38,6 +38,8 @@ namespace Qvizzen
             Button buttonStartGame = FindViewById<Button>(Resource.Id.buttonStartMultiplayerGame);
             buttonStartGame.Click += delegate
             {
+                //TODO: Send start game message to clients.
+                
                 StartActivity(typeof(GameplayActivity));
 
                 //TODO: Start multiplayer gameplay.
