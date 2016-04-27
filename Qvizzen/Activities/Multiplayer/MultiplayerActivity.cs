@@ -23,6 +23,7 @@ namespace Qvizzen.Activities
         private LobbyAdapter Adapter;
         private String SelectedLobbyAddress;
         private Thread AdapterThread;
+        private Thread JoinThread;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -48,7 +49,7 @@ namespace Qvizzen.Activities
             {
                 if (SelectedLobbyAddress != "")
                 {
-                    Thread threadJoin = new Thread(new ThreadStart(delegate
+                    JoinThread = new Thread(new ThreadStart(delegate
                     {
                         MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
                         RunOnUiThread( () =>
@@ -56,7 +57,7 @@ namespace Qvizzen.Activities
                             StartActivity(typeof(MultiplayerLobbyActivityClient));
                         });
                     }));
-                    threadJoin.Start();
+                    JoinThread.Start();
                 }    
             };
 
@@ -116,6 +117,7 @@ namespace Qvizzen.Activities
         {
             base.OnDestroy();
             AdapterThread.Abort();
+            JoinThread.Abort();
         }
     }
 }
