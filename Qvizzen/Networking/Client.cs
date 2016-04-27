@@ -15,6 +15,8 @@ using Qvizzen.Controller;
 using Qvizzen.Model;
 using System.Net;
 
+using Qvizzen.Extensions;
+
 namespace Qvizzen.Networking
 {
     public class Client
@@ -35,7 +37,11 @@ namespace Qvizzen.Networking
         /// </summary>
         public void Disconnect()
         {
-            TCPClient.Close();
+            try
+            {
+                TCPClient.Close();
+            }
+            catch (System.NullReferenceException e) {}
         }
 
         /// <summary>
@@ -44,49 +50,95 @@ namespace Qvizzen.Networking
         public List<Lobby> RetriveHosts(int port)
         {
             List<Lobby> lobbies = new List<Lobby>();
-            IPAddress[] hosts = Dns.GetHostEntry(String.Empty).AddressList;
-            
-            
-            //Hax maybe....
-            IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
-            
-            
-            foreach (IPAddress ip in hosts)
+            //IPAddress router = ExtensionMethods.GetDefaultGateway();
+            //String gateway = ExtensionMethods.StringParseGateway(router.ToString());
+
+            String gateway = "10.28.48.";
+
+
+            String device = "10.28.53.28";
+
+            Connect(device, port);
+
+            String responseData = SendMessage("GLobby");
+            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
+
+            string hostname = "";
+            int count = 0;
+
+            foreach (Player player in players)
             {
-                if (ip.ToString() == ipAddress.ToString())
+                if (player.Host)
                 {
-                    continue;
+                    hostname = player.Name;
                 }
-
-                Connect(ip.ToString(), port);
-                
-                String responseData = SendMessage("Status");
-                bool status = JsonConvert.DeserializeObject<bool>(responseData);
-                if (status)
-                {
-                    continue;
-                }
-
-                responseData = SendMessage("GLobby");
-                List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
-
-                string hostname = "";
-                int count = 0;
-
-                foreach (Player player in players)
-                {
-                    if (player.Host)
-                    {
-                        hostname = player.Name;
-                    }
-                    count++;
-                }
-
-                Lobby lobby = new Lobby(ip.ToString(), hostname, count);
-                lobbies.Add(lobby);
-                Disconnect();
+                count++;
             }
-            return lobbies;
+
+            Lobby lobby = new Lobby(device, hostname, count);
+            lobbies.Add(lobby);
+            Disconnect();
+
+            return lobbies;    
+
+
+
+
+
+
+
+
+
+
+            ////Sends a message to all devices on the network.
+            //for (int i=2; i < 254; i++)
+            //{
+            //    String device = gateway + i.ToString();
+            //    Connect(device, port);
+
+            //    try
+            //    {
+            //        String responseData = SendMessage("Qviz");
+            //        if (responseData == "True")
+            //        {
+            //            responseData = SendMessage("Status");
+            //            bool status = JsonConvert.DeserializeObject<bool>(responseData);
+            //            if (status)
+            //            {
+            //                continue;
+            //            }
+
+            //            responseData = SendMessage("GLobby");
+            //            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
+
+            //            string hostname = "";
+            //            int count = 0;
+
+            //            foreach (Player player in players)
+            //            {
+            //                if (player.Host)
+            //                {
+            //                    hostname = player.Name;
+            //                }
+            //                count++;
+            //            }
+
+            //            Lobby lobby = new Lobby(device, hostname, count);
+            //            lobbies.Add(lobby);
+            //        }
+            //        else
+            //        {
+            //            continue;
+            //        }
+            //    }
+            //    catch (Exception e) 
+            //    {
+            //        Console.WriteLine(e.Message);
+            //    }
+
+            //    Disconnect();
+            //}
+            //return lobbies;    
         }
 
         /// <summary>

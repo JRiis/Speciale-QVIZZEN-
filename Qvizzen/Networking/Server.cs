@@ -80,6 +80,10 @@ namespace Qvizzen.Networking
 
                 switch (command)
                 {
+                    case "Qviz":
+                        mstrResponse = "True";
+                        break;
+                    
                     case "GLobby":
                         mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
                         break;

@@ -42,12 +42,10 @@ namespace Qvizzen.Adapters
             View view = convertView; // re-use an existing view, if one is available
             if (view == null) // otherwise create a new one
             {
-                view = Context.LayoutInflater.Inflate(Resource.Layout.ScoreCustomListItem, null);
+                view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItemChecked, null);
             }
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = LobbyList[position].Hostname;
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = LobbyList[position].Count.ToString();
-            view.FindViewById<TextView>(Resource.Id.Text1).TextSize = 20;
-            view.FindViewById<TextView>(Resource.Id.Text2).TextSize = 20;
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = LobbyList[position].Hostname;
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).TextSize = 20;
             return view;
         }
     }

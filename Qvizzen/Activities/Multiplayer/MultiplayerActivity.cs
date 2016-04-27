@@ -52,7 +52,7 @@ namespace Qvizzen.Activities
                     JoinThread = new Thread(new ThreadStart(delegate
                     {
                         MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
-                        RunOnUiThread( () =>
+                        RunOnUiThread(() =>
                         {
                             StartActivity(typeof(MultiplayerLobbyActivityClient));
                         });
@@ -103,7 +103,7 @@ namespace Qvizzen.Activities
         protected override void OnResume()
         {
             base.OnResume();
-            Adapter.NotifyDataSetChanged();
+            //Adapter.NotifyDataSetChanged();
             //TODO: Reconnect
         }
 
@@ -116,8 +116,12 @@ namespace Qvizzen.Activities
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            AdapterThread.Abort();
-            JoinThread.Abort();
+            try
+            {
+                AdapterThread.Abort();
+                JoinThread.Abort();
+            }
+            catch (NullReferenceException) { }
         }
     }
 }

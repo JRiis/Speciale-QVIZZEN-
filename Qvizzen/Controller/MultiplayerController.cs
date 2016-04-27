@@ -92,6 +92,7 @@ namespace Qvizzen.Controller
             responseData = Client.SendMessage("GLobby");
             Players = JsonConvert.DeserializeObject<List<Player>>(responseData);
 
+
             //Client.SendMessage("");
             //TODO:
             //Download GamePack
