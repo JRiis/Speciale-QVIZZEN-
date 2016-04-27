@@ -71,19 +71,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\GameplayParentActivity.cs" />
-    <Compile Include="Activities\GameplayMultiplayerActivity.cs" />
-    <Compile Include="Activities\GameplaySingleplayerActivity.cs" />
-    <Compile Include="Activities\MultiplayerActivity.cs" />
-    <Compile Include="Activities\MultiplayerLobbyActivityClient.cs" />
-    <Compile Include="Activities\MultiplayerLobbyActivityHost.cs" />
-    <Compile Include="Activities\ScorescreenActivity.cs" />
-    <Compile Include="Activities\MultiplayerPackageSelectionActivity.cs" />
-    <Compile Include="Activities\SingleplayerPackageSelectionActivity.cs" />
-    <Compile Include="Activities\ParentActivitiy.cs" />
-    <Compile Include="Activities\PackageCreatorAnwserActivity.cs" />
-    <Compile Include="Activities\PackageCreatorQuestionActivity.cs" />
-    <Compile Include="Activities\PackageCreatorPackageActivity.cs" />
+    <Compile Include="Activities\Parents\GameplayParentActivity.cs" />
+    <Compile Include="Activities\Gameplay\GameplayMultiplayerActivity.cs" />
+    <Compile Include="Activities\Gameplay\GameplaySingleplayerActivity.cs" />
+    <Compile Include="Activities\Multiplayer\MultiplayerActivity.cs" />
+    <Compile Include="Activities\Multiplayer\MultiplayerLobbyActivityClient.cs" />
+    <Compile Include="Activities\Multiplayer\MultiplayerLobbyActivityHost.cs" />
+    <Compile Include="Activities\Gameplay\ScorescreenActivity.cs" />
+    <Compile Include="Activities\Multiplayer\MultiplayerPackageSelectionActivity.cs" />
+    <Compile Include="Activities\Singleplayer\SingleplayerPackageSelectionActivity.cs" />
+    <Compile Include="Activities\Parents\ParentActivitiy.cs" />
+    <Compile Include="Activities\Creation\PackageCreatorAnwserActivity.cs" />
+    <Compile Include="Activities\Creation\PackageCreatorQuestionActivity.cs" />
+    <Compile Include="Activities\Creation\PackageCreatorPackageActivity.cs" />
     <Compile Include="Adapters\AnwserAdapterGameplay.cs" />
     <Compile Include="Adapters\AnwserAdapter.cs" />
     <Compile Include="Adapters\MultiplePackAdapter.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Model\Lobby.cs" />
     <Compile Include="Model\Pack.cs" />
-    <Compile Include="Activities\PackageCreatorMainActivity.cs" />
+    <Compile Include="Activities\Creation\PackageCreatorMainActivity.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Networking\Client.cs" />
