@@ -32,34 +32,6 @@ namespace Qvizzen
 
         internal const double AnwserTime = 1500;
 
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            //Creates GUI
-            base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Gameplay);
-
-            //TODO: Boolean for multiplayer/singleplayer.
-
-            //Setup Controller
-            GameplayCtr = SingleplayerController.GetInstance();
-
-            //Setup content adapter for list.
-            GameplayCtr = SingleplayerController.GetInstance();
-            ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            ScoreAdapter = new ScoreAdapter(this, GameplayCtr.Players);
-            listScore.Adapter = Adapter;
-
-            //Setup Swipe Layout
-            var swipeLayout = FindViewById<SwipeLayout>(Resource.Id.swipeLayout1);
-            swipeLayout.SetShowMode(SwipeLayout.ShowMode.PullOut);
-            var scorescreenView = FindViewById(Resource.Id.linearLayoutScorescreen);
-            swipeLayout.AddDrag(SwipeLayout.DragEdge.Right, scorescreenView);
-
-            //Starts Gameplay
-            GameplayCtr.SetupGamePack();
-            GameplayCtr.StartGame(this);
-        }
-
         public void TimerTickEvent(object sender, System.Timers.ElapsedEventArgs e)
         {
             RunOnUiThread( () =>

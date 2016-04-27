@@ -40,7 +40,7 @@ namespace Qvizzen
             {
                 //TODO: Send start game message to clients.
                 
-                StartActivity(typeof(GameplayActivity));
+                StartActivity(typeof(GameplayMultiplayerActivity));
 
                 //TODO: Start multiplayer gameplay.
             };

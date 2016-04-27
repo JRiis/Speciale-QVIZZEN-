@@ -19,7 +19,7 @@ namespace Qvizzen.Controller
     public class GameplayController
     {
         public GamePack GamePack;
-        public Activity Activity;
+        public GameplayParentActivity Activity;
         public List<Question> Questions;
         public int CurrentIndex;
         public bool FinalQuestion;
@@ -51,7 +51,7 @@ namespace Qvizzen.Controller
         /// Starts gameplay on current gameplay activity.
         /// </summary>
         /// <param name="activity">GameplayActivity</param>
-        public void StartGame(Activity activity)
+        public void StartGame(GameplayParentActivity activity)
         {
             //Setup Variables
             FinalQuestion = false;
