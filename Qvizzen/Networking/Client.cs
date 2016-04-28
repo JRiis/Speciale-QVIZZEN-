@@ -37,11 +37,7 @@ namespace Qvizzen.Networking
         /// </summary>
         public void Disconnect()
         {
-            try
-            {
-                TCPClient.Close();
-            }
-            catch (System.NullReferenceException e) {}
+            TCPClient.Close();
         }
 
         /// <summary>
@@ -155,9 +151,22 @@ namespace Qvizzen.Networking
             String responseData = String.Empty;
             Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
             responseData = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
-            stream.Close();
 
             return responseData;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
