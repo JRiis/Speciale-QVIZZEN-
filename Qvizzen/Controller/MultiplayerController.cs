@@ -26,7 +26,9 @@ namespace Qvizzen.Controller
         public List<Lobby> Lobbies;
         private Thread ServerThread;
 
-        private const int Port = 4444;
+        private const int TCPPort = 4444;
+        private const int UDPBroadcastPort = 4445;
+        private const int UDPListenPort = 4446;
 
         /// <summary>
         /// Constructor for MultiplayerController
@@ -57,7 +59,7 @@ namespace Qvizzen.Controller
             Server = new Server();
             ServerThread = new Thread(new ThreadStart(delegate
             {
-                Server.StartServer(Port);
+                Server.StartServer(TCPPort, UDPBroadcastPort);
             }));
             ServerThread.Start();
             SetupGamePack();
@@ -76,7 +78,7 @@ namespace Qvizzen.Controller
 
         public void JoinLobby(String ipAddress)
         {
-            Client.Connect(ipAddress, Port);
+            Client.Connect(ipAddress, TCPPort);
 
             String responseData = Client.SendMessage("GPacks");
             GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(responseData);
@@ -114,7 +116,7 @@ namespace Qvizzen.Controller
 
         public void GetLobbies()
         {
-            Lobbies = Client.RetriveHosts(Port);
+            Lobbies = Client.RetriveHosts(TCPPort);
         }
 
         /// <summary>

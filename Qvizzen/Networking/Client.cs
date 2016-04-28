@@ -150,10 +150,42 @@ namespace Qvizzen.Networking
             Byte[] ReciveData = new byte[256];
             String responseData = String.Empty;
             Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
+
+
+
+
             responseData = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
 
             return responseData;
         }
+
+
+
+        private List<String> Broadcast(int port)
+        {
+            UdpClient client = new UdpClient();
+            IPEndPoint endpoint = new IPEndPoint(IPAddress.Any, 0);
+            client.EnableBroadcast = true;
+            byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
+            client.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            byte[] responseData = client.Receive(ref endpoint);
+            
+            client.Client.
+
+
+            
+
+
+            //TODO: EvenF'kinTyr
+
+
+
+            client.Close();
+        }
+
+
+
+
 
 
         /// <summary>

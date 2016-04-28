@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -20,20 +19,64 @@ namespace Qvizzen.Networking
     public class Server
     {
         List<SocketHelper> Clients = new List<SocketHelper>();
+        Thread TCPThread;
+        Thread UDPThread;
         TcpListener TCPListener = null;
         bool InGame = false;
 
         /// <summary>
-        /// Starts the server and listens for connections.
-        /// Returned values can be found in the SocketHelper class.
+        /// Starts the server. The server then starts two threads to listen for connections and
+        /// one to broadcast to the network for clients to discover the server.
         /// </summary>
-        public void StartServer(int port)
+        public void StartServer(int tcpPort, int udpPort)
+        {
+            //Starts a listen thread to listen for connections.
+            TCPThread = new Thread(new ThreadStart(delegate
+            {
+                Listen(tcpPort);
+            }));
+            TCPThread.Start();
+
+            //Starts an UDP listen port to listen for clients.
+            UDPThread = new Thread(new ThreadStart(delegate
+            {
+                UDPListen(udpPort);
+            }));
+            UDPThread.Start();
+        }
+
+
+
+        private void UDPListen(int port)
+        {
+            UdpClient UDPListener = new UdpClient(port);
+
+            while (true)
+            {
+                IPEndPoint clientEndpoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] clientRequestData = UDPListener.Receive(ref clientEndpoint);
+                string clientRequest = Encoding.ASCII.GetString(clientRequestData);
+
+                if (clientRequest == "Qviz")
+                {
+                    
+                }
+
+
+
+            }
+
+        }
+
+        /// <summary>
+        /// Listens for clients and starts threads to handle them.
+        /// </summary>
+        private void Listen(int port)
         {
             IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
             TCPListener = new TcpListener(ipAddress, port);
             TCPListener.Start();
 
-            //Listen for clients and start threads to handle them.
             while (true)
             {
                 Thread.Sleep(10);
