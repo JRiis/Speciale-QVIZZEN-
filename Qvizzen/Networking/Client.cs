@@ -156,7 +156,29 @@ namespace Qvizzen.Networking
         }
 
 
+        /// <summary>
+        /// Reads data from the server and handles commands in the switch.
+        /// </summary>
+        public void Read()
+        {
+            while (true)
+            {
+                NetworkStream stream = TCPClient.GetStream();
+                Byte[] ReciveData = new byte[256];
+                String responseData = String.Empty;
+                Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
+                responseData = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
 
+                switch (responseData)
+                {
+                    case "StartGame":
+                        //TODO: Start game funtimes yaih!
+                        break;
+                }
+
+
+            }
+        }
 
 
 

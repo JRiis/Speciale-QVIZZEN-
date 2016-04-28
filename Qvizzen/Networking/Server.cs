@@ -191,10 +191,6 @@ namespace Qvizzen.Networking
 
 
                             break;
-
-
-                        default:
-                            break;
                     }
 
                     SendMessage(mstrResponse);
