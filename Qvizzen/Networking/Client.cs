@@ -16,20 +16,39 @@ using Qvizzen.Model;
 using System.Net;
 
 using Qvizzen.Extensions;
+using System.Threading;
 
 namespace Qvizzen.Networking
 {
     public class Client
     {
         TcpClient TCPClient;
+        UdpClient UDPClient;
+        Thread ReadThread;
+        Thread UDPReadThread;
+        IPEndPoint Endpoint;
+        Queue<string> WriteQueue;
+        Thread WriteThread;
+        MultiplayerController MultiplayerCtr;
+
+        public Client()
+        {
+            WriteQueue = new Queue<string>();
+            MultiplayerCtr = MultiplayerController.GetInstance();
+        }
 
         /// <summary>
-        /// Connects the client to the server.
+        /// Connects the client to the server on given ipaddress and port.
         /// </summary>
-        /// <param name="serverIP">IPAdress of the server.</param>
         public void Connect(string serverIP, int port)
         {
             TCPClient = new TcpClient(serverIP, port);
+            
+            ReadThread = new Thread(ReadTCP);
+            ReadThread.Start();
+            
+            WriteThread = new Thread(WriteTCP);
+            WriteThread.Start();
         }
 
         /// <summary>
@@ -38,160 +57,52 @@ namespace Qvizzen.Networking
         public void Disconnect()
         {
             TCPClient.Close();
+            
+            ReadThread.Abort();
+            ReadThread = null;
+
+            WriteThread.Abort();
+            WriteThread = null;
         }
 
         /// <summary>
-        /// Retrives a list of hosts on the local network and creates a list of lobbies from it.
+        /// Adds a message to the message queue to be send to server.
         /// </summary>
-        public List<Lobby> RetriveHosts(int port)
+        public void SendMessage(string message)
         {
-            List<Lobby> lobbies = new List<Lobby>();
-            //IPAddress router = ExtensionMethods.GetDefaultGateway();
-            //String gateway = ExtensionMethods.StringParseGateway(router.ToString());
-
-            String gateway = "10.28.48.";
-
-
-            String device = "10.28.53.28";
-
-            Connect(device, port);
-
-            String responseData = SendMessage("GLobby");
-            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
-
-            string hostname = "";
-            int count = 0;
-
-            foreach (Player player in players)
-            {
-                if (player.Host)
-                {
-                    hostname = player.Name;
-                }
-                count++;
-            }
-
-            Lobby lobby = new Lobby(device, hostname, count);
-            lobbies.Add(lobby);
-            Disconnect();
-
-            return lobbies;    
-
-
-
-
-
-
-
-
-
-
-            ////Sends a message to all devices on the network.
-            //for (int i=2; i < 254; i++)
-            //{
-            //    String device = gateway + i.ToString();
-            //    Connect(device, port);
-
-            //    try
-            //    {
-            //        String responseData = SendMessage("Qviz");
-            //        if (responseData == "True")
-            //        {
-            //            responseData = SendMessage("Status");
-            //            bool status = JsonConvert.DeserializeObject<bool>(responseData);
-            //            if (status)
-            //            {
-            //                continue;
-            //            }
-
-            //            responseData = SendMessage("GLobby");
-            //            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(responseData);
-
-            //            string hostname = "";
-            //            int count = 0;
-
-            //            foreach (Player player in players)
-            //            {
-            //                if (player.Host)
-            //                {
-            //                    hostname = player.Name;
-            //                }
-            //                count++;
-            //            }
-
-            //            Lobby lobby = new Lobby(device, hostname, count);
-            //            lobbies.Add(lobby);
-            //        }
-            //        else
-            //        {
-            //            continue;
-            //        }
-            //    }
-            //    catch (Exception e) 
-            //    {
-            //        Console.WriteLine(e.Message);
-            //    }
-
-            //    Disconnect();
-            //}
-            //return lobbies;    
+            WriteQueue.Enqueue(message);
         }
 
         /// <summary>
-        /// Sends the given message to the connected server. Server returns a string appropiate for given message.
+        /// Broadcasts on the local network to retrive a list of all servers hosting Qvizzen.
         /// </summary>
-        public string SendMessage(string message)
+        public void Broadcast(int port)
         {
-            Byte[] SendData = new Byte[256];
-            SendData = System.Text.Encoding.ASCII.GetBytes(message);
-            NetworkStream stream = TCPClient.GetStream();
-            stream.Write(SendData, 0, SendData.Length);
-
-            Byte[] ReciveData = new byte[256];
-            String responseData = String.Empty;
-            Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
-
-
-
-
-            responseData = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
-
-            return responseData;
-        }
-
-
-
-        private List<String> Broadcast(int port)
-        {
-            UdpClient client = new UdpClient();
-            IPEndPoint endpoint = new IPEndPoint(IPAddress.Any, 0);
-            client.EnableBroadcast = true;
+            UDPClient = new UdpClient();
+            Endpoint = new IPEndPoint(IPAddress.Any, 0);
+            UDPClient.EnableBroadcast = true;
             byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
-            client.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
-            byte[] responseData = client.Receive(ref endpoint);
-            
-            client.Client.
-
-
-            
-
-
-            //TODO: EvenF'kinTyr
-
-
-
-            client.Close();
+            UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            UDPReadThread = new Thread(new ThreadStart( delegate 
+            { 
+                ReadUDP(port);
+            }));
+            UDPReadThread.Start();
         }
 
-
-
-
-
+        /// <summary>
+        /// Stops broadcasting for server lists. Should be called once connecting to a client.
+        /// </summary>
+        public void StopBroadcast()
+        {
+            UDPReadThread.Abort();
+            UDPReadThread = null;
+        }
 
         /// <summary>
         /// Reads data from the server and handles commands in the switch.
         /// </summary>
-        public void Read()
+        public void ReadTCP()
         {
             while (true)
             {
@@ -201,26 +112,75 @@ namespace Qvizzen.Networking
                 Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
 
-                switch (responseData)
+                string command = responseData.Substring(0, 4);
+
+                switch (command)
                 {
-                    case "StartGame":
-                        //TODO: Start game funtimes yaih!
+                    //Player connects/joins lobby.
+                    case "CMD1":
+                        string json = responseData.Substring(5);
+                        var data = JsonConvert.DeserializeObject<Tuple<List<Player>, List<Question>, GamePack>>(json);
+                        
+                        MultiplayerCtr.Players = data.Item1;
+                        MultiplayerCtr.Questions = data.Item2;
+                        MultiplayerCtr.GamePack = data.Item3;
+                        
+                        MultiplayerCtr.JoinLobby();
+                        break;
+
+                    //Player disconnects/leaves lobby/game.
+                    case "CMD2":
+                        break;
+
+                    //Player answers a question.
+                    case "CMD3":
                         break;
                 }
+            }
+        }
 
-
+        /// <summary>
+        /// Sends data to the currently connected server from the message queue.
+        /// </summary>
+        public void WriteTCP()
+        {
+            while (true)
+            {
+                Thread.Sleep(10);
+                if (WriteQueue.Count != 0)
+                {
+                    String message = WriteQueue.Dequeue();
+                    Byte[] SendData = new Byte[256];
+                    SendData = System.Text.Encoding.ASCII.GetBytes(message);
+                    NetworkStream stream = TCPClient.GetStream();
+                    stream.Write(SendData, 0, SendData.Length);
+                }
             }
         }
 
 
+        /// <summary>
+        /// Reads data from hosts via udp and creates lobbies for the controller.
+        /// </summary>
+        public void ReadUDP(int port)
+        {
+            while (true)
+            {
+                byte[] reciveData = UDPClient.Receive(ref Endpoint);
+                string responseData = System.Text.Encoding.ASCII.GetString(reciveData, 0, reciveData.Length);
+                Lobby lobby = JsonConvert.DeserializeObject<Lobby>(responseData);
 
+                foreach (Lobby check in MultiplayerCtr.Lobbies)
+                {
+                    if (check.IPAddress == lobby.IPAddress)
+                    {
+                        continue;
+                    }
+                }
 
-
-
-
-
-
-
-
+                MultiplayerCtr.Lobbies.Add(lobby);
+                MultiplayerCtr.UpdateAdapter();
+            }
+        }
     }
 }

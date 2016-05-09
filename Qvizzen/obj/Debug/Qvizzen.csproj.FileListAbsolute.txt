@@ -20,7 +20,6 @@ C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\gameplay.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\scorescreen.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\scorecustomlistitem.xml
-C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\AndroidSwipeLayout.dll
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Xamarin.Android.Support.Animated.Vector.Drawable.dll
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Xamarin.Android.Support.v4.dll
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Xamarin.Android.Support.v7.AppCompat.dll

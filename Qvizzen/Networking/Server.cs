@@ -13,23 +13,26 @@ using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
 using Qvizzen.Controller;
+using Qvizzen.Model;
 
 namespace Qvizzen.Networking
 {
     public class Server
     {
-        List<SocketHelper> Clients = new List<SocketHelper>();
+        List<SocketHelper> Clients;
         Thread TCPThread;
         Thread UDPThread;
         TcpListener TCPListener = null;
-        bool InGame = false;
 
         /// <summary>
-        /// Starts the server. The server then starts two threads to listen for connections and
-        /// one to broadcast to the network for clients to discover the server.
+        /// Starts the server. The server then starts two threads to listen for connections.
+        /// One for TCP and sending game information, and one for UDP for discovery.
         /// </summary>
         public void StartServer(int tcpPort, int udpPort)
         {
+            //Creates a client list.
+            Clients = new List<SocketHelper>();
+            
             //Starts a listen thread to listen for connections.
             TCPThread = new Thread(new ThreadStart(delegate
             {
@@ -45,7 +48,38 @@ namespace Qvizzen.Networking
             UDPThread.Start();
         }
 
+        /// <summary>
+        /// Stops the server from running.
+        /// </summary>
+        public void StopServer()
+        {
+            TCPListener.Stop();
+            TCPThread.Abort();
+            UDPThread.Abort();
+            TCPThread = null;
+            UDPThread = null;
 
+            foreach (SocketHelper client in Clients)
+            {
+                client.ReadThread.Abort();
+                client.WriteThread.Abort();
+                client.ReadThread = null;
+                client.WriteThread = null;
+            }
+
+            Clients = null;
+        }
+
+        /// <summary>
+        /// Sends a message out to all connected clients.
+        /// </summary>
+        public void SendMessageToClients(string message)
+        {
+            foreach (SocketHelper client in Clients)
+            {
+                client.SendMessage(message);
+            }
+        }
 
         private void UDPListen(int port)
         {
@@ -59,13 +93,13 @@ namespace Qvizzen.Networking
 
                 if (clientRequest == "Qviz")
                 {
-                    
+                    IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
+                    Lobby lobby = new Lobby(ipAddress.ToString(), ContentController.GetInstance().Name, Clients.Count);
+                    string json = JsonConvert.SerializeObject(lobby);
+                    byte[] response = Encoding.ASCII.GetBytes(json);
+                    UDPListener.Send(response, response.Length, clientEndpoint);
                 }
-
-
-
             }
-
         }
 
         /// <summary>
@@ -87,20 +121,12 @@ namespace Qvizzen.Networking
             }
         }
 
-        /// <summary>
-        /// Stops the server from running.
-        /// </summary>
-        public void StopServer()
-        {
-            TCPListener.Stop();
-        }
-
         private class SocketHelper
         {
             MultiplayerController MultiplayerCtr = MultiplayerController.GetInstance();
             Queue<string> WriteQueue = new Queue<string>();
-            Thread ReadThread;
-            Thread WriteThread;
+            public Thread ReadThread;
+            public Thread WriteThread;
             TcpClient mscClient;
             string mstrMessage;
             string mstrResponse;
@@ -168,71 +194,30 @@ namespace Qvizzen.Networking
                     stream.Read(bytesReceived, 0, bytesReceived.Length);
                     mstrMessage = Encoding.ASCII.GetString(bytesReceived, 0, bytesReceived.Length);
                     mscClient = client;
-
-                    String command;
-                    if (mstrMessage.Length < 6)
-                    {
-                        command = mstrMessage;
-                    }
-                    else
-                    {
-                        command = mstrMessage.Substring(0, 6);
-                    }
+                    
+                    string command = mstrMessage.Substring(0, 4);
 
                     switch (command)
                     {
-                        case "Qviz":
-                            mstrResponse = "True";
+                        //Player connects/joins lobby.
+                        case "CMD1":
+                            var data = new Tuple<List<Player>, List<Question>, GamePack>
+                            (
+                                MultiplayerCtr.Players,
+                                MultiplayerCtr.Questions,
+                                MultiplayerCtr.GamePack
+                            );
+                            mstrResponse = "CMD1" + JsonConvert.SerializeObject(data);
                             break;
-                    
-                        case "GLobby":
-                            mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
-                            break;
-                    
-                        case "GPacks":
+
+                        //Player disconnects/leaves lobby/game.
+                        case "CMD2":
                             mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.GamePack);
                             break;
 
-                        case "GQList":
-                            mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Questions);
-                            break;
-
-                        case "Status":
-                            mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Server.InGame);
-                            break;
-
-                        case "JLobby":
-
-                            //string playername = 
-
-                            ////Check if string anwser.
-                            //if (mstrMessage.Substring(0, 5) == "Anwser")
-                            //{
-                            //    //TODO: Funtimes...
-                            //}
-
-                            //MultiplayerCtr.Players.Add(new Model.Player(playername, false));
-                    
-                    
-                        //TODO
-
-
-                            break;
-
-                        case "LLobby":
-                            //TODO
-                            break;
-
-                        case "LeaveGame":
-                            //TODO
-                            break;
-
-                        case "Anwser":
-
-                            //TODO: how to receive anwsers?
-
-
-
+                        //Player answers a question.
+                        case "CMD3":
+                            mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
                             break;
                     }
 

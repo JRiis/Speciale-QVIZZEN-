@@ -14,6 +14,7 @@ using Qvizzen.Model;
 using Qvizzen.Networking;
 using Newtonsoft.Json;
 using System.Threading;
+using Qvizzen.Activities;
 
 namespace Qvizzen.Controller
 {
@@ -23,8 +24,10 @@ namespace Qvizzen.Controller
         private Client Client;
         private static MultiplayerController Instance;
         public bool IsHost;
+        public bool InGame;
         public List<Lobby> Lobbies;
         private Thread ServerThread;
+        public MultiplayerActivity MultiplayerActivity;
 
         private const int TCPPort = 4444;
         private const int UDPBroadcastPort = 4445;
@@ -39,6 +42,7 @@ namespace Qvizzen.Controller
             Players = new List<Player>();
             Lobbies = new List<Lobby>();
             IsHost = false;
+            InGame = false;
         }
 
         /// <summary>
@@ -59,7 +63,7 @@ namespace Qvizzen.Controller
             Server = new Server();
             ServerThread = new Thread(new ThreadStart(delegate
             {
-                Server.StartServer(TCPPort, UDPBroadcastPort);
+                Server.StartServer(TCPPort, UDPListenPort);
             }));
             ServerThread.Start();
             SetupGamePack();
@@ -76,48 +80,45 @@ namespace Qvizzen.Controller
             IsHost = false;
         }
 
-        public void JoinLobby(String ipAddress)
+        public void BeginJoinLobby(String ipAddress)
         {
             Client.Connect(ipAddress, TCPPort);
-
-            String responseData = Client.SendMessage("GPacks");
-            GamePack gamePack = JsonConvert.DeserializeObject<GamePack>(responseData);
-            MultiplayerController.GetInstance().GamePack = gamePack;
-            foreach (Pack pack in gamePack.Packs)
-            {
-                ContentController.GetInstance().Content.Add(pack);
-            }
-
-            responseData = Client.SendMessage("GQList");
-            Questions = JsonConvert.DeserializeObject<List<Question>>(responseData);
-
-            responseData = Client.SendMessage("GLobby");
-            Players = JsonConvert.DeserializeObject<List<Player>>(responseData);
-
-
-            //Client.SendMessage("");
-            //TODO:
-            //Download GamePack
-            //Download QuestionList
-            //Download PlayerList
-            //AddPlayer to Lobby
-            
-            //Call ready once downloads are done.
-
-
-            //TODO: Stuff
+            Client.SendMessage("Connect");
         }
 
-        public void LeaveLobby()
+        public void BeginLeaveLobby()
         {
             //TODO: Stuff
             //Remove Player From Lobby
         }
 
-        public void GetLobbies()
+        public void BeginGetLobbies()
         {
-            Lobbies = Client.RetriveHosts(TCPPort);
+            Client.Broadcast(UDPBroadcastPort);
         }
+
+        public void StopGetLobbies()
+        {
+            Client.StopBroadcast();
+        }
+
+
+        public void UpdateAdapter()
+        {
+            MultiplayerActivity.AdapterUpdate();
+        }
+
+
+        public void JoinLobby()
+        {
+
+        }
+
+
+
+
+
+
 
         /// <summary>
         /// Creates and adds a new player to players list.

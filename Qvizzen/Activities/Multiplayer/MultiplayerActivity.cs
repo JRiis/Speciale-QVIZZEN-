@@ -22,14 +22,16 @@ namespace Qvizzen.Activities
         private ContentController ContentCtr;
         private LobbyAdapter Adapter;
         private String SelectedLobbyAddress;
-        private Thread AdapterThread;
-        private Thread JoinThread;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //Creates GUI
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Multiplayer);
+
+            //Setup multiplayer controller.
+            MultiplayerCtr = MultiplayerController.GetInstance();
+            MultiplayerCtr.MultiplayerActivity = this;
 
             //Updates the title
             ContentCtr = ContentController.GetInstance();
@@ -49,15 +51,7 @@ namespace Qvizzen.Activities
             {
                 if (SelectedLobbyAddress != "")
                 {
-                    JoinThread = new Thread(new ThreadStart(delegate
-                    {
-                        MultiplayerCtr.JoinLobby(SelectedLobbyAddress);
-                        RunOnUiThread(() =>
-                        {
-                            StartActivity(typeof(MultiplayerLobbyActivityClient));
-                        });
-                    }));
-                    JoinThread.Start();
+                    MultiplayerCtr.BeginJoinLobby(SelectedLobbyAddress);
                 }    
             };
 
@@ -68,60 +62,64 @@ namespace Qvizzen.Activities
                 ContentCtr.Name = newText;
             };
 
-            //Starts a thread to setup adapter.
-            AdapterThread = new Thread(new ThreadStart(delegate 
+            //Setups adapter for lobbies.
+            ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
+            MultiplayerCtr.BeginGetLobbies();
+            Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
+            listLobbies.Adapter = Adapter;
+
+            //Setup click event for lobby list.
+            listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
             {
-                //Setup content adapter for list.
-                MultiplayerCtr = MultiplayerController.GetInstance();
-                MultiplayerCtr.GetLobbies();
-
-                RunOnUiThread( () =>
+                String selectedIPAddress = MultiplayerCtr.Lobbies[e.Position].IPAddress;
+                if (selectedIPAddress == SelectedLobbyAddress)
                 {
-                    ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
-                    Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
-                    listLobbies.Adapter = Adapter;
+                    SelectedLobbyAddress = "";
+                }
+                else
+                {
+                    SelectedLobbyAddress = selectedIPAddress;
+                }
+            };
+        }
 
-                    //Setup Click Event for List Items.
-                    listLobbies.ItemClick += (object sender, Android.Widget.AdapterView.ItemClickEventArgs e) =>
-                    {
-                        String selectedIPAddress = MultiplayerCtr.Lobbies[e.Position].IPAddress;
-                        if (selectedIPAddress == SelectedLobbyAddress)
-                        {
-                            SelectedLobbyAddress = "";
-                        }
-                        else
-                        {
-                            SelectedLobbyAddress = selectedIPAddress;
-                        }
-                    };
-                }); 
-            }));
 
-            AdapterThread.Start();
+        /// <summary>
+        /// Joins a lobby. Yaih!
+        /// </summary>
+        public void JoinLobby()
+        {
+            RunOnUiThread(() =>
+            {
+                StartActivity(typeof(MultiplayerLobbyActivityClient));
+            });
+        }
+
+
+        /// <summary>
+        /// Updates the adapter for lobbies to refresh the list.
+        /// </summary>
+        public void AdapterUpdate()
+        {
+            Adapter.NotifyDataSetChanged();
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            //Adapter.NotifyDataSetChanged();
-            //TODO: Reconnect
+            MultiplayerCtr.BeginGetLobbies();
         }
 
         protected override void OnStop()
         {
             base.OnStop();
-            //TODO: Disconnect? Also perhaps boolean to check if player is host.
+            MultiplayerCtr.StopGetLobbies();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            try
-            {
-                AdapterThread.Abort();
-                JoinThread.Abort();
-            }
-            catch (NullReferenceException) { }
+            MultiplayerCtr.StopGetLobbies();
         }
     }
 }
