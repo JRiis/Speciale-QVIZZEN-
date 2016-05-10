@@ -53,7 +53,6 @@ namespace Qvizzen.Networking
         /// </summary>
         public void StopServer()
         {
-            TCPListener.Stop();
             TCPThread.Abort();
             UDPThread.Abort();
             TCPThread = null;
@@ -67,6 +66,7 @@ namespace Qvizzen.Networking
                 client.WriteThread = null;
             }
 
+            TCPListener.Stop();
             Clients = null;
         }
 

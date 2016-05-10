@@ -46,6 +46,7 @@ namespace Qvizzen.Activities
             };
 
             //Setup Click Event for Join Button.
+            SelectedLobbyAddress = "";
             Button buttonJoin = FindViewById<Button>(Resource.Id.buttonJoin);
             buttonJoin.Click += delegate
             {
@@ -107,7 +108,7 @@ namespace Qvizzen.Activities
         protected override void OnResume()
         {
             base.OnResume();
-            MultiplayerCtr.BeginGetLobbies();
+            //MultiplayerCtr.BeginGetLobbies();
         }
 
         protected override void OnStop()

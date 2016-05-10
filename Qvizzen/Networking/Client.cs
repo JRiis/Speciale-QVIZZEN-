@@ -29,12 +29,11 @@ namespace Qvizzen.Networking
         IPEndPoint Endpoint;
         Queue<string> WriteQueue;
         Thread WriteThread;
-        MultiplayerController MultiplayerCtr;
+        public MultiplayerController MultiplayerCtr;
 
         public Client()
         {
             WriteQueue = new Queue<string>();
-            MultiplayerCtr = MultiplayerController.GetInstance();
         }
 
         /// <summary>
@@ -78,11 +77,19 @@ namespace Qvizzen.Networking
         /// </summary>
         public void Broadcast(int port)
         {
-            UDPClient = new UdpClient();
-            Endpoint = new IPEndPoint(IPAddress.Any, 0);
-            UDPClient.EnableBroadcast = true;
-            byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
-            UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            try
+            {
+                UDPClient = new UdpClient();
+                Endpoint = new IPEndPoint(IPAddress.Any, 0);
+                UDPClient.EnableBroadcast = true;
+                byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
+                UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            }
+            catch (System.Net.Sockets.SocketException ex)
+            {
+                //TODO: Error message or something?
+                return;
+            }
             UDPReadThread = new Thread(new ThreadStart( delegate 
             { 
                 ReadUDP(port);
@@ -95,8 +102,15 @@ namespace Qvizzen.Networking
         /// </summary>
         public void StopBroadcast()
         {
-            UDPReadThread.Abort();
-            UDPReadThread = null;
+            try
+            {
+                UDPReadThread.Abort();
+                UDPReadThread = null;
+            }
+            catch (System.NullReferenceException ex)
+            {
+                //Do Nothing
+            }
         }
 
         /// <summary>
@@ -106,6 +120,7 @@ namespace Qvizzen.Networking
         {
             while (true)
             {
+                Thread.Sleep(10);
                 NetworkStream stream = TCPClient.GetStream();
                 Byte[] ReciveData = new byte[256];
                 String responseData = String.Empty;
@@ -166,6 +181,7 @@ namespace Qvizzen.Networking
         {
             while (true)
             {
+                Thread.Sleep(10);
                 byte[] reciveData = UDPClient.Receive(ref Endpoint);
                 string responseData = System.Text.Encoding.ASCII.GetString(reciveData, 0, reciveData.Length);
                 Lobby lobby = JsonConvert.DeserializeObject<Lobby>(responseData);

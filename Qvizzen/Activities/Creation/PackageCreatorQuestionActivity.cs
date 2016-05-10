@@ -19,7 +19,7 @@ namespace Qvizzen.Activities
     {
         private ContentController ContentCtr;
         private AnwserAdapter Adapter;
-        private const int AnwserLimit = 5;
+        private const int AnwserLimit = 4;
         
         protected override void OnCreate(Bundle savedInstanceState)
         {

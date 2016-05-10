@@ -39,6 +39,7 @@ namespace Qvizzen.Controller
         public MultiplayerController()
         {
             Client = new Client();
+            Client.MultiplayerCtr = this;
             Players = new List<Player>();
             Lobbies = new List<Lobby>();
             IsHost = false;
@@ -72,8 +73,8 @@ namespace Qvizzen.Controller
 
         public void UnhostServer()
         {
-            ServerThread.Abort();
             Server.StopServer();
+            ServerThread.Abort();
             ServerThread = null;
             Server = null;
             Players.Clear();
@@ -94,7 +95,11 @@ namespace Qvizzen.Controller
 
         public void BeginGetLobbies()
         {
-            Client.Broadcast(UDPBroadcastPort);
+            Thread broadcast = new Thread(new ThreadStart(delegate
+            {
+                Client.Broadcast(UDPBroadcastPort);
+            }));
+            broadcast.Start();
         }
 
         public void StopGetLobbies()
