@@ -27,11 +27,12 @@ namespace Qvizzen.Controller
         public bool InGame;
         public List<Lobby> Lobbies;
         private Thread ServerThread;
+        public ParentActivity AdapterActivity;
         public MultiplayerActivity MultiplayerActivity;
 
         private const int TCPPort = 4444;
         private const int UDPBroadcastPort = 4445;
-        private const int UDPListenPort = 4446;
+        private const int UDPListenPort = 4445;
 
         /// <summary>
         /// Constructor for MultiplayerController
@@ -84,22 +85,29 @@ namespace Qvizzen.Controller
         public void BeginJoinLobby(String ipAddress)
         {
             Client.Connect(ipAddress, TCPPort);
-            Client.SendMessage("Connect");
+            ContentController ctr = ContentController.GetInstance();
+            string message = JsonConvert.SerializeObject(new List<string>() 
+            {
+                "Connect", 
+                ctr.IPAddress, 
+                ctr.Name
+            });
+            Client.SendMessage(message);
         }
 
         public void BeginLeaveLobby()
         {
-            //TODO: Stuff
-            //Remove Player From Lobby
+            ContentController ctr = ContentController.GetInstance();
+            string message = JsonConvert.SerializeObject(new List<string>() 
+            {
+                "RageQuit"
+            });
+            Client.SendMessage(message);
         }
 
         public void BeginGetLobbies()
         {
-            Thread broadcast = new Thread(new ThreadStart(delegate
-            {
-                Client.Broadcast(UDPBroadcastPort);
-            }));
-            broadcast.Start();
+            Client.StartBroadcast(UDPBroadcastPort);
         }
 
         public void StopGetLobbies()
@@ -110,28 +118,21 @@ namespace Qvizzen.Controller
 
         public void UpdateAdapter()
         {
-            MultiplayerActivity.AdapterUpdate();
+            AdapterActivity.AdapterUpdate();
         }
-
 
         public void JoinLobby()
         {
-
+            AdapterActivity.StartActivityOnUIThread(typeof(MultiplayerLobbyActivityClient));
         }
-
-
-
-
-
-
 
         /// <summary>
         /// Creates and adds a new player to players list.
         /// </summary>
         /// <param name="name">Name of the player.</param>
-        public void AddPlayer(string name, bool host)
+        public void AddPlayer(string ipAddress, string name, bool host)
         {
-            Players.Add(new Player(name, host));
+            Players.Add(new Player(ipAddress, name, host));
         }
 
         /// <summary>

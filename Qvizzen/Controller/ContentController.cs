@@ -11,12 +11,14 @@ using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
 using System.IO;
+using System.Net;
 
 namespace Qvizzen.Controller
 {
     public class ContentController
     {
         public string Name;
+        public string IPAddress;
         public const string Playername = "Name";
         public const string Filename = "Content";
         private static ContentController Instance;
@@ -27,8 +29,9 @@ namespace Qvizzen.Controller
 
         public ContentController()
         {
-            Content = new List<Pack>();
             Name = "";
+            IPAddress = Dns.GetHostEntry(String.Empty).AddressList[0].ToString();
+            Content = new List<Pack>();
         }
 
         public static ContentController GetInstance()

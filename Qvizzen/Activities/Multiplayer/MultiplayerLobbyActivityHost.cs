@@ -20,7 +20,6 @@ namespace Qvizzen
     public class MultiplayerLobbyActivityHost : ParentActivity
     {
         private MultiplayerController MultiplayerCtr;
-        private PlayerAdapter Adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,6 +29,7 @@ namespace Qvizzen
 
             //Setup content adapter for list.
             MultiplayerCtr = MultiplayerController.GetInstance();
+            MultiplayerCtr.AdapterActivity = this;
             ListView listPlayers = FindViewById<ListView>(Resource.Id.listViewPlayers);
             Adapter = new PlayerAdapter(this, MultiplayerCtr.Players);
             listPlayers.Adapter = Adapter;
@@ -47,6 +47,17 @@ namespace Qvizzen
 
             //Hosts dat server doe.
             MultiplayerCtr.HostServer();
+        }
+
+        /// <summary>
+        /// Updates the adapter for players to refresh the list.
+        /// </summary>
+        public void AdapterUpdate()
+        {
+            RunOnUiThread(() =>
+            {
+                Adapter.NotifyDataSetChanged();
+            });
         }
 
         protected override void OnResume()

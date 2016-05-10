@@ -26,7 +26,7 @@ namespace Qvizzen.Controller
         public SingleplayerController()
         {
             Players = new List<Player>();
-            Player player = new Player("Your Score", true);
+            Player player = new Player(ContentController.GetInstance().IPAddress, "Your Score", true);
             Players.Add(player);
         }
 

@@ -29,7 +29,10 @@ namespace Qvizzen.Networking
         IPEndPoint Endpoint;
         Queue<string> WriteQueue;
         Thread WriteThread;
+        Thread BroadcastThread;
         public MultiplayerController MultiplayerCtr;
+
+        private const int bufferSize = 256000;
 
         public Client()
         {
@@ -41,27 +44,43 @@ namespace Qvizzen.Networking
         /// </summary>
         public void Connect(string serverIP, int port)
         {
-            TCPClient = new TcpClient(serverIP, port);
-            
-            ReadThread = new Thread(ReadTCP);
-            ReadThread.Start();
-            
-            WriteThread = new Thread(WriteTCP);
-            WriteThread.Start();
+            try
+            {
+                TCPClient = new TcpClient(serverIP, port);
+
+                ReadThread = new Thread(ReadTCP);
+                ReadThread.Start();
+
+                WriteThread = new Thread(WriteTCP);
+                WriteThread.Start();
+            }
+            catch (System.Net.Sockets.SocketException ex)
+            {
+                //Host not connected lost conenction something oh noes!!
+                foreach (Lobby lobby in MultiplayerCtr.Lobbies)
+                {
+                    if (lobby.IPAddress == serverIP)
+                    {
+                        MultiplayerCtr.Lobbies.Remove(lobby);
+                        break;
+                    }
+                }
+                MultiplayerCtr.UpdateAdapter();
+            }
         }
 
         /// <summary>
         /// Disconnects client from server.
         /// </summary>
         public void Disconnect()
-        {
-            TCPClient.Close();
-            
+        {            
             ReadThread.Abort();
+            WriteThread.Abort();
+
+            WriteThread = null;
             ReadThread = null;
 
-            WriteThread.Abort();
-            WriteThread = null;
+            TCPClient.Close();
         }
 
         /// <summary>
@@ -75,26 +94,44 @@ namespace Qvizzen.Networking
         /// <summary>
         /// Broadcasts on the local network to retrive a list of all servers hosting Qvizzen.
         /// </summary>
-        public void Broadcast(int port)
+        public void StartBroadcast(int port)
         {
-            try
+            UDPClient = new UdpClient();
+            Endpoint = new IPEndPoint(IPAddress.Any, 0);
+            UDPClient.EnableBroadcast = true;
+
+            BroadcastThread = new Thread(new ThreadStart(delegate
             {
-                UDPClient = new UdpClient();
-                Endpoint = new IPEndPoint(IPAddress.Any, 0);
-                UDPClient.EnableBroadcast = true;
-                byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
-                UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
-            }
-            catch (System.Net.Sockets.SocketException ex)
-            {
-                //TODO: Error message or something?
-                return;
-            }
+                Broadcast(port);
+            }));
+            BroadcastThread.Start();
+
             UDPReadThread = new Thread(new ThreadStart( delegate 
             { 
                 ReadUDP(port);
             }));
             UDPReadThread.Start();
+        }
+
+        /// <summary>
+        /// Handles broadcasting.
+        /// </summary>
+        private void Broadcast(int port)
+        {
+            while (true)
+            {
+                try
+                {
+                    Thread.Sleep(10);
+                    byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
+                    UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
+                }
+                catch (System.Net.Sockets.SocketException ex)
+                {
+                    //TODO: Error message or something? Not connected to internet error.
+                    return;
+                }
+            }
         }
 
         /// <summary>
@@ -106,6 +143,9 @@ namespace Qvizzen.Networking
             {
                 UDPReadThread.Abort();
                 UDPReadThread = null;
+
+                BroadcastThread.Abort();
+                BroadcastThread = null;
             }
             catch (System.NullReferenceException ex)
             {
@@ -120,36 +160,56 @@ namespace Qvizzen.Networking
         {
             while (true)
             {
-                Thread.Sleep(10);
-                NetworkStream stream = TCPClient.GetStream();
-                Byte[] ReciveData = new byte[256];
-                String responseData = String.Empty;
-                Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
-
-                string command = responseData.Substring(0, 4);
-
-                switch (command)
+                try
                 {
-                    //Player connects/joins lobby.
-                    case "CMD1":
-                        string json = responseData.Substring(5);
-                        var data = JsonConvert.DeserializeObject<Tuple<List<Player>, List<Question>, GamePack>>(json);
-                        
-                        MultiplayerCtr.Players = data.Item1;
-                        MultiplayerCtr.Questions = data.Item2;
-                        MultiplayerCtr.GamePack = data.Item3;
-                        
-                        MultiplayerCtr.JoinLobby();
-                        break;
+                    Thread.Sleep(10);
+                    NetworkStream stream = TCPClient.GetStream();
+                    Byte[] ReciveData = new byte[bufferSize];
+                    Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
+                    string json = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
+                    List<string> message = JsonConvert.DeserializeObject<List<string>>(json);
 
-                    //Player disconnects/leaves lobby/game.
-                    case "CMD2":
-                        break;
+                    string command = message[0];
 
-                    //Player answers a question.
-                    case "CMD3":
-                        break;
+                    switch (command)
+                    {
+                        //Player connects/joins lobby.
+                        case "Connect":
+                            string textData1 = message[1];
+                            var data1 = JsonConvert.DeserializeObject<Tuple<List<Player>, List<Question>, GamePack>>(textData1);
+
+                            MultiplayerCtr.Players = data1.Item1;
+                            MultiplayerCtr.Questions = data1.Item2;
+                            MultiplayerCtr.GamePack = data1.Item3;
+
+                            foreach (Pack pack in data1.Item3.Packs)
+                            {
+                                ContentController.GetInstance().Content.Add(pack);
+                            }
+
+                            MultiplayerCtr.JoinLobby();
+                            break;
+
+                        //Player update list for lobby.
+                        case "UpdatePlayerList":
+                            string textData2 = message[1];
+                            var data2 = JsonConvert.DeserializeObject<List<Player>>(textData2);
+                            MultiplayerCtr.Players = data2;
+                            MultiplayerCtr.UpdateAdapter();
+                            break;
+
+                        //Player answers a question.
+                        case "CMD3":
+                            break;
+                    }
+                }
+                catch (System.NullReferenceException ex)
+                {
+                    //TODO: Just DC no more host geegee sad panda face ;<
+                }
+                catch (System.IO.IOException ex)
+                {
+                    //Nothing I GUESS
                 }
             }
         }
@@ -165,10 +225,19 @@ namespace Qvizzen.Networking
                 if (WriteQueue.Count != 0)
                 {
                     String message = WriteQueue.Dequeue();
-                    Byte[] SendData = new Byte[256];
+                    Byte[] SendData = new Byte[bufferSize];
                     SendData = System.Text.Encoding.ASCII.GetBytes(message);
                     NetworkStream stream = TCPClient.GetStream();
                     stream.Write(SendData, 0, SendData.Length);
+
+                    //Determines message content to check for special case.
+                    string command = JsonConvert.DeserializeObject<List<string>>(message)[0];
+                    switch (command)
+                    {
+                        case "RageQuit":
+                            Disconnect();
+                            break;
+                    }
                 }
             }
         }
@@ -186,12 +255,19 @@ namespace Qvizzen.Networking
                 string responseData = System.Text.Encoding.ASCII.GetString(reciveData, 0, reciveData.Length);
                 Lobby lobby = JsonConvert.DeserializeObject<Lobby>(responseData);
 
+                bool lobbyAlreadyExists = false;
                 foreach (Lobby check in MultiplayerCtr.Lobbies)
                 {
                     if (check.IPAddress == lobby.IPAddress)
                     {
-                        continue;
+                        lobbyAlreadyExists = true;
+                        break;
                     }
+                }
+
+                if (lobbyAlreadyExists)
+                {
+                    continue;
                 }
 
                 MultiplayerCtr.Lobbies.Add(lobby);

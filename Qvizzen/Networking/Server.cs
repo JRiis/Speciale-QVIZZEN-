@@ -24,6 +24,8 @@ namespace Qvizzen.Networking
         Thread UDPThread;
         TcpListener TCPListener = null;
 
+        private const int bufferSize = 256000;
+
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.
         /// One for TCP and sending game information, and one for UDP for discovery.
@@ -127,22 +129,25 @@ namespace Qvizzen.Networking
             Queue<string> WriteQueue = new Queue<string>();
             public Thread ReadThread;
             public Thread WriteThread;
-            TcpClient mscClient;
-            string mstrMessage;
-            string mstrResponse;
+            TcpClient MscClient;
+            List<string> MstrMessage;
+            string MstrResponse;
+            string ClientIPAddress;
 
             /// <summary>
             /// Starts the given client in two ned threads for reading and writing.
             /// </summary>
             public void StartClient(TcpClient client)
             {
+                //Sets client variable.
+                MscClient = client;
+                
                 //Starts a read thread.
                 ReadThread = new Thread(new ThreadStart(delegate
                 {
                     Read(client);
                 }));
                 ReadThread.Start();
-
 
                 //Starts a write thread.
                 WriteThread = new Thread(new ThreadStart(delegate
@@ -163,6 +168,41 @@ namespace Qvizzen.Networking
 
 
             /// <summary>
+            /// Disconnects the client from the server and stops all threads for client.
+            /// </summary>
+            private void DisconnectClient()
+            {                                
+                //Removes client from server.
+                MultiplayerCtr.Server.Clients.Remove(this);
+                
+                //Removes player from player list.
+                foreach (Player player in MultiplayerCtr.Players)
+                {
+                    if (player.IPAddress == ClientIPAddress)
+                    {
+                        MultiplayerCtr.Players.Remove(player);
+                        break;
+                    }
+                }
+
+                //Sends update to all connected players.
+                string message = JsonConvert.SerializeObject(new List<string>() 
+                {
+                    "UpdatePlayerList", 
+                    JsonConvert.SerializeObject(MultiplayerCtr.Players)
+                });
+
+                MultiplayerCtr.Server.SendMessageToClients(message);
+                MultiplayerCtr.UpdateAdapter();
+
+                //Stops Threads
+                ReadThread.Abort();
+                WriteThread.Abort();
+                ReadThread = null;
+                WriteThread = null;
+            }
+
+            /// <summary>
             /// Writes data to the client in sequence on the server.
             /// </summary>
             public void Write(TcpClient client)
@@ -172,11 +212,18 @@ namespace Qvizzen.Networking
                     Thread.Sleep(10);
                     if (WriteQueue.Count != 0)
                     {
-                        String message = WriteQueue.Dequeue();
-                        byte[] bytesSent = new byte[256];
-                        NetworkStream stream = client.GetStream();
-                        bytesSent = Encoding.ASCII.GetBytes(message);
-                        stream.Write(bytesSent, 0, bytesSent.Length);
+                        try
+                        {
+                            String message = WriteQueue.Dequeue();
+                            byte[] bytesSent = new byte[bufferSize];
+                            NetworkStream stream = client.GetStream();
+                            bytesSent = Encoding.ASCII.GetBytes(message);
+                            stream.Write(bytesSent, 0, bytesSent.Length);
+                        }
+                        catch (System.NullReferenceException ex)
+                        {
+                            DisconnectClient();
+                        }
                     }
                 }
             }
@@ -186,42 +233,58 @@ namespace Qvizzen.Networking
             /// </summary>
             public void Read(TcpClient client)
             {
-                while (true) 
+                while (true)
                 {
-                    Thread.Sleep(10);
-                    byte[] bytesReceived = new byte[256]; 
-                    NetworkStream stream = client.GetStream();
-                    stream.Read(bytesReceived, 0, bytesReceived.Length);
-                    mstrMessage = Encoding.ASCII.GetString(bytesReceived, 0, bytesReceived.Length);
-                    mscClient = client;
-                    
-                    string command = mstrMessage.Substring(0, 4);
-
-                    switch (command)
+                    try
                     {
-                        //Player connects/joins lobby.
-                        case "CMD1":
-                            var data = new Tuple<List<Player>, List<Question>, GamePack>
-                            (
-                                MultiplayerCtr.Players,
-                                MultiplayerCtr.Questions,
-                                MultiplayerCtr.GamePack
-                            );
-                            mstrResponse = "CMD1" + JsonConvert.SerializeObject(data);
-                            break;
+                        Thread.Sleep(10);
+                        byte[] bytesReceived = new byte[bufferSize];
+                        NetworkStream stream = client.GetStream();
+                        stream.Read(bytesReceived, 0, bytesReceived.Length);
+                        string json = Encoding.ASCII.GetString(bytesReceived, 0, bytesReceived.Length);
+                        MstrMessage = JsonConvert.DeserializeObject<List<string>>(json);
 
-                        //Player disconnects/leaves lobby/game.
-                        case "CMD2":
-                            mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.GamePack);
-                            break;
+                        string command = MstrMessage[0];
 
-                        //Player answers a question.
-                        case "CMD3":
-                            mstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
-                            break;
+                        switch (command)
+                        {
+                            //Player connects/joins lobby.
+                            case "Connect":
+                                MultiplayerCtr.AddPlayer(MstrMessage[1], MstrMessage[2], false);
+                                var data = new Tuple<List<Player>, List<Question>, GamePack>
+                                (
+                                    MultiplayerCtr.Players,
+                                    MultiplayerCtr.Questions,
+                                    MultiplayerCtr.GamePack
+                                );
+
+                                MstrResponse = JsonConvert.SerializeObject(new List<string>() 
+                                {
+                                    "Connect", 
+                                    JsonConvert.SerializeObject(data) 
+                                });
+
+                                ClientIPAddress = MstrMessage[1];
+                                MultiplayerCtr.UpdateAdapter();
+                                break;
+
+                            //Player disconnects/leaves lobby/game.
+                            case "RageQuit":
+                                DisconnectClient();
+                                break;
+
+                            //Player answers a question.
+                            case "CMD3":
+                                MstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
+                                break;
+                        }
+
+                        SendMessage(MstrResponse);
                     }
-
-                    SendMessage(mstrResponse);
+                    catch (System.NullReferenceException ex)
+                    {
+                        DisconnectClient();
+                    }
                 }
             }
         }

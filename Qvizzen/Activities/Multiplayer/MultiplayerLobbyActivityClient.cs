@@ -20,7 +20,6 @@ namespace Qvizzen
     public class MultiplayerLobbyActivityClient : ParentActivity
     {
         private MultiplayerController MultiplayerCtr;
-        private PlayerAdapter Adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,15 +29,33 @@ namespace Qvizzen
 
             //Setup content adapter for list.
             MultiplayerCtr = MultiplayerController.GetInstance();
+            MultiplayerCtr.AdapterActivity = this;
             ListView listPlayers = FindViewById<ListView>(Resource.Id.listViewPlayers);
             Adapter = new PlayerAdapter(this, MultiplayerCtr.Players);
             listPlayers.Adapter = Adapter;
+        }
+
+        /// <summary>
+        /// Updates the adapter for players to refresh the list.
+        /// </summary>
+        public void AdapterUpdate()
+        {
+            RunOnUiThread(() =>
+            {
+                Adapter.NotifyDataSetChanged();
+            });
         }
 
         protected override void OnResume()
         {
             base.OnResume();
             Adapter.NotifyDataSetChanged();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            MultiplayerCtr.BeginLeaveLobby();
         }
     }
 }

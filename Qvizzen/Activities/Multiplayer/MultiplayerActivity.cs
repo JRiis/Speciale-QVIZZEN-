@@ -20,7 +20,6 @@ namespace Qvizzen.Activities
     {
         private MultiplayerController MultiplayerCtr;
         private ContentController ContentCtr;
-        private LobbyAdapter Adapter;
         private String SelectedLobbyAddress;
         
         protected override void OnCreate(Bundle savedInstanceState)
@@ -31,7 +30,7 @@ namespace Qvizzen.Activities
 
             //Setup multiplayer controller.
             MultiplayerCtr = MultiplayerController.GetInstance();
-            MultiplayerCtr.MultiplayerActivity = this;
+            MultiplayerCtr.AdapterActivity = this;
 
             //Updates the title
             ContentCtr = ContentController.GetInstance();
@@ -84,43 +83,26 @@ namespace Qvizzen.Activities
             };
         }
 
-
-        /// <summary>
-        /// Joins a lobby. Yaih!
-        /// </summary>
-        public void JoinLobby()
-        {
-            RunOnUiThread(() =>
-            {
-                StartActivity(typeof(MultiplayerLobbyActivityClient));
-            });
-        }
-
-
-        /// <summary>
-        /// Updates the adapter for lobbies to refresh the list.
-        /// </summary>
-        public void AdapterUpdate()
-        {
-            Adapter.NotifyDataSetChanged();
-        }
-
         protected override void OnResume()
         {
             base.OnResume();
-            //MultiplayerCtr.BeginGetLobbies();
+            ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
+            MultiplayerCtr.BeginGetLobbies();
+            Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
+            listLobbies.Adapter = Adapter;
         }
 
         protected override void OnStop()
         {
             base.OnStop();
             MultiplayerCtr.StopGetLobbies();
+            MultiplayerCtr.Lobbies.Clear();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            MultiplayerCtr.StopGetLobbies();
+            //MultiplayerCtr.StopGetLobbies();
         }
     }
 }

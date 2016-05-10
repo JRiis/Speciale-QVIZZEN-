@@ -14,12 +14,14 @@ namespace Qvizzen.Model
 {
     public class Player
     {
+        public string IPAddress;
         public string Name;
         public int Score;
         public bool Host;
 
-        public Player(string name, bool host)
+        public Player(string ipAddress, string name, bool host)
         {
+            IPAddress = ipAddress;
             Name = name;
             Host = host;
             Score = 0;
