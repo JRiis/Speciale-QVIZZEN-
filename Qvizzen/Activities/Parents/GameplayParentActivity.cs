@@ -22,7 +22,6 @@ namespace Qvizzen
     public class GameplayParentActivity : ParentActivity
     {
         internal GameplayController GameplayCtr;
-        internal AnwserAdapterGameplay Adapter;
         internal ScoreAdapter ScoreAdapter;
         internal Timer CountdownTimer;
         internal Timer AnwserTimer;
