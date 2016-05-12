@@ -42,6 +42,9 @@ namespace Qvizzen
                 TextView timerLabel = FindViewById<TextView>(Resource.Id.textViewTime);
                 timerLabel.Text = DisplayTime.ToString();
 
+                //TODO:
+                //If timer is low, give feedback to indicate short time remaining, by changing color.
+
                 //If timer is zero.
                 if (DisplayTime == 0)
                 {
@@ -96,8 +99,8 @@ namespace Qvizzen
             //Updates Variables
             DisplayTime = time;
             CurrentQuestion = question;
-            CanClick = true;
             IsYourTurn = GameplayCtr.IsYourTurn();
+            CanClick = IsYourTurn;
 
             //Updates Labels
             TextView timeLabel = FindViewById<TextView>(Resource.Id.textViewTime);
