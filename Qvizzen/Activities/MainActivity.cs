@@ -25,6 +25,7 @@ namespace Qvizzen
             //Loads content from phone.
             ContentCtr = ContentController.GetInstance();
             ContentCtr.LoadContent();
+            ContentCtr.TestSetup();
 
             //Setups singleplayer button.
             Button buttonSingleplayer = FindViewById<Button>(Resource.Id.buttonSingleplayer);

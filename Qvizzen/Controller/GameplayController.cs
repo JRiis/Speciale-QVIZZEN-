@@ -110,7 +110,7 @@ namespace Qvizzen.Controller
         /// <summary>
         /// Checks if anwser is correct and updates score accordingly. 
         /// </summary>
-        public bool AnwserQuestion(Anwser anwser, int position)
+        public virtual bool AnwserQuestion(Anwser anwser, int position)
         {
             if (anwser.IsCorrect)
             {

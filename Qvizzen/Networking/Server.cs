@@ -290,8 +290,15 @@ namespace Qvizzen.Networking
                                 break;
 
                             //Player answers a question.
-                            case "CMD3":
-                                MstrResponse = JsonConvert.SerializeObject(MultiplayerCtr.Players);
+                            case "Answer":
+                                string message = JsonConvert.SerializeObject(new List<string>() 
+                                {
+                                    "Answer",
+                                    MstrMessage[1],
+                                    ClientIPAddress
+                                });
+                                MultiplayerCtr.Server.SendMessageToClients(message);
+                                MultiplayerCtr.AnwserQuestionActivity(int.Parse(MstrMessage[1]));
                                 break;
                         }
 

@@ -32,18 +32,12 @@ namespace Qvizzen
             //Setup Controller
             GameplayCtr = SingleplayerController.GetInstance();
 
-            //Setup content adapter for list.
-            ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            ScoreAdapter = new ScoreAdapter(this, GameplayCtr.Players);
-            listScore.Adapter = Adapter;
-
-            //Setup Swipe Layout
-            var swipeLayout = FindViewById<SwipeLayout>(Resource.Id.swipeLayout1);
-            swipeLayout.SetShowMode(SwipeLayout.ShowMode.PullOut);
-            var scorescreenView = FindViewById(Resource.Id.linearLayoutScorescreen);
-            swipeLayout.AddDrag(SwipeLayout.DragEdge.Right, scorescreenView);
+            //Set playername.
+            TextView playername = FindViewById<TextView>(Resource.Id.textViewGameplayPlayername);
+            playername.Text = "";
 
             //Starts Gameplay
+            ContentController.GetInstance().GameIsMultiplayer = false;
             GameplayCtr.SetupGamePack();
             GameplayCtr.StartGame(this);
         }

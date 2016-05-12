@@ -24,7 +24,6 @@ namespace Qvizzen.Controller
         private Client Client;
         private static MultiplayerController Instance;
         public bool IsHost;
-        public bool InGame;
         public List<Lobby> Lobbies;
         private Thread ServerThread;
         public ParentActivity AdapterActivity;
@@ -44,7 +43,6 @@ namespace Qvizzen.Controller
             Players = new List<Player>();
             Lobbies = new List<Lobby>();
             IsHost = false;
-            InGame = false;
         }
 
         /// <summary>
@@ -174,18 +172,19 @@ namespace Qvizzen.Controller
         /// </summary>
         public void AnwserQuestionActivity(int position)
         {
-
+            Activity.AnswerQuestion(position);
         }
 
         /// <summary>
         /// Checks if anwser is correct and updates score accordingly. 
         /// </summary>
-        public new bool AnwserQuestion(Anwser anwser, int position)
+        public override bool AnwserQuestion(Anwser anwser, int position)
         {
             string message = JsonConvert.SerializeObject(new List<string>() 
             {
                 "Answer",
-                position.ToString()
+                position.ToString(),
+                ContentController.GetInstance().IPAddress
             });
             
             if (IsHost)

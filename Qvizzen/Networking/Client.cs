@@ -215,7 +215,10 @@ namespace Qvizzen.Networking
 
                         //Player answers a question.
                         case "Answer":
-                            MultiplayerCtr.AnwserQuestionActivity(int.Parse(message[1]));
+                            if (ContentController.GetInstance().IPAddress != message[2])
+                            {
+                                MultiplayerCtr.AnwserQuestionActivity(int.Parse(message[1]));
+                            }
                             break;
                     }
                 }

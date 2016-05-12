@@ -26,12 +26,59 @@ namespace Qvizzen.Controller
         public Question CurrentQuestion;
         public Anwser CurrentAnwser;
         public List<Pack> Content;
+        public bool GameIsMultiplayer;
 
         public ContentController()
         {
             Name = "";
             IPAddress = Dns.GetHostEntry(String.Empty).AddressList[0].ToString();
             Content = new List<Pack>();
+        }
+
+        /// <summary>
+        /// Creates a few test packages.
+        /// </summary>
+        public void TestSetup()
+        {
+            for (int i=0; i < 10; i++)
+            {
+                bool havePack = false;
+                foreach (Pack pack in Content)
+                {
+                    if (pack.Name == "Pack #" + i.ToString())
+                    {
+                        havePack = true;
+                        break;
+                    }
+                }
+
+                if (havePack)
+                {
+                    continue;
+                }
+                
+                Pack newPack = new Pack();
+                newPack.Name = "Pack #" + i.ToString();
+                for (int i2 = 0; i2 < 10; i2++)
+                {
+                    Question question = new Question();
+                    question.Text = "Question #" + i2.ToString();
+                    newPack.Questions.Add(question);
+
+                    for (int i3 = 0; i3 < 4; i3++)
+                    {
+                        Anwser anwser = new Anwser();
+                        anwser.Text = "Answer #" + i3.ToString();
+                        if (i3 == 1)
+                        {
+                            anwser.IsCorrect = true;
+                        }
+                        question.Anwsers.Add(anwser);
+                    }
+                }
+                Content.Add(newPack);
+            }
+            
         }
 
         public static ContentController GetInstance()

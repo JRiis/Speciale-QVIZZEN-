@@ -1498,14 +1498,14 @@ namespace Qvizzen
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060087
+			public const int Text1 = 2131099783;
+			
 			// aapt resource value: 0x7f060088
-			public const int Text1 = 2131099784;
+			public const int Text2 = 2131099784;
 			
-			// aapt resource value: 0x7f060089
-			public const int Text2 = 2131099785;
-			
-			// aapt resource value: 0x7f060072
-			public const int action0 = 2131099762;
+			// aapt resource value: 0x7f060071
+			public const int action0 = 2131099761;
 			
 			// aapt resource value: 0x7f060048
 			public const int action_bar = 2131099720;
@@ -1531,8 +1531,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060049
 			public const int action_context_bar = 2131099721;
 			
-			// aapt resource value: 0x7f060076
-			public const int action_divider = 2131099766;
+			// aapt resource value: 0x7f060075
+			public const int action_divider = 2131099765;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -1564,68 +1564,68 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060022
 			public const int bottom = 2131099682;
 			
-			// aapt resource value: 0x7f060071
-			public const int buttonCreateLobby = 2131099761;
+			// aapt resource value: 0x7f060070
+			public const int buttonCreateLobby = 2131099760;
 			
-			// aapt resource value: 0x7f060068
-			public const int buttonCreator = 2131099752;
+			// aapt resource value: 0x7f060066
+			public const int buttonCreator = 2131099750;
 			
-			// aapt resource value: 0x7f060081
-			public const int buttonDeleteAnwser = 2131099777;
+			// aapt resource value: 0x7f060080
+			public const int buttonDeleteAnwser = 2131099776;
 			
-			// aapt resource value: 0x7f060085
-			public const int buttonDeletePack = 2131099781;
+			// aapt resource value: 0x7f060084
+			public const int buttonDeletePack = 2131099780;
 			
-			// aapt resource value: 0x7f060087
-			public const int buttonDeleteQuestion = 2131099783;
+			// aapt resource value: 0x7f060086
+			public const int buttonDeleteQuestion = 2131099782;
 			
-			// aapt resource value: 0x7f060067
-			public const int buttonDownload = 2131099751;
+			// aapt resource value: 0x7f060065
+			public const int buttonDownload = 2131099749;
+			
+			// aapt resource value: 0x7f06006a
+			public const int buttonHost = 2131099754;
 			
 			// aapt resource value: 0x7f06006b
-			public const int buttonHost = 2131099755;
-			
-			// aapt resource value: 0x7f06006c
-			public const int buttonJoin = 2131099756;
+			public const int buttonJoin = 2131099755;
 			
 			// aapt resource value: 0x7f06008a
 			public const int buttonMainMenu = 2131099786;
 			
-			// aapt resource value: 0x7f060066
-			public const int buttonMultiplayer = 2131099750;
+			// aapt resource value: 0x7f060064
+			public const int buttonMultiplayer = 2131099748;
 			
-			// aapt resource value: 0x7f060086
-			public const int buttonNewAnwser = 2131099782;
+			// aapt resource value: 0x7f060085
+			public const int buttonNewAnwser = 2131099781;
 			
-			// aapt resource value: 0x7f060082
-			public const int buttonNewPackage = 2131099778;
+			// aapt resource value: 0x7f060081
+			public const int buttonNewPackage = 2131099777;
 			
-			// aapt resource value: 0x7f060084
-			public const int buttonNewQuestion = 2131099780;
+			// aapt resource value: 0x7f060083
+			public const int buttonNewQuestion = 2131099779;
 			
 			// aapt resource value: 0x7f060032
 			public const int buttonPanel = 2131099698;
 			
-			// aapt resource value: 0x7f060065
-			public const int buttonSingleplayer = 2131099749;
+			// aapt resource value: 0x7f060063
+			public const int buttonSingleplayer = 2131099747;
 			
 			// aapt resource value: 0x7f06008b
 			public const int buttonStartGame = 2131099787;
 			
-			// aapt resource value: 0x7f06006f
-			public const int buttonStartMultiplayerGame = 2131099759;
+			// aapt resource value: 0x7f06006e
+			public const int buttonStartMultiplayerGame = 2131099758;
 			
-			// aapt resource value: 0x7f060073
-			public const int cancel_action = 2131099763;
+			// aapt resource value: 0x7f060072
+			public const int cancel_action = 2131099762;
 			
-			// aapt resource value: 0x7f060080
-			public const int checkBox1 = 2131099776;
+			// aapt resource value: 0x7f06007f
+			public const int checkBox1 = 2131099775;
 			
 			// aapt resource value: 0x7f060040
 			public const int checkbox = 2131099712;
 			
-			// aapt resource value: 0x7f060079
-			public const int chronometer = 2131099769;
+			// aapt resource value: 0x7f060078
+			public const int chronometer = 2131099768;
 			
 			// aapt resource value: 0x7f06001e
 			public const int collapseActionView = 2131099678;
@@ -1654,8 +1654,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06001b
 			public const int end = 2131099675;
 			
-			// aapt resource value: 0x7f06007e
-			public const int end_padder = 2131099774;
+			// aapt resource value: 0x7f06007d
+			public const int end_padder = 2131099773;
 			
 			// aapt resource value: 0x7f06002c
 			public const int expand_activities_button = 2131099692;
@@ -1678,8 +1678,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f06002d
 			public const int image = 2131099693;
 			
-			// aapt resource value: 0x7f06007d
-			public const int info = 2131099773;
+			// aapt resource value: 0x7f06007c
+			public const int info = 2131099772;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -1690,53 +1690,53 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060023
 			public const int left = 2131099683;
 			
-			// aapt resource value: 0x7f060077
-			public const int line1 = 2131099767;
+			// aapt resource value: 0x7f060076
+			public const int line1 = 2131099766;
 			
-			// aapt resource value: 0x7f06007b
-			public const int line3 = 2131099771;
+			// aapt resource value: 0x7f06007a
+			public const int line3 = 2131099770;
 			
-			// aapt resource value: 0x7f060064
-			public const int linearLayout1 = 2131099748;
+			// aapt resource value: 0x7f060061
+			public const int linearLayout1 = 2131099745;
 			
-			// aapt resource value: 0x7f06005c
-			public const int linearLayout2 = 2131099740;
-			
-			// aapt resource value: 0x7f06005e
-			public const int linearLayout3 = 2131099742;
-			
-			// aapt resource value: 0x7f06005d
-			public const int linearLayoutGameplay = 2131099741;
+			// aapt resource value: 0x7f060069
+			public const int linearLayout2 = 2131099753;
 			
 			// aapt resource value: 0x7f060058
-			public const int linearLayoutScorescreen = 2131099736;
+			public const int linearLayout3 = 2131099736;
+			
+			// aapt resource value: 0x7f06005e
+			public const int linearLayout4 = 2131099742;
+			
+			// aapt resource value: 0x7f060057
+			public const int linearLayoutGameplay = 2131099735;
 			
 			// aapt resource value: 0x7f06000a
 			public const int listMode = 2131099658;
 			
-			// aapt resource value: 0x7f060062
-			public const int listViewAnwsers = 2131099746;
+			// aapt resource value: 0x7f06005d
+			public const int listViewAnwsers = 2131099741;
 			
-			// aapt resource value: 0x7f06006a
-			public const int listViewLobbies = 2131099754;
+			// aapt resource value: 0x7f060068
+			public const int listViewLobbies = 2131099752;
 			
-			// aapt resource value: 0x7f060070
-			public const int listViewPackages = 2131099760;
+			// aapt resource value: 0x7f06006f
+			public const int listViewPackages = 2131099759;
 			
-			// aapt resource value: 0x7f06006e
-			public const int listViewPlayers = 2131099758;
+			// aapt resource value: 0x7f06006d
+			public const int listViewPlayers = 2131099757;
 			
-			// aapt resource value: 0x7f060083
-			public const int listViewQuestions = 2131099779;
+			// aapt resource value: 0x7f060082
+			public const int listViewQuestions = 2131099778;
 			
-			// aapt resource value: 0x7f06005b
-			public const int listViewScore = 2131099739;
+			// aapt resource value: 0x7f060089
+			public const int listViewScore = 2131099785;
 			
 			// aapt resource value: 0x7f06002f
 			public const int list_item = 2131099695;
 			
-			// aapt resource value: 0x7f060075
-			public const int media_actions = 2131099765;
+			// aapt resource value: 0x7f060074
+			public const int media_actions = 2131099764;
 			
 			// aapt resource value: 0x7f06001c
 			public const int middle = 2131099676;
@@ -1828,8 +1828,8 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060012
 			public const int showTitle = 2131099666;
 			
-			// aapt resource value: 0x7f06005a
-			public const int space1 = 2131099738;
+			// aapt resource value: 0x7f06005b
+			public const int space1 = 2131099739;
 			
 			// aapt resource value: 0x7f060033
 			public const int spacer = 2131099699;
@@ -1846,53 +1846,53 @@ namespace Qvizzen
 			// aapt resource value: 0x7f060019
 			public const int src_over = 2131099673;
 			
-			// aapt resource value: 0x7f060074
-			public const int status_bar_latest_event_content = 2131099764;
+			// aapt resource value: 0x7f060073
+			public const int status_bar_latest_event_content = 2131099763;
 			
 			// aapt resource value: 0x7f060053
 			public const int submit_area = 2131099731;
 			
-			// aapt resource value: 0x7f060057
-			public const int swipeLayout1 = 2131099735;
-			
 			// aapt resource value: 0x7f06000c
 			public const int tabMode = 2131099660;
 			
-			// aapt resource value: 0x7f06007c
-			public const int text = 2131099772;
+			// aapt resource value: 0x7f06007b
+			public const int text = 2131099771;
 			
-			// aapt resource value: 0x7f06007a
-			public const int text2 = 2131099770;
+			// aapt resource value: 0x7f060079
+			public const int text2 = 2131099769;
 			
 			// aapt resource value: 0x7f06003b
 			public const int textSpacerNoButtons = 2131099707;
 			
-			// aapt resource value: 0x7f060059
-			public const int textView1 = 2131099737;
+			// aapt resource value: 0x7f060062
+			public const int textView1 = 2131099746;
 			
-			// aapt resource value: 0x7f06007f
-			public const int textView2 = 2131099775;
-			
-			// aapt resource value: 0x7f06006d
-			public const int textViewLobby = 2131099757;
-			
-			// aapt resource value: 0x7f060069
-			public const int textViewPlayerName = 2131099753;
-			
-			// aapt resource value: 0x7f060063
-			public const int textViewProgress = 2131099747;
-			
-			// aapt resource value: 0x7f060061
-			public const int textViewQuestion = 2131099745;
+			// aapt resource value: 0x7f06007e
+			public const int textView2 = 2131099774;
 			
 			// aapt resource value: 0x7f06005f
-			public const int textViewScore = 2131099743;
+			public const int textViewGameplayPlayername = 2131099743;
+			
+			// aapt resource value: 0x7f06006c
+			public const int textViewLobby = 2131099756;
+			
+			// aapt resource value: 0x7f060067
+			public const int textViewPlayerName = 2131099751;
 			
 			// aapt resource value: 0x7f060060
-			public const int textViewTime = 2131099744;
+			public const int textViewProgress = 2131099744;
 			
-			// aapt resource value: 0x7f060078
-			public const int time = 2131099768;
+			// aapt resource value: 0x7f06005c
+			public const int textViewQuestion = 2131099740;
+			
+			// aapt resource value: 0x7f060059
+			public const int textViewScore = 2131099737;
+			
+			// aapt resource value: 0x7f06005a
+			public const int textViewTime = 2131099738;
+			
+			// aapt resource value: 0x7f060077
+			public const int time = 2131099767;
 			
 			// aapt resource value: 0x7f060031
 			public const int title = 2131099697;

@@ -15,6 +15,7 @@ using Qvizzen.Activities;
 using Android.Util;
 using Android.Content.PM;
 using AndroidSwipeLayout;
+using Qvizzen.Extensions;
 
 namespace Qvizzen
 {
@@ -110,6 +111,8 @@ namespace Qvizzen
             scoreLabel.Text = "Score: " + score.ToString();
             TextView progressLabel = FindViewById<TextView>(Resource.Id.textViewProgress);
             progressLabel.Text = count.ToString() + "/" + total.ToString();
+            TextView playername = FindViewById<TextView>(Resource.Id.textViewGameplayPlayername);
+            playername.Text = GameplayCtr.CurrentPlayer.Name;
 
             //Setup content adapter for list.
             ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
@@ -122,32 +125,50 @@ namespace Qvizzen
                 //Checks if CanClick.
                 if (CanClick)
                 {
-                    //Updates Variables.
-                    CanClick = false;
-                    CountdownTimer.Stop();
-
-                    //Checks if correct anwser.
-                    if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position], e.Position))
-                    {
-                        questionLabel.Text = "Correct!";
-                        var color = new Android.Graphics.Color(50, 237, 50, 255);
-                        e.View.SetBackgroundColor(color);
-                    }
-                    else
-                    {
-                        questionLabel.Text = "Incorrect!";
-                        var color = new Android.Graphics.Color(237, 50, 50, 255);
-                        e.View.SetBackgroundColor(color);
-                    }
-
-                    //Setup Anwser Timer
-                    AnwserTimer = new Timer();
-                    AnwserTimer.Interval = AnwserTime;
-                    AnwserTimer.Elapsed += AnwserTimerTickEvent;
-                    AnwserTimer.Enabled = true;
-                    AnwserTimer.AutoReset = false;
+                    AnswerQuestion(e.Position);
                 }
             };
+        }
+
+        /// <summary>
+        /// Answers the question at given position. Is used for multiplayer when other players answer questions.
+        /// </summary>
+        public void AnswerQuestion(int position)
+        {
+            RunOnUiThread( () =>
+            {
+                //Finds answer.
+                ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
+                View view = listAnwsers.GetChildAt(position);
+                Anwser item = ExtensionMethods.Cast<Anwser>(listAnwsers.Adapter.GetItem(position));
+
+                //Updates Variables.
+                CanClick = false;
+                CountdownTimer.Stop();
+
+                //Checks if correct anwser.
+                TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
+
+                if (GameplayCtr.AnwserQuestion(item, position))
+                {
+                    questionLabel.Text = "Correct!";
+                    var color = new Android.Graphics.Color(50, 237, 50, 255);
+                    view.SetBackgroundColor(color);
+                }
+                else
+                {
+                    questionLabel.Text = "Incorrect!";
+                    var color = new Android.Graphics.Color(237, 50, 50, 255);
+                    view.SetBackgroundColor(color);
+                }
+
+                //Starts Anwser Timer
+                AnwserTimer = new Timer();
+                AnwserTimer.Interval = AnwserTime;
+                AnwserTimer.Elapsed += AnwserTimerTickEvent;
+                AnwserTimer.Enabled = true;
+                AnwserTimer.AutoReset = false;
+            });
         }
 
         protected override void OnStop()

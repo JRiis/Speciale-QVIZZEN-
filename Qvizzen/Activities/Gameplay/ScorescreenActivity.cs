@@ -18,7 +18,7 @@ namespace Qvizzen
     [Activity(Label = "ScorescreenActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ScorescreenActivity : ParentActivity
     {
-        private SingleplayerController SingleplayerCtr;
+        private GameplayController GameplayCtr;
         private ScoreAdapter Adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,15 +28,27 @@ namespace Qvizzen
             SetContentView(Resource.Layout.Scorescreen);
 
             //Setup content adapter for list.
-            SingleplayerCtr = SingleplayerController.GetInstance();
+            if (ContentController.GetInstance().GameIsMultiplayer)
+            {
+                GameplayCtr = MultiplayerController.GetInstance();
+            }
+            else
+            {
+                GameplayCtr = SingleplayerController.GetInstance();
+            }
+
             ListView listScore = FindViewById<ListView>(Resource.Id.listViewScore);
-            Adapter = new ScoreAdapter(this, SingleplayerCtr.Players);
+            Adapter = new ScoreAdapter(this, GameplayCtr.Players);
             listScore.Adapter = Adapter;
 
             //Setup Click Event for button.
             Button buttonMainMenu = FindViewById<Button>(Resource.Id.buttonMainMenu);
             buttonMainMenu.Click += delegate
             {
+                if (ContentController.GetInstance().GameIsMultiplayer)
+                {
+                    MultiplayerController.GetInstance().UnhostServer();
+                }
                 StartActivity(typeof(MainActivity));
             };
         }
