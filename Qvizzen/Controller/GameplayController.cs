@@ -59,7 +59,10 @@ namespace Qvizzen.Controller
             PlayerIndex = 0;
             Activity = activity;
             CurrentPlayer = GetNextPlayer();
-            CurrentPlayer.Score = 0;
+            foreach (Player player in Players)
+            {
+                player.Score = 0;
+            }
 
             //Update GUI
             Activity.UpdateGUI(GetQuestion(), DefaultTimer, CurrentPlayer.Score, 1, Questions.Count);
@@ -67,7 +70,7 @@ namespace Qvizzen.Controller
 
         /// <summary>
         /// Gets the next player and updates the playerindex for current player. Resets player index
-        /// to 0, if exceeds the amount of players in the game.
+        /// to 0, if exceeds the amount of players in the game, essentially looping through players.
         /// </summary>
         /// <returns>Player</returns>
         public Player GetNextPlayer()
@@ -79,6 +82,19 @@ namespace Qvizzen.Controller
                 PlayerIndex = 0;
             }
             return player;
+        }
+
+        /// <summary>
+        /// Returns a boolean indicating wether player is current player.
+        /// </summary>
+        public bool IsYourTurn()
+        {
+            bool boolean = false;
+            if (CurrentPlayer.IPAddress == ContentController.GetInstance().IPAddress)
+            {
+                boolean = true;
+            }
+            return boolean;
         }
 
         /// <summary>

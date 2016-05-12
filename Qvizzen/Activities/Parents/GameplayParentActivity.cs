@@ -29,6 +29,7 @@ namespace Qvizzen
         internal int DisplayTime;
         internal Question CurrentQuestion;
         internal bool CanClick;
+        internal bool IsYourTurn;
 
         internal const double AnwserTime = 1500;
 
@@ -96,7 +97,8 @@ namespace Qvizzen
             DisplayTime = time;
             CurrentQuestion = question;
             CanClick = true;
-            
+            IsYourTurn = GameplayCtr.IsYourTurn();
+
             //Updates Labels
             TextView timeLabel = FindViewById<TextView>(Resource.Id.textViewTime);
             timeLabel.Text = time.ToString();

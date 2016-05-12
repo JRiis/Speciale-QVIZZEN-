@@ -182,9 +182,19 @@ namespace Qvizzen.Networking
                             MultiplayerCtr.Questions = data1.Item2;
                             MultiplayerCtr.GamePack = data1.Item3;
 
-                            foreach (Pack pack in data1.Item3.Packs)
+                            var ctr = ContentController.GetInstance();
+                            foreach (Pack newPack in data1.Item3.Packs)
                             {
-                                ContentController.GetInstance().Content.Add(pack);
+                                foreach (Pack pack in ctr.Content)
+                                {
+                                    if (newPack.Name == pack.Name)
+                                    {
+                                        ctr.Content.Remove(pack);
+                                        break;
+                                    }
+                                }
+
+                                ctr.Content.Add(newPack);
                             }
 
                             MultiplayerCtr.JoinLobby();
@@ -199,7 +209,8 @@ namespace Qvizzen.Networking
                             break;
 
                         //Player answers a question.
-                        case "CMD3":
+                        case "Start":
+                            MultiplayerCtr.StartMultiplayerGame();
                             break;
                     }
                 }

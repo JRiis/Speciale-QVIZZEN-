@@ -97,7 +97,6 @@ namespace Qvizzen.Controller
 
         public void BeginLeaveLobby()
         {
-            ContentController ctr = ContentController.GetInstance();
             string message = JsonConvert.SerializeObject(new List<string>() 
             {
                 "RageQuit"
@@ -139,7 +138,7 @@ namespace Qvizzen.Controller
         /// Creates and adds a new player to players list.
         /// </summary>
         /// <param name="name">Name of the player.</param>
-        public void RemovePlayer(string name)
+        public void RemovePlayer(string name) //TODO: Identifier/IP instead of name.
         {            
             foreach (Player player in Players)
             {
@@ -149,6 +148,27 @@ namespace Qvizzen.Controller
                 }
             }
         }
+
+
+        /// <summary>
+        /// Starts gameplay activity for all clients currently connected to the host.
+        /// </summary>
+        public void StartMultiplayerGame()
+        {
+            if (IsHost)
+            {
+                string message = JsonConvert.SerializeObject(new List<string>() 
+                {
+                    "Start"
+                });
+                Server.SendMessageToClients(message);
+                Server.StopUDPListen();
+            }
+
+            AdapterActivity.StartActivityOnUIThread(typeof(GameplayMultiplayerActivity));
+        }
+
+
 
         /// <summary>
         /// Checks if anwser is correct and updates score accordingly. 

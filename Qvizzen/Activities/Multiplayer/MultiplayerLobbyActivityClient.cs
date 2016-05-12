@@ -35,17 +35,6 @@ namespace Qvizzen
             listPlayers.Adapter = Adapter;
         }
 
-        /// <summary>
-        /// Updates the adapter for players to refresh the list.
-        /// </summary>
-        public void AdapterUpdate()
-        {
-            RunOnUiThread(() =>
-            {
-                Adapter.NotifyDataSetChanged();
-            });
-        }
-
         protected override void OnResume()
         {
             base.OnResume();

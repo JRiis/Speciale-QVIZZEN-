@@ -42,7 +42,6 @@ namespace Qvizzen
             swipeLayout.AddDrag(SwipeLayout.DragEdge.Right, scorescreenView);
 
             //Starts Gameplay
-            GameplayCtr.SetupGamePack();
             GameplayCtr.StartGame(this);
         }
     }

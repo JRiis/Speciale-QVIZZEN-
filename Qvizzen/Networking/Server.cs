@@ -56,9 +56,8 @@ namespace Qvizzen.Networking
         public void StopServer()
         {
             TCPThread.Abort();
-            UDPThread.Abort();
             TCPThread = null;
-            UDPThread = null;
+            StopUDPListen();
 
             foreach (SocketHelper client in Clients)
             {
@@ -71,6 +70,23 @@ namespace Qvizzen.Networking
             TCPListener.Stop();
             Clients = null;
         }
+
+        /// <summary>
+        /// Stops the UDPListen thread.
+        /// </summary>
+        public void StopUDPListen()
+        {
+            try
+            {
+                UDPThread.Abort();
+                UDPThread = null;
+            }
+            catch (NullReferenceException ex)
+            {
+                //Do Nothing.
+            }
+        }
+
 
         /// <summary>
         /// Sends a message out to all connected clients.
