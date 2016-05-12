@@ -169,16 +169,33 @@ namespace Qvizzen.Controller
         }
 
 
+        /// <summary>
+        /// Forcefully answers the question at position on activity. Used for multiplayer when other players answer.
+        /// </summary>
+        public void AnwserQuestionActivity(int position)
+        {
+
+        }
 
         /// <summary>
         /// Checks if anwser is correct and updates score accordingly. 
         /// </summary>
-        public new bool AnwserQuestion(Anwser anwser)
+        public new bool AnwserQuestion(Anwser anwser, int position)
         {
+            string message = JsonConvert.SerializeObject(new List<string>() 
+            {
+                "Answer",
+                position.ToString()
+            });
             
-            
-            //TODO: Async send to players.
-            
+            if (IsHost)
+            {
+                Server.SendMessageToClients(message);
+            }
+            else
+            {
+                Client.SendMessage(message);
+            }
             
             if (anwser.IsCorrect)
             {

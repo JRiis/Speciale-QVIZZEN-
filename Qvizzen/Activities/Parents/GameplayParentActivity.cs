@@ -127,7 +127,7 @@ namespace Qvizzen
                     CountdownTimer.Stop();
 
                     //Checks if correct anwser.
-                    if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position]))
+                    if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position], e.Position))
                     {
                         questionLabel.Text = "Correct!";
                         var color = new Android.Graphics.Color(50, 237, 50, 255);

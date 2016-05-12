@@ -36,65 +36,12 @@ namespace Qvizzen.Extensions
         }
 
         /// <summary>
-        /// Returns the local IPAddress of the machine.
+        /// Casts a java object to object given type.
         /// </summary>
-        public static IPAddress GetLocalIPAddress()
+        public static T Cast<T>(this Java.Lang.Object obj) where T : class
         {
-            IPAddress ipAddress = null;
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    ipAddress = ip;
-                    break;
-                }
-            }
-            return ipAddress;
-        }
-
-        /// <summary>
-        /// Returns the default gateway device is currently connected to.
-        /// </summary>
-        public static IPAddress GetDefaultGateway()
-        {
-
-            NetworkInterface card = NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault();
-            if (card == null)
-                return null;
-            GatewayIPAddressInformation address = card.GetIPProperties().GatewayAddresses.FirstOrDefault();
-            if (address == null)
-                return null;
-
-            return address.Address;
-
-
-
-            //IPAddress gateway = NetworkInterface.GetAllNetworkInterfaces().
-            //    Where(e => e.OperationalStatus == OperationalStatus.Up).
-            //    SelectMany(e => e.GetIPProperties().GatewayAddresses).FirstOrDefault().Address;
-            //return gateway;
-        }
-
-        public static string StringParseGateway(string str)
-        {
-            int length = str.Length;
-            int noDots = 0;
-            string parsed = "";
-            for (int i = 0; i < length; i++ )
-            {
-                string index = str.ElementAt(i).ToString();
-                parsed += index;
-                if (index == ".")
-                {
-                    noDots += 1;
-                    if (noDots == 3)
-                    {
-                        break;
-                    }
-                }
-            }
-            return parsed;
+            var propertyInfo = obj.GetType().GetProperty("Instance");
+            return propertyInfo == null ? null : propertyInfo.GetValue(obj, null) as T;
         }
     }
 }

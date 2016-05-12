@@ -15,6 +15,7 @@ using Qvizzen.Activities;
 using Android.Util;
 using Android.Content.PM;
 using AndroidSwipeLayout;
+using Qvizzen.Extensions;
 
 namespace Qvizzen
 {
@@ -43,6 +44,44 @@ namespace Qvizzen
 
             //Starts Gameplay
             GameplayCtr.StartGame(this);
+        }
+
+        /// <summary>
+        /// Answers the question at given position. Is used for multiplayer when other players answer questions.
+        /// </summary>
+        public void AnswerQuestion(int position)
+        {
+            //Finds answer.
+            ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
+            View view = listAnwsers.GetItemAtPosition(position).JavaCast<View>();
+            Anwser item = ExtensionMethods.Cast<Anwser>(listAnwsers.Adapter.GetItem(position));    
+
+            //Updates Variables.
+            CanClick = false;
+            CountdownTimer.Stop();
+
+            //Checks if correct anwser.
+            TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
+
+            if (item.IsCorrect)
+            {
+                questionLabel.Text = "Correct!";
+                var color = new Android.Graphics.Color(50, 237, 50, 255);
+                view.SetBackgroundColor(color);
+            }
+            else
+            {
+                questionLabel.Text = "Incorrect!";
+                var color = new Android.Graphics.Color(237, 50, 50, 255);
+                view.SetBackgroundColor(color);
+            }
+
+            //Starts Anwser Timer
+            AnwserTimer = new Timer();
+            AnwserTimer.Interval = AnwserTime;
+            AnwserTimer.Elapsed += AnwserTimerTickEvent;
+            AnwserTimer.Enabled = true;
+            AnwserTimer.AutoReset = false;
         }
     }
 }

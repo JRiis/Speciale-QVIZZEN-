@@ -212,6 +212,11 @@ namespace Qvizzen.Networking
                         case "Start":
                             MultiplayerCtr.StartMultiplayerGame();
                             break;
+
+                        //Player answers a question.
+                        case "Answer":
+                            MultiplayerCtr.AnwserQuestionActivity(int.Parse(message[1]));
+                            break;
                     }
                 }
                 catch (System.NullReferenceException ex)
