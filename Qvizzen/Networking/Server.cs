@@ -262,6 +262,11 @@ namespace Qvizzen.Networking
 
                         string command = MstrMessage[0];
 
+                        string defaultAnswer = JsonConvert.SerializeObject(new List<string>() 
+                        {
+                            "Default",
+                        });
+
                         switch (command)
                         {
                             //Player connects/joins lobby.
@@ -287,7 +292,7 @@ namespace Qvizzen.Networking
                             //Player disconnects/leaves lobby/game.
                             case "RageQuit":
                                 DisconnectClient();
-                                MstrResponse = "Default";
+                                MstrResponse = defaultAnswer;
                                 break;
 
                             //Player answers a question.
@@ -296,15 +301,15 @@ namespace Qvizzen.Networking
                                 {
                                     "Answer",
                                     MstrMessage[1],
-                                    ClientIPAddress
+                                    MstrMessage[2]
                                 });
                                 MultiplayerCtr.Server.SendMessageToClients(message);
                                 MultiplayerCtr.AnwserQuestionActivity(int.Parse(MstrMessage[1]));
-                                MstrResponse = "Default";
+                                MstrResponse = defaultAnswer;
                                 break;
 
                             default:
-                                MstrResponse = "Default";
+                                MstrResponse = defaultAnswer;
                                 break;
                         }
 

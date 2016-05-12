@@ -45,7 +45,7 @@ namespace Qvizzen
             Button buttonMainMenu = FindViewById<Button>(Resource.Id.buttonMainMenu);
             buttonMainMenu.Click += delegate
             {
-                if (ContentController.GetInstance().GameIsMultiplayer)
+                if (ContentController.GetInstance().GameIsMultiplayer && MultiplayerController.GetInstance().IsHost)
                 {
                     MultiplayerController.GetInstance().UnhostServer();
                 }

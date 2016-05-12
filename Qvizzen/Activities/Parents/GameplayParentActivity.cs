@@ -125,7 +125,29 @@ namespace Qvizzen
                 //Checks if CanClick.
                 if (CanClick)
                 {
-                    AnswerQuestion(e.Position);
+                    //Updates Variables.
+                    CanClick = false;
+                    CountdownTimer.Stop();
+
+                    if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position], e.Position))
+                    {
+                        questionLabel.Text = "Correct!";
+                        var color = new Android.Graphics.Color(50, 237, 50, 255);
+                        e.View.SetBackgroundColor(color);
+                    }
+                    else
+                    {
+                        questionLabel.Text = "Incorrect!";
+                        var color = new Android.Graphics.Color(237, 50, 50, 255);
+                        e.View.SetBackgroundColor(color);
+                    }
+
+                    //Starts Anwser Timer
+                    AnwserTimer = new Timer();
+                    AnwserTimer.Interval = AnwserTime;
+                    AnwserTimer.Elapsed += AnwserTimerTickEvent;
+                    AnwserTimer.Enabled = true;
+                    AnwserTimer.AutoReset = false;
                 }
             };
         }
@@ -149,11 +171,12 @@ namespace Qvizzen
                 //Checks if correct anwser.
                 TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);
 
-                if (GameplayCtr.AnwserQuestion(item, position))
+                if (item.IsCorrect)
                 {
                     questionLabel.Text = "Correct!";
                     var color = new Android.Graphics.Color(50, 237, 50, 255);
                     view.SetBackgroundColor(color);
+                    GameplayCtr.CurrentPlayer.Score += GameplayController.QuestionValue;
                 }
                 else
                 {
