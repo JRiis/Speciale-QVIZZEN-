@@ -24,7 +24,7 @@ namespace Qvizzen.Networking
         Thread UDPThread;
         TcpListener TCPListener = null;
 
-        private const int bufferSize = 256000;
+        private const int bufferSize = 2560000;
 
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.
@@ -287,6 +287,7 @@ namespace Qvizzen.Networking
                             //Player disconnects/leaves lobby/game.
                             case "RageQuit":
                                 DisconnectClient();
+                                MstrResponse = "Default";
                                 break;
 
                             //Player answers a question.
@@ -299,6 +300,11 @@ namespace Qvizzen.Networking
                                 });
                                 MultiplayerCtr.Server.SendMessageToClients(message);
                                 MultiplayerCtr.AnwserQuestionActivity(int.Parse(MstrMessage[1]));
+                                MstrResponse = "Default";
+                                break;
+
+                            default:
+                                MstrResponse = "Default";
                                 break;
                         }
 

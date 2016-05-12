@@ -32,7 +32,7 @@ namespace Qvizzen.Networking
         Thread BroadcastThread;
         public MultiplayerController MultiplayerCtr;
 
-        private const int bufferSize = 256000;
+        private const int bufferSize = 2560000;
 
         public Client()
         {
@@ -130,6 +130,10 @@ namespace Qvizzen.Networking
                 {
                     //TODO: Error message or something? Not connected to internet error.
                     return;
+                }
+                catch (System.NullReferenceException ex)
+                {
+                    //aehdunnoman
                 }
             }
         }
@@ -243,19 +247,26 @@ namespace Qvizzen.Networking
                 Thread.Sleep(10);
                 if (WriteQueue.Count != 0)
                 {
-                    String message = WriteQueue.Dequeue();
-                    Byte[] SendData = new Byte[bufferSize];
-                    SendData = System.Text.Encoding.ASCII.GetBytes(message);
-                    NetworkStream stream = TCPClient.GetStream();
-                    stream.Write(SendData, 0, SendData.Length);
-
-                    //Determines message content to check for special case.
-                    string command = JsonConvert.DeserializeObject<List<string>>(message)[0];
-                    switch (command)
+                    try
                     {
-                        case "RageQuit":
-                            Disconnect();
-                            break;
+                        String message = WriteQueue.Dequeue();
+                        Byte[] SendData = new Byte[bufferSize];
+                        SendData = System.Text.Encoding.ASCII.GetBytes(message);
+                        NetworkStream stream = TCPClient.GetStream();
+                        stream.Write(SendData, 0, SendData.Length);
+
+                        //Determines message content to check for special case.
+                        string command = JsonConvert.DeserializeObject<List<string>>(message)[0];
+                        switch (command)
+                        {
+                            case "RageQuit":
+                                Disconnect();
+                                break;
+                        }
+                    }
+                    catch (System.NullReferenceException ex)
+                    {
+                        //Do fkin nothing
                     }
                 }
             }
@@ -269,28 +280,35 @@ namespace Qvizzen.Networking
         {
             while (true)
             {
-                Thread.Sleep(10);
-                byte[] reciveData = UDPClient.Receive(ref Endpoint);
-                string responseData = System.Text.Encoding.ASCII.GetString(reciveData, 0, reciveData.Length);
-                Lobby lobby = JsonConvert.DeserializeObject<Lobby>(responseData);
-
-                bool lobbyAlreadyExists = false;
-                foreach (Lobby check in MultiplayerCtr.Lobbies)
+                try
                 {
-                    if (check.IPAddress == lobby.IPAddress)
+                    Thread.Sleep(10);
+                    byte[] reciveData = UDPClient.Receive(ref Endpoint);
+                    string responseData = System.Text.Encoding.ASCII.GetString(reciveData, 0, reciveData.Length);
+                    Lobby lobby = JsonConvert.DeserializeObject<Lobby>(responseData);
+
+                    bool lobbyAlreadyExists = false;
+                    foreach (Lobby check in MultiplayerCtr.Lobbies)
                     {
-                        lobbyAlreadyExists = true;
-                        break;
+                        if (check.IPAddress == lobby.IPAddress)
+                        {
+                            lobbyAlreadyExists = true;
+                            break;
+                        }
                     }
-                }
 
-                if (lobbyAlreadyExists)
+                    if (lobbyAlreadyExists)
+                    {
+                        continue;
+                    }
+
+                    MultiplayerCtr.Lobbies.Add(lobby);
+                    MultiplayerCtr.UpdateAdapter();
+                }
+                catch (System.NullReferenceException ex)
                 {
-                    continue;
+                    //gg
                 }
-
-                MultiplayerCtr.Lobbies.Add(lobby);
-                MultiplayerCtr.UpdateAdapter();
             }
         }
     }
