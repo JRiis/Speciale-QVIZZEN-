@@ -40,7 +40,7 @@ namespace Qvizzen.Controller
         /// </summary>
         public void TestSetup()
         {
-            for (int i=1; i < 10; i++)
+            for (int i=1; i < 5; i++)
             {
                 bool havePack = false;
                 foreach (Pack pack in Content)
@@ -59,13 +59,13 @@ namespace Qvizzen.Controller
                 
                 Pack newPack = new Pack();
                 newPack.Name = "Pack #" + i.ToString();
-                for (int i2 = 1; i2 < 10; i2++)
+                for (int i2 = 1; i2 < 8; i2++)
                 {
                     Question question = new Question();
                     question.Text = "Question #" + i2.ToString();
                     newPack.Questions.Add(question);
 
-                    for (int i3 = 1; i3 < 4; i3++)
+                    for (int i3 = 1; i3 < 5; i3++)
                     {
                         Anwser anwser = new Anwser();
                         anwser.Text = "Answer #" + i3.ToString();
