@@ -190,6 +190,7 @@ namespace Qvizzen.Networking
             {                                
                 //Removes client from server.
                 MultiplayerCtr.Server.Clients.Remove(this);
+                MscClient.Close();
                 
                 //Removes player from player list.
                 foreach (Player player in MultiplayerCtr.Players)

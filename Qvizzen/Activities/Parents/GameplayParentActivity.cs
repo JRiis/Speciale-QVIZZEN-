@@ -118,6 +118,10 @@ namespace Qvizzen
             TextView playername = FindViewById<TextView>(Resource.Id.textViewGameplayPlayername);
             playername.Text = GameplayCtr.CurrentPlayer.Name;
 
+            //Set color of timer label.
+            var black = new Android.Graphics.Color(0, 0, 0, 255);
+            timeLabel.SetTextColor(black);
+
             //Setup content adapter for list.
             ListView listAnwsers = FindViewById<ListView>(Resource.Id.listViewAnwsers);
             Adapter = new AnwserAdapterGameplay(this, question.Anwsers);

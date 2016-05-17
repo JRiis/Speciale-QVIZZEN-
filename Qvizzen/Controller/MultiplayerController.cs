@@ -28,6 +28,7 @@ namespace Qvizzen.Controller
         private Thread ServerThread;
         public ParentActivity AdapterActivity;
         public MultiplayerActivity MultiplayerActivity;
+        public bool Joining;
 
         private const int TCPPort = 4444;
         private const int UDPBroadcastPort = 4445;
@@ -43,6 +44,7 @@ namespace Qvizzen.Controller
             Players = new List<Player>();
             Lobbies = new List<Lobby>();
             IsHost = false;
+            Joining = false;
         }
 
         /// <summary>
@@ -82,15 +84,19 @@ namespace Qvizzen.Controller
 
         public void BeginJoinLobby(String ipAddress)
         {
-            Client.Connect(ipAddress, TCPPort);
-            ContentController ctr = ContentController.GetInstance();
-            string message = JsonConvert.SerializeObject(new List<string>() 
+            if (!Joining)
             {
-                "Connect", 
-                ctr.IPAddress, 
-                ctr.Name
-            });
-            Client.SendMessage(message);
+                Joining = true;
+                Client.Connect(ipAddress, TCPPort);
+                ContentController ctr = ContentController.GetInstance();
+                string message = JsonConvert.SerializeObject(new List<string>() 
+                {
+                    "Connect", 
+                    ctr.IPAddress, 
+                    ctr.Name
+                });
+                Client.SendMessage(message);
+            }
         }
 
         public void BeginLeaveLobby()

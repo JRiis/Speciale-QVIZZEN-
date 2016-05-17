@@ -233,6 +233,7 @@ namespace Qvizzen.Networking
                 catch (System.IO.IOException ex)
                 {
                     //Nothing I GUESS
+                    MultiplayerCtr.Joining = false;
                 }
             }
         }

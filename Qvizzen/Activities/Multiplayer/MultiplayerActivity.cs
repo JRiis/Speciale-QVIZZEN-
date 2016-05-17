@@ -86,6 +86,7 @@ namespace Qvizzen.Activities
         protected override void OnResume()
         {
             base.OnResume();
+            Adapter.NotifyDataSetChanged();
             ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
             MultiplayerCtr.BeginGetLobbies();
             Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
