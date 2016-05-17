@@ -12,7 +12,7 @@ using Android.Media;
 
 namespace Qvizzen
 {
-    [Activity(LaunchMode = LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "QvizzenMain", LaunchMode = LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : ParentActivity
     {
         private ContentController ContentCtr;
