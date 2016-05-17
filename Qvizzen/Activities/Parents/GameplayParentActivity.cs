@@ -16,6 +16,7 @@ using Android.Util;
 using Android.Content.PM;
 using AndroidSwipeLayout;
 using Qvizzen.Extensions;
+using Android.Media;
 
 namespace Qvizzen
 {
@@ -30,6 +31,7 @@ namespace Qvizzen
         internal Question CurrentQuestion;
         internal bool CanClick;
         internal bool IsYourTurn;
+        internal MediaPlayer TimerTickSound;
 
         internal const double AnwserTime = 1500;
 
@@ -47,6 +49,11 @@ namespace Qvizzen
                 {
                     var color = new Android.Graphics.Color(237, 50, 50, 255);
                     timerLabel.SetTextColor(color);
+
+                    //Starts a timer sound for low timer adventureh.
+                    TimerTickSound = MediaPlayer.Create(this, Resource.Raw.TimerTicking);
+                    TimerTickSound.Looping = true;
+                    TimerTickSound.Start();
                 }
 
                 //If timer is zero.
@@ -139,15 +146,25 @@ namespace Qvizzen
 
                     if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position], e.Position))
                     {
+                        //Updates question label.
                         questionLabel.Text = "Correct!";
                         var color = new Android.Graphics.Color(50, 237, 50, 255);
                         e.View.SetBackgroundColor(color);
+                        
+                        //Plays correct sound.
+                        MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Correct);
+                        Sound.Start();
                     }
                     else
                     {
+                        //Updates question label.
                         questionLabel.Text = "Incorrect!";
                         var color = new Android.Graphics.Color(237, 50, 50, 255);
                         e.View.SetBackgroundColor(color);
+
+                        //Plays Incorrect sound.
+                        MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Incorrect);
+                        Sound.Start();
                     }
 
                     //Starts Anwser Timer
@@ -181,16 +198,26 @@ namespace Qvizzen
 
                 if (item.IsCorrect)
                 {
+                    //Updates question label.
                     questionLabel.Text = "Correct!";
                     var color = new Android.Graphics.Color(50, 237, 50, 255);
                     view.SetBackgroundColor(color);
                     GameplayCtr.CurrentPlayer.Score += GameplayController.QuestionValue;
+
+                    //Plays correct sound.
+                    MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Correct);
+                    Sound.Start();
                 }
                 else
                 {
+                    //Updates question label.
                     questionLabel.Text = "Incorrect!";
                     var color = new Android.Graphics.Color(237, 50, 50, 255);
                     view.SetBackgroundColor(color);
+
+                    //Plays Incorrect sound.
+                    MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Incorrect);
+                    Sound.Start();
                 }
 
                 //Starts Anwser Timer
