@@ -8,19 +8,27 @@ using Android.OS;
 using Qvizzen.Controller;
 using Android.Content.PM;
 using Qvizzen.Activities;
+using Android.Media;
 
 namespace Qvizzen
 {
-    [Activity(Label = "Qvizzen", MainLauncher = true, Icon = "@drawable/icon", LaunchMode = LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Theme = "@style/MyTheme.Splash", Label = "Qvizzen", Icon = "@drawable/icon", LaunchMode = LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : ParentActivity
     {
         private ContentController ContentCtr;
-        
+
+        MediaPlayer MusicPlayer;
+
         protected override void OnCreate(Bundle bundle)
         {
             //Setup GUI
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+
+            //Plays music.
+            MusicPlayer = MediaPlayer.Create(this, Resource.Raw.Music);
+            MusicPlayer.Looping = true;
+            MusicPlayer.Start();
 
             //Loads content from phone.
             ContentCtr = ContentController.GetInstance();
