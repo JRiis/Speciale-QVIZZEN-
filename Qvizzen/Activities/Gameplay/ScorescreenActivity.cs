@@ -47,7 +47,7 @@ namespace Qvizzen
             {
                 if (ContentController.GetInstance().GameIsMultiplayer && MultiplayerController.GetInstance().IsHost)
                 {
-                    MultiplayerController.GetInstance().UnhostServer();
+                    MultiplayerController.GetInstance().BeginUnhostServer();
                 }
                 StartActivity(typeof(MainActivity));
             };

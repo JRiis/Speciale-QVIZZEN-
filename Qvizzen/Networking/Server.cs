@@ -22,6 +22,7 @@ namespace Qvizzen.Networking
         List<SocketHelper> Clients;
         Thread TCPThread;
         Thread UDPThread;
+        Thread PingThread;
         TcpListener TCPListener = null;
 
         private const int bufferSize = 2560000;
@@ -48,6 +49,13 @@ namespace Qvizzen.Networking
                 UDPListen(udpPort);
             }));
             UDPThread.Start();
+
+            //Starts an UDP listen port to listen for clients.
+            PingThread = new Thread(new ThreadStart(delegate
+            {
+                Ping();
+            }));
+            PingThread.Start();
         }
 
         /// <summary>
@@ -57,6 +65,8 @@ namespace Qvizzen.Networking
         {
             TCPThread.Abort();
             TCPThread = null;
+            PingThread.Abort();
+            PingThread = null;
             StopUDPListen();
 
             foreach (SocketHelper client in Clients)
@@ -87,6 +97,23 @@ namespace Qvizzen.Networking
             }
         }
 
+
+        /// <summary>
+        /// Constantly pings clients with messages to see if they disconnect.
+        /// </summary>
+        private void Ping()
+        {
+            string message = JsonConvert.SerializeObject(new List<string>() 
+            {
+                "Ping", 
+            });
+
+            while (true)
+            {
+                Thread.Sleep(1000);
+                SendMessageToClients(message);
+            } 
+        }
 
         /// <summary>
         /// Sends a message out to all connected clients.
@@ -236,8 +263,21 @@ namespace Qvizzen.Networking
                             NetworkStream stream = client.GetStream();
                             bytesSent = Encoding.ASCII.GetBytes(message);
                             stream.Write(bytesSent, 0, bytesSent.Length);
+
+                            //Determines message content to check for special case.
+                            string command = JsonConvert.DeserializeObject<List<string>>(message)[0];
+                            switch (command)
+                            {
+                                case "Unhost":
+                                    DisconnectClient();
+                                    if (MultiplayerCtr.Server.Clients.Count == 0)
+                                    {
+                                        MultiplayerCtr.StopServer();
+                                    }
+                                    break;
+                            }
                         }
-                        catch (System.NullReferenceException ex)
+                        catch (Exception ex)
                         {
                             DisconnectClient();
                         }
@@ -316,10 +356,9 @@ namespace Qvizzen.Networking
 
                         SendMessage(MstrResponse);
                     }
-                    catch (System.NullReferenceException ex)
+                    catch (Exception ex)
                     {
                         DisconnectClient();
-                        //TODO: Give chance to reconnect.
                     }
                 }
             }

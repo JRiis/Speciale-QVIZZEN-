@@ -224,11 +224,17 @@ namespace Qvizzen.Networking
                                 MultiplayerCtr.AnwserQuestionActivity(int.Parse(message[1]));
                             }
                             break;
+
+                        //Host stops the game.
+                        case "Unhost":
+                            MultiplayerCtr.FinishActivity();
+                            break;
                     }
                 }
                 catch (System.NullReferenceException ex)
                 {
                     //TODO: Just DC no more host geegee sad panda face ;<
+                    MultiplayerCtr.Joining = false;
                 }
                 catch (System.IO.IOException ex)
                 {

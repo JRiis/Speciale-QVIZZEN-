@@ -72,7 +72,16 @@ namespace Qvizzen.Controller
             IsHost = true;
         }
 
-        public void UnhostServer()
+        public void BeginUnhostServer()
+        {
+            string message = JsonConvert.SerializeObject(new List<string>() 
+                {
+                    "Unhost", 
+                });
+            Server.SendMessageToClients(message);
+        }
+
+        public void StopServer()
         {
             Server.StopServer();
             ServerThread.Abort();
@@ -81,6 +90,7 @@ namespace Qvizzen.Controller
             Players.Clear();
             IsHost = false;
         }
+
 
         public void BeginJoinLobby(String ipAddress)
         {
@@ -122,6 +132,11 @@ namespace Qvizzen.Controller
         public void UpdateAdapter()
         {
             AdapterActivity.AdapterUpdate();
+        }
+
+        public void FinishActivity()
+        {
+            AdapterActivity.Finish();
         }
 
         public void JoinLobby()
