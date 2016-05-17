@@ -12,7 +12,7 @@ using Android.Media;
 
 namespace Qvizzen
 {
-    [Activity(Theme = "@style/MyTheme.Splash", Label = "Qvizzen", Icon = "@drawable/icon", LaunchMode = LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(LaunchMode = LaunchMode.SingleTop, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : ParentActivity
     {
         private ContentController ContentCtr;
