@@ -212,7 +212,7 @@ namespace Qvizzen.Networking
                             MultiplayerCtr.UpdateAdapter();
                             break;
 
-                        //Player answers a question.
+                        //Player recives game have started.
                         case "Start":
                             MultiplayerCtr.StartMultiplayerGame();
                             break;

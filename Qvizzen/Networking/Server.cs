@@ -318,6 +318,7 @@ namespace Qvizzen.Networking
                     catch (System.NullReferenceException ex)
                     {
                         DisconnectClient();
+                        //TODO: Give chance to reconnect.
                     }
                 }
             }

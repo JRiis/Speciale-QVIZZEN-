@@ -42,8 +42,12 @@ namespace Qvizzen
                 TextView timerLabel = FindViewById<TextView>(Resource.Id.textViewTime);
                 timerLabel.Text = DisplayTime.ToString();
 
-                //TODO:
                 //If timer is low, give feedback to indicate short time remaining, by changing color.
+                if (DisplayTime == 10)
+                {
+                    var color = new Android.Graphics.Color(237, 50, 50, 255);
+                    timerLabel.SetTextColor(color);
+                }
 
                 //If timer is zero.
                 if (DisplayTime == 0)
