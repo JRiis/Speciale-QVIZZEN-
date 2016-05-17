@@ -15,7 +15,7 @@ namespace Qvizzen
 {
     [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, Label = "Qvizzen", Icon = "@drawable/icon", NoHistory = true)]
     public class SplashActivity : AppCompatActivity
-    {
+    {        
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
         {
             base.OnCreate(savedInstanceState, persistentState);

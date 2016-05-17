@@ -71,6 +71,20 @@ namespace Qvizzen
                     AnwserTimer.Elapsed += AnwserTimerTickEvent;
                     AnwserTimer.Enabled = true;
                     AnwserTimer.AutoReset = false;
+
+                    //Plays Incorrect sound.
+                    MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Incorrect);
+                    Sound.Start();
+
+                    //Stop timer ticking.
+                    try
+                    {
+                        TimerTickSound.Stop();
+                    }
+                    catch (System.NullReferenceException ex)
+                    {
+
+                    }
                 }
             });
         }
@@ -144,6 +158,16 @@ namespace Qvizzen
                     CanClick = false;
                     CountdownTimer.Stop();
 
+                    //Stop timer ticking.
+                    try
+                    {
+                        TimerTickSound.Stop();
+                    }
+                    catch (System.NullReferenceException ex)
+                    {
+
+                    }
+
                     if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position], e.Position))
                     {
                         //Updates question label.
@@ -192,6 +216,16 @@ namespace Qvizzen
                 //Updates Variables.
                 CanClick = false;
                 CountdownTimer.Stop();
+
+                //Stop timer ticking.
+                try
+                {
+                    TimerTickSound.Stop();
+                }
+                catch (System.NullReferenceException ex)
+                {
+
+                }
 
                 //Checks if correct anwser.
                 TextView questionLabel = FindViewById<TextView>(Resource.Id.textViewQuestion);

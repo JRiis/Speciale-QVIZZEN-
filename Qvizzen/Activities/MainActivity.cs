@@ -16,8 +16,7 @@ namespace Qvizzen
     public class MainActivity : ParentActivity
     {
         private ContentController ContentCtr;
-
-        MediaPlayer MusicPlayer;
+        private MediaPlayer MusicPlayer;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -28,6 +27,7 @@ namespace Qvizzen
             //Plays music.
             MusicPlayer = MediaPlayer.Create(this, Resource.Raw.Music);
             MusicPlayer.Looping = true;
+            MusicPlayer.SetVolume(0.2F, 0.2F);
             MusicPlayer.Start();
 
             //Loads content from phone.
@@ -55,6 +55,15 @@ namespace Qvizzen
             {
                 StartActivity(typeof(MultiplayerActivity));
             };
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            //MusicPlayer.Stop();
+            //MusicPlayer = MediaPlayer.Create(this, Resource.Raw.Music);
+            //MusicPlayer.Looping = true;
+            //MusicPlayer.Start();
         }
     }
 }
