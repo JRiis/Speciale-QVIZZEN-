@@ -271,9 +271,10 @@ namespace Qvizzen.Networking
                                 break;
                         }
                     }
-                    catch (System.NullReferenceException ex)
+                    catch (Exception ex)
                     {
-                        //Do fkin nothing
+                        //Finishes activtity.
+                        MultiplayerCtr.FinishActivity();
                     }
                 }
             }
