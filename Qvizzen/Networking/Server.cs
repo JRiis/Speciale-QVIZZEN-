@@ -126,6 +126,10 @@ namespace Qvizzen.Networking
             }
         }
 
+        /// <summary>
+        /// Listen for broadcasts on the UDPPort and responds with a lobby list for qvizzen players.
+        /// </summary>
+        /// <param name="port"></param>
         private void UDPListen(int port)
         {
             UdpClient UDPListener = new UdpClient(port);
@@ -209,7 +213,6 @@ namespace Qvizzen.Networking
                 WriteQueue.Enqueue(message);
             }
 
-
             /// <summary>
             /// Disconnects the client from the server and stops all threads for client.
             /// </summary>
@@ -219,17 +222,19 @@ namespace Qvizzen.Networking
                 MultiplayerCtr.Server.Clients.Remove(this);
                 MscClient.Close();
                 
-                //Removes player from player list.
+                //Sets player as disconnected on player list.
+                Player disconnectedPlayer = null;
                 foreach (Player player in MultiplayerCtr.Players)
                 {
                     if (player.IPAddress == ClientIPAddress)
                     {
-                        MultiplayerCtr.Players.Remove(player);
+                        player.IsConnected = false;
+                        disconnectedPlayer = player;
                         break;
                     }
                 }
 
-                //Sends update to all connected players.
+                //Sends updated playerlist to all connected players.
                 string message = JsonConvert.SerializeObject(new List<string>() 
                 {
                     "UpdatePlayerList", 
@@ -238,6 +243,19 @@ namespace Qvizzen.Networking
 
                 MultiplayerCtr.Server.SendMessageToClients(message);
                 MultiplayerCtr.UpdateAdapter();
+
+                ////Checks if player is current player.
+                //if (MultiplayerCtr.CurrentPlayer.IPAddress == disconnectedPlayer.IPAddress)
+                //{
+                //    //Starts next turn for all players immedieatly.
+                //    string message = JsonConvert.SerializeObject(new List<string>() 
+                //    {
+                //        "UpdatePlayerList", 
+                //        JsonConvert.SerializeObject(MultiplayerCtr.Players)
+                //    });
+
+                //    MultiplayerCtr.Server.SendMessageToClients(message);
+                //}
 
                 //Stops Threads
                 ReadThread.Abort();

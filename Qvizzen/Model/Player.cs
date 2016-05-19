@@ -18,6 +18,7 @@ namespace Qvizzen.Model
         public string Name;
         public int Score;
         public bool Host;
+        public bool IsConnected;
 
         public Player(string ipAddress, string name, bool host)
         {
@@ -25,6 +26,7 @@ namespace Qvizzen.Model
             Name = name;
             Host = host;
             Score = 0;
+            IsConnected = true;
         }
     }
 }

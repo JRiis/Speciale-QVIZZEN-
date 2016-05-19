@@ -71,6 +71,7 @@ namespace Qvizzen.Controller
         /// <summary>
         /// Gets the next player and updates the playerindex for current player. Resets player index
         /// to 0, if exceeds the amount of players in the game, essentially looping through players.
+        /// If a player is disconnected skips that player.
         /// </summary>
         /// <returns>Player</returns>
         public Player GetNextPlayer()
@@ -80,6 +81,10 @@ namespace Qvizzen.Controller
             if (PlayerIndex == Players.Count)
             {
                 PlayerIndex = 0;
+            }
+            if (!player.IsConnected)
+            {
+                player = GetNextPlayer();
             }
             return player;
         }
