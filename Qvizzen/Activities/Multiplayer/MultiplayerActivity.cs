@@ -52,7 +52,7 @@ namespace Qvizzen.Activities
                 if (SelectedLobbyAddress != "")
                 {
                     MultiplayerCtr.BeginJoinLobby(SelectedLobbyAddress);
-                }    
+                }
             };
 
             //Setup Edit Event for Title.
@@ -91,6 +91,7 @@ namespace Qvizzen.Activities
             MultiplayerCtr.BeginGetLobbies();
             Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
             listLobbies.Adapter = Adapter;
+            MultiplayerCtr.Joining = false;
         }
 
         protected override void OnStop()
@@ -103,7 +104,8 @@ namespace Qvizzen.Activities
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            //MultiplayerCtr.StopGetLobbies();
+            MultiplayerCtr.StopGetLobbies();
+            MultiplayerCtr.Lobbies.Clear();
         }
     }
 }

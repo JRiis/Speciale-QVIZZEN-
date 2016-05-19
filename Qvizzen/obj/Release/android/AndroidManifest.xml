@@ -2,22 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Qvizzen.Qvizzen" android:versionCode="1" android:versionName="1.0">
   <!--suppress UsesMinSdkAttributes-->
   <uses-sdk android:minSdkVersion="16" />
-  <application android:label="Qvizzen" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" android:name="mono.android.app.Application" android:allowBackup="true">
-    <activity android:label="ParentActivity" android:name="md58f781388ab3fd39766255521c8847301.ParentActivity" />
-    <activity android:label="GameplayActivity" android:name="md58f781388ab3fd39766255521c8847301.GameplayActivity" />
-    <activity android:label="ScorescreenActivity" android:name="md58f781388ab3fd39766255521c8847301.ScorescreenActivity" />
-    <activity android:label="SingleplayerPackageSelectionActivity" android:name="md58f781388ab3fd39766255521c8847301.SingleplayerPackageSelectionActivity" />
-    <activity android:label="PackageCreatorAnwserActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorAnwserActivity" />
-    <activity android:label="PackageCreatorQuestionActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorQuestionActivity" />
-    <activity android:label="PackageCreatorPackageActivity" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorPackageActivity" />
-    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:launchMode="singleTop" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MainActivity" />
-    <activity android:label="PackageCreatorMainActivity" android:name="md58f781388ab3fd39766255521c8847301.PackageCreatorMainActivity" />
-    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="Qvizzen.Qvizzen.mono.MonoRuntimeProvider.__mono_init__" />
-    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:launchMode="singleTop" android:screenOrientation="portrait" android:name="qvizzen.qvizzen.TrialSplashScreen" android:theme="@style/Mono.Android.Theme.Splash" android:noHistory="true">
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <application android:label="Qvizzen" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" android:name="mono.android.app.Application" android:allowBackup="true" android:icon="@drawable/icon">
+    <activity android:icon="@drawable/icon" android:label="Qvizzen" android:noHistory="true" android:theme="@style/MyTheme.Splash" android:name="md58f781388ab3fd39766255521c8847301.SplashActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:label="ParentActivity" android:name="md58f781388ab3fd39766255521c8847301.ParentActivity" />
+    <activity android:label="GameplayParentActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.GameplayParentActivity" />
+    <activity android:label="GameplayMultiplayerActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.GameplayMultiplayerActivity" />
+    <activity android:label="GameplaySingleplayerActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.GameplaySingleplayerActivity" />
+    <activity android:label="MultiplayerActivity" android:screenOrientation="portrait" android:name="md5678e1112c07d506c4787555b97aefc0f.MultiplayerActivity" />
+    <activity android:label="MultiplayerLobbyActivityClient" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MultiplayerLobbyActivityClient" />
+    <activity android:label="MultiplayerLobbyActivityHost" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MultiplayerLobbyActivityHost" />
+    <activity android:label="ScorescreenActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.ScorescreenActivity" />
+    <activity android:label="MultiplayerPackageSelectionActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MultiplayerPackageSelectionActivity" />
+    <activity android:label="SingleplayerPackageSelectionActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.SingleplayerPackageSelectionActivity" />
+    <activity android:label="PackageCreatorAnwserActivity" android:screenOrientation="portrait" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorAnwserActivity" />
+    <activity android:label="PackageCreatorQuestionActivity" android:screenOrientation="portrait" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorQuestionActivity" />
+    <activity android:label="PackageCreatorPackageActivity" android:screenOrientation="portrait" android:name="md5678e1112c07d506c4787555b97aefc0f.PackageCreatorPackageActivity" />
+    <activity android:label="QvizzenMain" android:launchMode="singleTop" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.MainActivity" />
+    <activity android:label="PackageCreatorMainActivity" android:screenOrientation="portrait" android:name="md58f781388ab3fd39766255521c8847301.PackageCreatorMainActivity" />
+    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="Qvizzen.Qvizzen.mono.MonoRuntimeProvider.__mono_init__" />
   </application>
 </manifest>

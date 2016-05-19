@@ -25,7 +25,7 @@ namespace Qvizzen.Networking
         Thread PingThread;
         TcpListener TCPListener = null;
 
-        private const int bufferSize = 2560000;
+        private const int BufferSize = 2560000;
 
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.
@@ -64,21 +64,19 @@ namespace Qvizzen.Networking
         public void StopServer()
         {
             TCPThread.Abort();
-            TCPThread = null;
             PingThread.Abort();
-            PingThread = null;
             StopUDPListen();
 
             foreach (SocketHelper client in Clients)
             {
+                client.MscClient.GetStream().Close();
+                client.MscClient.Close();
                 client.ReadThread.Abort();
                 client.WriteThread.Abort();
-                client.ReadThread = null;
-                client.WriteThread = null;
             }
 
             TCPListener.Stop();
-            Clients = null;
+            Clients.Clear();
         }
 
         /// <summary>
@@ -89,7 +87,6 @@ namespace Qvizzen.Networking
             try
             {
                 UDPThread.Abort();
-                UDPThread = null;
             }
             catch (NullReferenceException ex)
             {
@@ -110,7 +107,7 @@ namespace Qvizzen.Networking
 
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(3000);
                 SendMessageToClients(message);
             } 
         }
@@ -176,7 +173,7 @@ namespace Qvizzen.Networking
             Queue<string> WriteQueue = new Queue<string>();
             public Thread ReadThread;
             public Thread WriteThread;
-            TcpClient MscClient;
+            public TcpClient MscClient;
             List<string> MstrMessage;
             string MstrResponse;
             string ClientIPAddress;
@@ -188,6 +185,8 @@ namespace Qvizzen.Networking
             {
                 //Sets client variable.
                 MscClient = client;
+                MscClient.SendBufferSize = BufferSize;
+                MscClient.ReceiveBufferSize = BufferSize;
                 
                 //Starts a read thread.
                 ReadThread = new Thread(new ThreadStart(delegate
@@ -216,21 +215,40 @@ namespace Qvizzen.Networking
             /// <summary>
             /// Disconnects the client from the server and stops all threads for client.
             /// </summary>
-            private void DisconnectClient()
+            public void DisconnectClient()
             {                                
                 //Removes client from server.
                 MultiplayerCtr.Server.Clients.Remove(this);
+                MscClient.GetStream().Close();
                 MscClient.Close();
                 
-                //Sets player as disconnected on player list.
-                Player disconnectedPlayer = null;
-                foreach (Player player in MultiplayerCtr.Players)
+                //Checks if ingame.
+                if (MultiplayerCtr.IsIngame)
                 {
-                    if (player.IPAddress == ClientIPAddress)
+                    //Sets player as disconnected on player list.
+                    Player disconnectedPlayer = null;
+                    foreach (Player player in MultiplayerCtr.Players)
                     {
-                        player.IsConnected = false;
-                        disconnectedPlayer = player;
-                        break;
+                        if (player.IPAddress == ClientIPAddress)
+                        {
+                            player.IsConnected = false;
+                            disconnectedPlayer = player;
+                            break;
+                        }
+                    }
+                }
+                
+                //Else must be in lobby.
+                else
+                {
+                    //Removes player from player list.
+                    foreach (Player player in MultiplayerCtr.Players)
+                    {
+                        if (player.IPAddress == ClientIPAddress)
+                        {
+                            MultiplayerCtr.Players.Remove(player);
+                            break;
+                        }
                     }
                 }
 
@@ -260,8 +278,6 @@ namespace Qvizzen.Networking
                 //Stops Threads
                 ReadThread.Abort();
                 WriteThread.Abort();
-                ReadThread = null;
-                WriteThread = null;
             }
 
             /// <summary>
@@ -277,27 +293,15 @@ namespace Qvizzen.Networking
                         try
                         {
                             String message = WriteQueue.Dequeue();
-                            byte[] bytesSent = new byte[bufferSize];
+                            byte[] bytesSent = new byte[BufferSize];
                             NetworkStream stream = client.GetStream();
                             bytesSent = Encoding.ASCII.GetBytes(message);
                             stream.Write(bytesSent, 0, bytesSent.Length);
-
-                            //Determines message content to check for special case.
-                            string command = JsonConvert.DeserializeObject<List<string>>(message)[0];
-                            switch (command)
-                            {
-                                case "Unhost":
-                                    DisconnectClient();
-                                    if (MultiplayerCtr.Server.Clients.Count == 0)
-                                    {
-                                        MultiplayerCtr.StopServer();
-                                    }
-                                    break;
-                            }
                         }
                         catch (Exception ex)
                         {
                             DisconnectClient();
+                            Console.WriteLine("Server Write Error" + ex.Message);
                         }
                     }
                 }
@@ -313,7 +317,7 @@ namespace Qvizzen.Networking
                     try
                     {
                         Thread.Sleep(10);
-                        byte[] bytesReceived = new byte[bufferSize];
+                        byte[] bytesReceived = new byte[BufferSize];
                         NetworkStream stream = client.GetStream();
                         stream.Read(bytesReceived, 0, bytesReceived.Length);
                         string json = Encoding.ASCII.GetString(bytesReceived, 0, bytesReceived.Length);
@@ -331,17 +335,12 @@ namespace Qvizzen.Networking
                             //Player connects/joins lobby.
                             case "Connect":
                                 MultiplayerCtr.AddPlayer(MstrMessage[1], MstrMessage[2], false);
-                                var data = new Tuple<List<Player>, List<Question>, GamePack>
-                                (
-                                    MultiplayerCtr.Players,
-                                    MultiplayerCtr.Questions,
-                                    MultiplayerCtr.GamePack
-                                );
-
                                 MstrResponse = JsonConvert.SerializeObject(new List<string>() 
                                 {
                                     "Connect", 
-                                    JsonConvert.SerializeObject(data) 
+                                    JsonConvert.SerializeObject(MultiplayerCtr.Players),
+                                    JsonConvert.SerializeObject(MultiplayerCtr.Questions),
+                                    JsonConvert.SerializeObject(MultiplayerCtr.GamePack)
                                 });
 
                                 ClientIPAddress = MstrMessage[1];
@@ -377,6 +376,7 @@ namespace Qvizzen.Networking
                     catch (Exception ex)
                     {
                         DisconnectClient();
+                        Console.WriteLine("Server Read Error" + ex.Message);
                     }
                 }
             }

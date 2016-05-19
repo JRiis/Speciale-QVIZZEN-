@@ -14,7 +14,6 @@ using Qvizzen.Adapters;
 using Qvizzen.Activities;
 using Android.Util;
 using Android.Content.PM;
-using AndroidSwipeLayout;
 
 namespace Qvizzen
 {

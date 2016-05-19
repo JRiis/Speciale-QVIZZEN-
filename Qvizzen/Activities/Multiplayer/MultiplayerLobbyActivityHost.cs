@@ -62,7 +62,7 @@ namespace Qvizzen
         {
             base.OnDestroy();
             //TODO: Disconnect/Unhost.
-            MultiplayerCtr.BeginUnhostServer();
+            MultiplayerCtr.UnhostServer();
         }
     }
 }

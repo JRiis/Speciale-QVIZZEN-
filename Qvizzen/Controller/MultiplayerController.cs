@@ -45,6 +45,7 @@ namespace Qvizzen.Controller
             Lobbies = new List<Lobby>();
             IsHost = false;
             Joining = false;
+            IsIngame = false;
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Qvizzen.Controller
             Server.SendMessageToClients(message);
         }
 
-        public void StopServer()
+        public void UnhostServer()
         {
             Server.StopServer();
             ServerThread.Abort();

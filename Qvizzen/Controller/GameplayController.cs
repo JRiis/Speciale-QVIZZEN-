@@ -26,6 +26,7 @@ namespace Qvizzen.Controller
         public List<Player> Players;
         public Player CurrentPlayer;
         public int PlayerIndex;
+        public bool IsIngame;
 
         public const int DefaultTimer = 30;
         public const int QuestionValue = 1;

@@ -32,7 +32,7 @@ namespace Qvizzen.Networking
         Thread BroadcastThread;
         public MultiplayerController MultiplayerCtr;
 
-        private const int bufferSize = 2560000;
+        private const int BufferSize = 2560000;
 
         public Client()
         {
@@ -47,6 +47,8 @@ namespace Qvizzen.Networking
             try
             {
                 TCPClient = new TcpClient(serverIP, port);
+                TCPClient.SendBufferSize = BufferSize;
+                TCPClient.ReceiveBufferSize = BufferSize;
 
                 ReadThread = new Thread(ReadTCP);
                 ReadThread.Start();
@@ -80,6 +82,7 @@ namespace Qvizzen.Networking
             WriteThread = null;
             ReadThread = null;
 
+            TCPClient.GetStream().Close();
             TCPClient.Close();
         }
 
@@ -129,11 +132,11 @@ namespace Qvizzen.Networking
                 catch (System.Net.Sockets.SocketException ex)
                 {
                     //TODO: Error message or something? Not connected to internet error.
-                    return;
+                    continue;
                 }
-                catch (System.NullReferenceException ex)
+                catch (System.ObjectDisposedException ex)
                 {
-                    //aehdunnoman
+                    //Expected when broadcast is closing. Do nothing.
                 }
             }
         }
@@ -146,10 +149,13 @@ namespace Qvizzen.Networking
             try
             {
                 UDPReadThread.Abort();
-                UDPReadThread = null;
+                //UDPReadThread = null;
 
                 BroadcastThread.Abort();
-                BroadcastThread = null;
+                //BroadcastThread = null;
+
+                UDPClient.Close();
+                //UDPClient = null;
             }
             catch (System.NullReferenceException ex)
             {
@@ -168,7 +174,7 @@ namespace Qvizzen.Networking
                 {
                     Thread.Sleep(10);
                     NetworkStream stream = TCPClient.GetStream();
-                    Byte[] ReciveData = new byte[bufferSize];
+                    Byte[] ReciveData = new byte[BufferSize];
                     Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
                     string json = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
                     List<string> message = JsonConvert.DeserializeObject<List<string>>(json);
@@ -179,15 +185,12 @@ namespace Qvizzen.Networking
                     {
                         //Player connects/joins lobby.
                         case "Connect":
-                            string textData1 = message[1];
-                            var data1 = JsonConvert.DeserializeObject<Tuple<List<Player>, List<Question>, GamePack>>(textData1);
-
-                            MultiplayerCtr.Players = data1.Item1;
-                            MultiplayerCtr.Questions = data1.Item2;
-                            MultiplayerCtr.GamePack = data1.Item3;
+                            MultiplayerCtr.Players = JsonConvert.DeserializeObject<List<Player>>(message[1]);
+                            MultiplayerCtr.Questions = JsonConvert.DeserializeObject<List<Question>>(message[2]);
+                            MultiplayerCtr.GamePack = JsonConvert.DeserializeObject<GamePack>(message[3]);
 
                             var ctr = ContentController.GetInstance();
-                            foreach (Pack newPack in data1.Item3.Packs)
+                            foreach (Pack newPack in JsonConvert.DeserializeObject<GamePack>(message[3]).Packs)
                             {
                                 foreach (Pack pack in ctr.Content)
                                 {
@@ -228,17 +231,18 @@ namespace Qvizzen.Networking
                         //Host stops the game.
                         case "Unhost":
                             MultiplayerCtr.FinishActivity();
+                            MultiplayerCtr.Joining = false;
+                            break;
+
+                        //Ping
+                        case "Ping":
+                            //Do Nothing...
                             break;
                     }
                 }
-                catch (System.NullReferenceException ex)
+                catch (FormatException ex)
                 {
-                    //TODO: Just DC no more host geegee sad panda face ;<
-                    MultiplayerCtr.Joining = false;
-                }
-                catch (System.IO.IOException ex)
-                {
-                    //Nothing I GUESS
+                    MultiplayerCtr.FinishActivity();
                     MultiplayerCtr.Joining = false;
                 }
             }
@@ -257,7 +261,7 @@ namespace Qvizzen.Networking
                     try
                     {
                         String message = WriteQueue.Dequeue();
-                        Byte[] SendData = new Byte[bufferSize];
+                        Byte[] SendData = new Byte[BufferSize];
                         SendData = System.Text.Encoding.ASCII.GetBytes(message);
                         NetworkStream stream = TCPClient.GetStream();
                         stream.Write(SendData, 0, SendData.Length);
@@ -271,7 +275,7 @@ namespace Qvizzen.Networking
                                 break;
                         }
                     }
-                    catch (Exception ex)
+                    catch (System.IO.IOException ex)
                     {
                         //Finishes activtity.
                         MultiplayerCtr.FinishActivity();
@@ -313,7 +317,7 @@ namespace Qvizzen.Networking
                     MultiplayerCtr.Lobbies.Add(lobby);
                     MultiplayerCtr.UpdateAdapter();
                 }
-                catch (System.NullReferenceException ex)
+                catch (Exception ex)
                 {
                     //gg
                 }

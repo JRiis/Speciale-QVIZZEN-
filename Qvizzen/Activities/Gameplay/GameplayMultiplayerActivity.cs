@@ -14,7 +14,6 @@ using Qvizzen.Adapters;
 using Qvizzen.Activities;
 using Android.Util;
 using Android.Content.PM;
-using AndroidSwipeLayout;
 using Qvizzen.Extensions;
 
 namespace Qvizzen
@@ -30,6 +29,7 @@ namespace Qvizzen
 
             //Setup Controller
             GameplayCtr = MultiplayerController.GetInstance();
+            GameplayCtr.IsIngame = true;
 
             //Starts Gameplay
             ContentController.GetInstance().GameIsMultiplayer = true;

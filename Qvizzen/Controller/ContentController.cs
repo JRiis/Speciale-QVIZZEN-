@@ -45,7 +45,7 @@ namespace Qvizzen.Controller
                 bool havePack = false;
                 foreach (Pack pack in Content)
                 {
-                    if (pack.Name == "Pack #" + i.ToString())
+                    if (pack.Name == "Pack " + i.ToString())
                     {
                         havePack = true;
                         break;
@@ -58,17 +58,17 @@ namespace Qvizzen.Controller
                 }
                 
                 Pack newPack = new Pack();
-                newPack.Name = "Pack #" + i.ToString();
+                newPack.Name = "Pack " + i.ToString();
                 for (int i2 = 1; i2 < 8; i2++)
                 {
                     Question question = new Question();
-                    question.Text = "Question #" + i2.ToString();
+                    question.Text = "Question " + i2.ToString();
                     newPack.Questions.Add(question);
 
                     for (int i3 = 1; i3 < 5; i3++)
                     {
                         Anwser anwser = new Anwser();
-                        anwser.Text = "Answer #" + i3.ToString();
+                        anwser.Text = "Answer " + i3.ToString();
                         if (i3 == 1)
                         {
                             anwser.IsCorrect = true;

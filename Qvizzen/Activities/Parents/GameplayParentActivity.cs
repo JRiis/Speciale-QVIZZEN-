@@ -14,7 +14,6 @@ using Qvizzen.Adapters;
 using Qvizzen.Activities;
 using Android.Util;
 using Android.Content.PM;
-using AndroidSwipeLayout;
 using Qvizzen.Extensions;
 using Android.Media;
 
@@ -297,6 +296,7 @@ namespace Qvizzen
                 AnwserTimer.Dispose();
             }
             catch (System.NullReferenceException) { }
+            GameplayCtr.IsIngame = false;
         }
     }
 }
