@@ -137,6 +137,7 @@ namespace Qvizzen.Controller
 
         public void FinishActivity()
         {
+            AdapterActivity.SetResult(Result.Ok);
             AdapterActivity.Finish();
         }
 

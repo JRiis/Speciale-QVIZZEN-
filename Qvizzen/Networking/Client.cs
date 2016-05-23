@@ -132,7 +132,7 @@ namespace Qvizzen.Networking
             {
                 try
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(1500);
                     byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
                     UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
                 }

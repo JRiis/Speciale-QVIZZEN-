@@ -79,6 +79,7 @@ namespace Qvizzen
                     try
                     {
                         TimerTickSound.Stop();
+                        TimerTickSound.Release();
                     }
                     catch (System.NullReferenceException ex)
                     {
@@ -138,6 +139,12 @@ namespace Qvizzen
             TextView playername = FindViewById<TextView>(Resource.Id.textViewGameplayPlayername);
             playername.Text = GameplayCtr.CurrentPlayer.Name;
 
+            //Check if singleplayer.
+            if (!ContentController.GetInstance().GameIsMultiplayer)
+            {
+                playername.Text = "";
+            }
+
             //Set color of timer label.
             var black = new Android.Graphics.Color(0, 0, 0, 255);
             timeLabel.SetTextColor(black);
@@ -161,6 +168,7 @@ namespace Qvizzen
                     try
                     {
                         TimerTickSound.Stop();
+                        TimerTickSound.Release();
                     }
                     catch (System.NullReferenceException ex)
                     {
@@ -176,6 +184,10 @@ namespace Qvizzen
                         
                         //Plays correct sound.
                         MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Correct);
+                        Sound.Completion += delegate
+                        {
+                            Sound.Release();
+                        };
                         Sound.Start();
                     }
                     else
@@ -187,6 +199,10 @@ namespace Qvizzen
 
                         //Plays Incorrect sound.
                         MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Incorrect);
+                        Sound.Completion += delegate
+                        {
+                            Sound.Release();
+                        };
                         Sound.Start();
                     }
 
@@ -223,6 +239,7 @@ namespace Qvizzen
                 try
                 {
                     TimerTickSound.Stop();
+                    TimerTickSound.Release();
                 }
                 catch (System.NullReferenceException ex)
                 {
@@ -242,6 +259,10 @@ namespace Qvizzen
 
                     //Plays correct sound.
                     MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Correct);
+                    Sound.Completion += delegate
+                    {
+                        Sound.Release();
+                    };
                     Sound.Start();
                 }
                 else
@@ -253,6 +274,10 @@ namespace Qvizzen
 
                     //Plays Incorrect sound.
                     MediaPlayer Sound = MediaPlayer.Create(this, Resource.Raw.Incorrect);
+                    Sound.Completion += delegate
+                    {
+                        Sound.Release();
+                    };
                     Sound.Start();
                 }
 
@@ -267,30 +292,6 @@ namespace Qvizzen
                 AnwserTimer.Enabled = true;
                 AnwserTimer.AutoReset = false;
             });
-        }
-
-        protected override void OnStop()
-        {
-            base.OnStop();
-            try
-            {
-                //Pauses Timers
-                CountdownTimer.Stop();
-                AnwserTimer.Stop();
-            }
-            catch (System.NullReferenceException) { }
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-            try
-            {
-                //Resumes Timers
-                CountdownTimer.Start();
-                AnwserTimer.Start();
-            }
-            catch (System.NullReferenceException) { }
         }
 
         protected override void OnDestroy()

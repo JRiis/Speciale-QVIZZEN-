@@ -26,19 +26,37 @@ namespace Qvizzen
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Gameplay);
 
-            //TODO: Boolean for multiplayer/singleplayer.
-
             //Setup Controller
             GameplayCtr = SingleplayerController.GetInstance();
-
-            //Set playername.
-            TextView playername = FindViewById<TextView>(Resource.Id.textViewGameplayPlayername);
-            playername.Text = "";
 
             //Starts Gameplay
             ContentController.GetInstance().GameIsMultiplayer = false;
             GameplayCtr.SetupGamePack();
             GameplayCtr.StartGame(this);
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            try
+            {
+                //Pauses Timers
+                CountdownTimer.Stop();
+                AnwserTimer.Stop();
+            }
+            catch (System.NullReferenceException) { }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            try
+            {
+                //Resumes Timers
+                CountdownTimer.Start();
+                AnwserTimer.Start();
+            }
+            catch (System.NullReferenceException) { }
         }
     }
 }
