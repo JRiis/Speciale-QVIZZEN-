@@ -140,7 +140,7 @@ namespace Qvizzen.Networking
                 if (clientRequest == "Qviz")
                 {
                     IPAddress ipAddress = Dns.GetHostEntry(String.Empty).AddressList[0];
-                    Lobby lobby = new Lobby(ipAddress.ToString(), ContentController.GetInstance().Name, Clients.Count);
+                    Lobby lobby = new Lobby(ipAddress.ToString(), ContentController.GetInstance().Name, MultiplayerController.GetInstance().Players.Count);
                     string json = JsonConvert.SerializeObject(lobby);
                     byte[] response = Encoding.ASCII.GetBytes(json);
                     UDPListener.Send(response, response.Length, clientEndpoint);

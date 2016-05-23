@@ -30,6 +30,7 @@ namespace Qvizzen.Networking
         Queue<string> WriteQueue;
         Thread WriteThread;
         Thread BroadcastThread;
+        Thread PingThread;
         public MultiplayerController MultiplayerCtr;
 
         private const int BufferSize = 2560000;
@@ -55,6 +56,10 @@ namespace Qvizzen.Networking
 
                 WriteThread = new Thread(WriteTCP);
                 WriteThread.Start();
+
+                PingThread = new Thread(Ping);
+                PingThread.Start();
+
             }
             catch (System.Net.Sockets.SocketException ex)
             {
@@ -78,9 +83,11 @@ namespace Qvizzen.Networking
         {            
             ReadThread.Abort();
             WriteThread.Abort();
+            PingThread.Abort();
 
             WriteThread = null;
             ReadThread = null;
+            PingThread = null;
 
             TCPClient.GetStream().Close();
             TCPClient.Close();
@@ -161,6 +168,24 @@ namespace Qvizzen.Networking
             {
                 //Do Nothing
             }
+        }
+
+
+        /// <summary>
+        /// Constantly pings the host to check for active connection.
+        /// </summary>
+        public void Ping()
+        {
+            string message = JsonConvert.SerializeObject(new List<string>() 
+            {
+                "Ping", 
+            });
+
+            while (true)
+            {
+                Thread.Sleep(3000);
+                SendMessage(message);
+            } 
         }
 
         /// <summary>
@@ -299,19 +324,13 @@ namespace Qvizzen.Networking
                     string responseData = System.Text.Encoding.ASCII.GetString(reciveData, 0, reciveData.Length);
                     Lobby lobby = JsonConvert.DeserializeObject<Lobby>(responseData);
 
-                    bool lobbyAlreadyExists = false;
                     foreach (Lobby check in MultiplayerCtr.Lobbies)
                     {
                         if (check.IPAddress == lobby.IPAddress)
                         {
-                            lobbyAlreadyExists = true;
+                            MultiplayerCtr.Lobbies.Remove(check);
                             break;
                         }
-                    }
-
-                    if (lobbyAlreadyExists)
-                    {
-                        continue;
                     }
 
                     MultiplayerCtr.Lobbies.Add(lobby);
