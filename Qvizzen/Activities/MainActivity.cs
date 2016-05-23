@@ -16,7 +16,7 @@ namespace Qvizzen
     public class MainActivity : ParentActivity
     {
         private ContentController ContentCtr;
-        public MediaPlayer MusicPlayer;
+        public static MediaPlayer MusicPlayer;
 
         protected override void OnCreate(Bundle bundle)
         {

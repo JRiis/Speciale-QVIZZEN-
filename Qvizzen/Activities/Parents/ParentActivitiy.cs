@@ -21,6 +21,14 @@ namespace Qvizzen
         {
             base.OnCreate(bundle);
             this.Window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
+            try
+            {
+                MainActivity.MusicPlayer.Start();
+            }
+            catch (System.NullReferenceException)
+            {
+                //Do Nothing.
+            }
         }
 
         protected override void OnPause()
@@ -28,6 +36,15 @@ namespace Qvizzen
             base.OnPause();
             ContentCtr = ContentController.GetInstance();
             ContentCtr.SaveContent();
+            MainActivity.MusicPlayer.Pause();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnPause();
+            ContentCtr = ContentController.GetInstance();
+            ContentCtr.SaveContent();
+            MainActivity.MusicPlayer.Start();
         }
 
         /// <summary>
