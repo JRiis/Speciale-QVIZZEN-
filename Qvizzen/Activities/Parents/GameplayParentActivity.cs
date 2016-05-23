@@ -96,7 +96,7 @@ namespace Qvizzen
                 if (GameplayCtr.FinalQuestion)
                 {
                     //Ends the game.
-                    StartActivity(typeof(ScorescreenActivity));
+                    StartActivityForResult(typeof(ScorescreenActivity), 0);
                 }
                 else
                 {
@@ -190,6 +190,9 @@ namespace Qvizzen
                         Sound.Start();
                     }
 
+                    //Updates score label.
+                    scoreLabel.Text = "Score: " + GameplayCtr.CurrentPlayer.Score.ToString();
+
                     //Starts Anwser Timer
                     AnwserTimer = new Timer();
                     AnwserTimer.Interval = AnwserTime;
@@ -253,6 +256,10 @@ namespace Qvizzen
                     Sound.Start();
                 }
 
+                //Updates score label.
+                TextView scoreLabel = FindViewById<TextView>(Resource.Id.textViewScore);
+                scoreLabel.Text = "Score: " + GameplayCtr.CurrentPlayer.Score.ToString();
+
                 //Starts Anwser Timer
                 AnwserTimer = new Timer();
                 AnwserTimer.Interval = AnwserTime;
@@ -297,6 +304,24 @@ namespace Qvizzen
             }
             catch (System.NullReferenceException) { }
             GameplayCtr.IsIngame = false;
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 0)
+            {
+                SetResult(Result.Ok);
+                Finish();
+            }
+        }
+
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            SetResult(Result.Ok);
+            Finish();
         }
     }
 }

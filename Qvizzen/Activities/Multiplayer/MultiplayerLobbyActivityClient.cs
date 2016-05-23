@@ -46,5 +46,23 @@ namespace Qvizzen
             base.OnDestroy();
             MultiplayerCtr.BeginLeaveLobby();
         }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 0)
+            {
+                SetResult(Result.Ok);
+                Finish();
+            }
+        }
+
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            SetResult(Result.Canceled);
+            Finish();
+        }
     }
 }

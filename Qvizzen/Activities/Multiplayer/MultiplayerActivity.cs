@@ -41,7 +41,7 @@ namespace Qvizzen.Activities
             Button buttonHost = FindViewById<Button>(Resource.Id.buttonHost);
             buttonHost.Click += delegate
             {
-                StartActivity(typeof(MultiplayerPackageSelectionActivity));
+                StartActivityForResult(typeof(MultiplayerPackageSelectionActivity), 0);
             };
 
             //Setup Click Event for Join Button.
@@ -106,6 +106,16 @@ namespace Qvizzen.Activities
             base.OnDestroy();
             MultiplayerCtr.StopGetLobbies();
             MultiplayerCtr.Lobbies.Clear();
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 0 && resultCode == Result.Ok)
+            {
+                Finish();
+            }
         }
     }
 }

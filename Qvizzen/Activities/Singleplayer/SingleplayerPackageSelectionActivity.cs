@@ -61,9 +61,19 @@ namespace Qvizzen
                     GamePack gamePack = new GamePack();
                     SingleplayerCtr.GamePack = gamePack;
                     gamePack.Packs = SelectedPacks;
-                    StartActivity(typeof(GameplaySingleplayerActivity));
+                    StartActivityForResult(typeof(GameplaySingleplayerActivity), 0);
                 }
             };
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            
+            if (requestCode == 0)
+            {
+                Finish();
+            }
         }
     }
 }

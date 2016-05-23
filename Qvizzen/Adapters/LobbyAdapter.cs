@@ -44,7 +44,7 @@ namespace Qvizzen.Adapters
             {
                 view = Context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItemChecked, null);
             }
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = LobbyList[position].Hostname;
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = LobbyList[position].Hostname + " (" + LobbyList[position].Count + ")";
             view.FindViewById<TextView>(Android.Resource.Id.Text1).TextSize = 20;
             return view;
         }

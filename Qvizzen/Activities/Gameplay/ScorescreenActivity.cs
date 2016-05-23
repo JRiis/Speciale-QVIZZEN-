@@ -19,7 +19,6 @@ namespace Qvizzen
     public class ScorescreenActivity : ParentActivity
     {
         private GameplayController GameplayCtr;
-        private ScoreAdapter Adapter;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -45,11 +44,8 @@ namespace Qvizzen
             Button buttonMainMenu = FindViewById<Button>(Resource.Id.buttonMainMenu);
             buttonMainMenu.Click += delegate
             {
-                if (ContentController.GetInstance().GameIsMultiplayer && MultiplayerController.GetInstance().IsHost)
-                {
-                    MultiplayerController.GetInstance().UnhostServer();
-                }
-                StartActivity(typeof(MainActivity));
+                SetResult(Result.Ok);
+                Finish();
             };
         }
 
@@ -57,6 +53,13 @@ namespace Qvizzen
         {
             base.OnResume();
             Adapter.NotifyDataSetChanged();
+        }
+
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            SetResult(Result.Ok);
+            Finish();
         }
     }
 }

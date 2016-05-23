@@ -41,7 +41,7 @@ namespace Qvizzen
                 MultiplayerCtr.StartMultiplayerGame();
             };
 
-            //Hosts dat server doe.
+            //Hosts a server.
             MultiplayerCtr.HostServer();
         }
 
@@ -49,20 +49,29 @@ namespace Qvizzen
         {
             base.OnResume();
             Adapter.NotifyDataSetChanged();
-            //TODO: Reconnect
-        }
-
-        protected override void OnStop()
-        {
-            base.OnStop();
-            //TODO: Disconnect? Also perhaps boolean to check if player is host.
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            //TODO: Disconnect/Unhost.
             MultiplayerCtr.UnhostServer();
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 0)
+            {
+                SetResult(Result.Ok);
+                Finish();
+            }
+        }
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            SetResult(Result.Canceled);
+            Finish();
         }
     }
 }

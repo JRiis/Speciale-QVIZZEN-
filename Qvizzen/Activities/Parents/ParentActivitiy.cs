@@ -48,7 +48,7 @@ namespace Qvizzen
         {
             RunOnUiThread(() =>
             {
-                StartActivity(activity);
+                StartActivityForResult(activity, 0);
             });
         }
     }

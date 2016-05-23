@@ -62,11 +62,33 @@ namespace Qvizzen
                     gamePack.Packs = SelectedPacks;
                     MultiplayerCtr.GamePack = gamePack;
                     MultiplayerCtr.AddPlayer(ContentCtr.IPAddress, ContentCtr.Name, true);
-                    StartActivity(typeof(MultiplayerLobbyActivityHost));
-                    //TODO: Host multiplayer lobby.
-
+                    StartActivityForResult(typeof(MultiplayerLobbyActivityHost), 0);
                 }
             };
+        }
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            SetResult(Result.Canceled);
+            Finish();
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 0)
+            {
+                if (resultCode == Result.Ok)
+                {
+                    SetResult(Result.Ok);
+                    Finish();
+                }
+                else
+                {
+                    Finish();
+                }
+            }
         }
     }
 }
