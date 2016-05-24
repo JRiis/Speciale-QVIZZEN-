@@ -33,7 +33,7 @@ namespace Qvizzen.Networking
         Thread PingThread;
         public MultiplayerController MultiplayerCtr;
 
-        private const int BufferSize = 2560000;
+        private const int BufferSize = 256000;
 
         public Client()
         {
@@ -193,14 +193,16 @@ namespace Qvizzen.Networking
         /// </summary>
         public void ReadTCP()
         {
+            NetworkStream stream = TCPClient.GetStream();
+            Byte[] LeftOverBuffer = new byte[BufferSize];
+            
             while (true)
             {
                 try
                 {
                     Thread.Sleep(10);
-                    NetworkStream stream = TCPClient.GetStream();
                     Byte[] ReciveData = new byte[BufferSize];
-                    Int32 bytes = stream.Read(ReciveData, 0, ReciveData.Length);
+                    GetMessageFromStream(stream, ReciveData, '\0', LeftOverBuffer);
                     string json = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
                     List<string> message = JsonConvert.DeserializeObject<List<string>>(json);
 
@@ -269,6 +271,8 @@ namespace Qvizzen.Networking
                 {
                     MultiplayerCtr.FinishActivity();
                     MultiplayerCtr.Joining = false;
+                    Disconnect();
+                    break;
                 }
             }
         }
@@ -304,6 +308,8 @@ namespace Qvizzen.Networking
                     {
                         //Finishes activtity.
                         MultiplayerCtr.FinishActivity();
+                        Disconnect();
+                        break;
                     }
                 }
             }
@@ -340,6 +346,51 @@ namespace Qvizzen.Networking
                 {
                     //gg
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// Blocking method that returns a complete message from the network stream. Message is considered complete
+        /// after the given delimiter. Leftover from that read operation is stored in leftover array which is reused,
+        /// upon next method call to ensure no data is lost.
+        /// </summary>
+        /// <param name="stream">Network stream of the TcpClient.</param>
+        /// <param name="buffer">Buffer to store complete message.</param>
+        /// <param name="deli">Deliminater character used for message end.</param>
+        /// <param name="leftover">Buffer to store and reuse leftover data from read operations.</param>
+        private void GetMessageFromStream(NetworkStream stream, Byte[] buffer, char deli, Byte[] leftover)
+        {
+            //Gets data from the leftover buffer.
+            int size = leftover.Count(s => s != null);
+            Array.Copy(leftover, 0, buffer, 0, size);
+            int readSoFar = size;
+
+            //Continuesly reads until a deliminiter is found.
+            bool messageComplete = false;
+            while (!messageComplete)
+            {
+                var read = stream.Read(buffer, readSoFar, buffer.Length - readSoFar);
+                var chars = System.Text.Encoding.ASCII.GetChars(buffer, readSoFar, buffer.Length - readSoFar);
+
+                //Checks for delimiter.
+                for (int i = 0; i < chars.Length; i++)
+                {
+                    if (chars[i] == deli)
+                    {
+                        messageComplete = true;
+                        if (i != chars.Length)
+                        {
+                            //Stores leftover from read operation in the leftover buffer.
+                            Array.Copy(buffer, i, leftover, 0, buffer.Length);
+                        }
+
+                        //Resizes the messsage buffer to size of message.
+                        Array.Resize<Byte>(ref buffer, i);
+                    }
+                }
+
+                readSoFar += read;
             }
         }
     }

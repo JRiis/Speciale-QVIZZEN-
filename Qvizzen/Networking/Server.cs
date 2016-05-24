@@ -25,7 +25,7 @@ namespace Qvizzen.Networking
         Thread PingThread;
         TcpListener TCPListener = null;
 
-        private const int BufferSize = 2560000;
+        private const int BufferSize = 256000;
 
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.
@@ -262,19 +262,6 @@ namespace Qvizzen.Networking
                 MultiplayerCtr.Server.SendMessageToClients(message);
                 MultiplayerCtr.UpdateAdapter();
 
-                ////Checks if player is current player.
-                //if (MultiplayerCtr.CurrentPlayer.IPAddress == disconnectedPlayer.IPAddress)
-                //{
-                //    //Starts next turn for all players immedieatly.
-                //    string message = JsonConvert.SerializeObject(new List<string>() 
-                //    {
-                //        "UpdatePlayerList", 
-                //        JsonConvert.SerializeObject(MultiplayerCtr.Players)
-                //    });
-
-                //    MultiplayerCtr.Server.SendMessageToClients(message);
-                //}
-
                 //Stops Threads
                 ReadThread.Abort();
                 WriteThread.Abort();
@@ -293,15 +280,17 @@ namespace Qvizzen.Networking
                         try
                         {
                             String message = WriteQueue.Dequeue();
-                            byte[] bytesSent = new byte[BufferSize];
+                            byte[] bytesSent = new byte[message.Length + 1];
                             NetworkStream stream = client.GetStream();
                             bytesSent = Encoding.ASCII.GetBytes(message);
+                            bytesSent[bytesSent.Length - 1] = Encoding.ASCII.GetBytes(new char[] {'\0'})[0];
                             stream.Write(bytesSent, 0, bytesSent.Length);
                         }
                         catch (Exception ex)
                         {
                             DisconnectClient();
                             Console.WriteLine("Server Write Error" + ex.Message);
+                            break;
                         }
                     }
                 }
@@ -377,6 +366,7 @@ namespace Qvizzen.Networking
                     {
                         DisconnectClient();
                         Console.WriteLine("Server Read Error" + ex.Message);
+                        break;
                     }
                 }
             }
