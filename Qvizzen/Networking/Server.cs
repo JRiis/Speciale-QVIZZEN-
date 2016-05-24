@@ -26,6 +26,7 @@ namespace Qvizzen.Networking
         TcpListener TCPListener = null;
 
         private const int BufferSize = 256000;
+        public const char Delimiter = '\0';
 
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.
@@ -283,7 +284,7 @@ namespace Qvizzen.Networking
                             byte[] bytesSent = new byte[message.Length + 1];
                             NetworkStream stream = client.GetStream();
                             bytesSent = Encoding.ASCII.GetBytes(message);
-                            bytesSent[bytesSent.Length - 1] = Encoding.ASCII.GetBytes(new char[] {'\0'})[0];
+                            bytesSent[bytesSent.Length - 1] = Encoding.ASCII.GetBytes(new char[] { Delimiter })[0];
                             stream.Write(bytesSent, 0, bytesSent.Length);
                         }
                         catch (Exception ex)

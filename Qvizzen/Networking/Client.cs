@@ -34,6 +34,7 @@ namespace Qvizzen.Networking
         public MultiplayerController MultiplayerCtr;
 
         private const int BufferSize = 256000;
+        private const char Delimiter = '\0';
 
         public Client()
         {
@@ -132,7 +133,7 @@ namespace Qvizzen.Networking
             {
                 try
                 {
-                    Thread.Sleep(1500);
+                    Thread.Sleep(500);
                     byte[] broadcast = Encoding.ASCII.GetBytes("Qviz");
                     UDPClient.Send(broadcast, broadcast.Length, new IPEndPoint(IPAddress.Broadcast, port));
                 }
@@ -193,7 +194,6 @@ namespace Qvizzen.Networking
         /// </summary>
         public void ReadTCP()
         {
-            NetworkStream stream = TCPClient.GetStream();
             Byte[] LeftOverBuffer = new byte[BufferSize];
             
             while (true)
@@ -202,8 +202,11 @@ namespace Qvizzen.Networking
                 {
                     Thread.Sleep(10);
                     Byte[] ReciveData = new byte[BufferSize];
-                    GetMessageFromStream(stream, ReciveData, '\0', LeftOverBuffer);
+                    NetworkStream stream = TCPClient.GetStream();
+                    GetMessageFromStream(stream, ref ReciveData, Delimiter, LeftOverBuffer);
+                    //stream.Read(ReciveData, 0, ReciveData.Length);
                     string json = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
+                    json += "]";
                     List<string> message = JsonConvert.DeserializeObject<List<string>>(json);
 
                     string command = message[0];
@@ -267,8 +270,9 @@ namespace Qvizzen.Networking
                             break;
                     }
                 }
-                catch (FormatException ex)
+                catch (Exception ex)
                 {
+                    Console.WriteLine("Client Read Exception: " + ex.Message);
                     MultiplayerCtr.FinishActivity();
                     MultiplayerCtr.Joining = false;
                     Disconnect();
@@ -307,6 +311,7 @@ namespace Qvizzen.Networking
                     catch (System.IO.IOException ex)
                     {
                         //Finishes activtity.
+                        Console.WriteLine("Client Write Exception: " + ex.Message);
                         MultiplayerCtr.FinishActivity();
                         Disconnect();
                         break;
@@ -356,41 +361,49 @@ namespace Qvizzen.Networking
         /// upon next method call to ensure no data is lost.
         /// </summary>
         /// <param name="stream">Network stream of the TcpClient.</param>
-        /// <param name="buffer">Buffer to store complete message.</param>
+        /// <param name="buffer">Reference to the buffer to store complete message.</param>
         /// <param name="deli">Deliminater character used for message end.</param>
         /// <param name="leftover">Buffer to store and reuse leftover data from read operations.</param>
-        private void GetMessageFromStream(NetworkStream stream, Byte[] buffer, char deli, Byte[] leftover)
+        private void GetMessageFromStream(NetworkStream stream, ref Byte[] buffer, char deli, Byte[] leftover)
         {
-            //Gets data from the leftover buffer.
-            int size = leftover.Count(s => s != null);
-            Array.Copy(leftover, 0, buffer, 0, size);
-            int readSoFar = size;
-
-            //Continuesly reads until a deliminiter is found.
-            bool messageComplete = false;
-            while (!messageComplete)
+            try
             {
-                var read = stream.Read(buffer, readSoFar, buffer.Length - readSoFar);
-                var chars = System.Text.Encoding.ASCII.GetChars(buffer, readSoFar, buffer.Length - readSoFar);
+                //Gets data from the leftover buffer.
+                int size = leftover.Count(s => s != 0);
+                Array.Copy(leftover, 0, buffer, 0, size);
+                int readSoFar = size;
 
-                //Checks for delimiter.
-                for (int i = 0; i < chars.Length; i++)
+                //Continuesly reads until a deliminiter is found.
+                bool messageComplete = false;
+                while (!messageComplete)
                 {
-                    if (chars[i] == deli)
+                    var read = stream.Read(buffer, readSoFar, buffer.Length - readSoFar);
+                    var chars = System.Text.Encoding.ASCII.GetChars(buffer, readSoFar, buffer.Length - readSoFar);
+
+                    //Checks for delimiter.
+                    for (int i = 0; i <= chars.Length; i++)
                     {
-                        messageComplete = true;
-                        if (i != chars.Length)
+                        if (chars[i] == deli)
                         {
-                            //Stores leftover from read operation in the leftover buffer.
-                            Array.Copy(buffer, i, leftover, 0, buffer.Length);
+                            messageComplete = true;
+                            if (i != chars.Length) //Note, never true.
+                            {
+                                //Stores leftover from read operation in the leftover buffer.
+                                Array.Copy(buffer, i, leftover, 0, i);
+                            }
+
+                            //Resizes the messsage buffer to size of message.
+                            Array.Resize<Byte>(ref buffer, i);
+                            break;
                         }
-
-                        //Resizes the messsage buffer to size of message.
-                        Array.Resize<Byte>(ref buffer, i);
                     }
-                }
 
-                readSoFar += read;
+                    readSoFar += read;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
