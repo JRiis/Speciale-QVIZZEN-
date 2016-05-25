@@ -51,7 +51,7 @@ namespace Qvizzen.Networking
             }));
             UDPThread.Start();
 
-            //Starts an UDP listen port to listen for clients.
+            //Starts a ping thread to keep connection alive.
             PingThread = new Thread(new ThreadStart(delegate
             {
                 Ping();
@@ -287,11 +287,15 @@ namespace Qvizzen.Networking
                             bytesSent[bytesSent.Length - 1] = Encoding.ASCII.GetBytes(new char[] { Delimiter })[0];
                             stream.Write(bytesSent, 0, bytesSent.Length);
                         }
-                        catch (Exception ex)
+                        catch (System.IO.IOException ex)
                         {
                             DisconnectClient();
                             Console.WriteLine("Server Write Error" + ex.Message);
                             break;
+                        }
+                        catch (ObjectDisposedException)
+                        {
+                            //Do nothing
                         }
                     }
                 }
@@ -363,11 +367,15 @@ namespace Qvizzen.Networking
 
                         SendMessage(MstrResponse);
                     }
-                    catch (Exception ex)
+                    catch (System.IO.IOException ex)
                     {
                         DisconnectClient();
                         Console.WriteLine("Server Read Error" + ex.Message);
                         break;
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        //Do nothing.
                     }
                 }
             }

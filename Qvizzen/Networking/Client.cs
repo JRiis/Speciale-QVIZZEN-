@@ -270,13 +270,17 @@ namespace Qvizzen.Networking
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch (System.IO.IOException ex)
                 {
                     Console.WriteLine("Client Read Exception: " + ex.Message);
                     MultiplayerCtr.FinishActivity();
                     MultiplayerCtr.Joining = false;
                     Disconnect();
                     break;
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    //Do nothing.
                 }
             }
         }
@@ -315,6 +319,10 @@ namespace Qvizzen.Networking
                         MultiplayerCtr.FinishActivity();
                         Disconnect();
                         break;
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        //Do nothing.
                     }
                 }
             }
