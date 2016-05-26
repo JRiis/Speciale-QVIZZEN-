@@ -25,8 +25,7 @@ namespace Qvizzen.Networking
         Thread PingThread;
         TcpListener TCPListener = null;
 
-        private const int BufferSize = 256000;
-        public const char Delimiter = '#';
+        private const int BufferSize = 256000; //TODO: Same architecture for sending/reciving information on clients as on server.
 
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.

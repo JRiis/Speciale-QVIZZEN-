@@ -33,9 +33,6 @@ namespace Qvizzen.Networking
         Thread PingThread;
         public MultiplayerController MultiplayerCtr;
 
-        private const int BufferSize = 256000;
-        private const char Delimiter = '#';
-
         public Client()
         {
             WriteQueue = new Queue<string>();
@@ -185,8 +182,6 @@ namespace Qvizzen.Networking
         /// </summary>
         public void ReadTCP()
         {
-            Byte[] LeftOverBuffer = new byte[BufferSize];
-            
             while (true)
             {
                 try
