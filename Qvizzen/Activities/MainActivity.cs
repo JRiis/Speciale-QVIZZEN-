@@ -56,15 +56,6 @@ namespace Qvizzen
                 StartActivity(typeof(MultiplayerActivity));
             };
         }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-            //MusicPlayer.Stop();
-            //MusicPlayer = MediaPlayer.Create(this, Resource.Raw.Music);
-            //MusicPlayer.Looping = true;
-            //MusicPlayer.Start();
-        }
     }
 }
 

@@ -25,7 +25,6 @@ namespace Qvizzen.Controller
         private static MultiplayerController Instance;
         public bool IsHost;
         public List<Lobby> Lobbies;
-        private Thread ServerThread;
         public ParentActivity AdapterActivity;
         public MultiplayerActivity MultiplayerActivity;
         public bool Joining;
@@ -64,11 +63,7 @@ namespace Qvizzen.Controller
         public void HostServer()
         {
             Server = new Server();
-            ServerThread = new Thread(new ThreadStart(delegate
-            {
-                Server.StartServer(TCPPort, UDPListenPort);
-            }));
-            ServerThread.Start();
+            Server.StartServer(TCPPort, UDPListenPort);
             SetupGamePack();
             IsHost = true;
         }
@@ -85,8 +80,6 @@ namespace Qvizzen.Controller
         public void UnhostServer()
         {
             Server.StopServer();
-            ServerThread.Abort();
-            ServerThread = null;
             Server = null;
             Players.Clear();
             IsHost = false;

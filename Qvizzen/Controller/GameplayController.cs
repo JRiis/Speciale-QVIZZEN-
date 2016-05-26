@@ -28,7 +28,7 @@ namespace Qvizzen.Controller
         public int PlayerIndex;
         public bool IsIngame;
 
-        public const int DefaultTimer = 30;
+        public const int DefaultTimer = 20;
         public const int QuestionValue = 1;
         
         /// <summary>
@@ -52,7 +52,7 @@ namespace Qvizzen.Controller
         /// Starts gameplay on current gameplay activity.
         /// </summary>
         /// <param name="activity">GameplayActivity</param>
-        public void StartGame(GameplayParentActivity activity)
+        public virtual void StartGame(GameplayParentActivity activity)
         {
             //Setup Variables
             FinalQuestion = false;
@@ -146,6 +146,16 @@ namespace Qvizzen.Controller
             }
 
             return question;
+        }
+
+
+        /// <summary>
+        /// Handles cleaing up of variables to reset for a new game.
+        /// </summary>
+         public virtual void EndGame()
+        {
+            IsIngame = false;
+            Players.Clear();
         }
     }
 }

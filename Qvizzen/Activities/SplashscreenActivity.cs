@@ -13,7 +13,7 @@ using Android.Support.V7.App;
 
 namespace Qvizzen
 {
-    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, Label = "Qvizzen", Icon = "@drawable/icon", NoHistory = true)]
+    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Label = "Qvizzen", Icon = "@drawable/icon", NoHistory = true)]
     public class SplashActivity : AppCompatActivity
     {        
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)

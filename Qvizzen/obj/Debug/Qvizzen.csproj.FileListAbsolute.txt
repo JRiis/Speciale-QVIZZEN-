@@ -36,6 +36,5 @@ C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\drawable\splashscreen.png
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\layout\splashscreen.xml
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\res\values\style.xml
-C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\Qvizzen.csprojResolveAssemblyReference.cache
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\obj\Debug\Qvizzen.dll.mdb
 C:\Users\Eventyr\documents\visual studio 2013\Projects\Qvizzen\Qvizzen\bin\Debug\Qvizzen.dll.mdb

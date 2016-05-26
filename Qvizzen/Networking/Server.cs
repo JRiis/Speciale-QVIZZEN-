@@ -26,7 +26,7 @@ namespace Qvizzen.Networking
         TcpListener TCPListener = null;
 
         private const int BufferSize = 256000;
-        public const char Delimiter = '\0';
+        public const char Delimiter = '#';
 
         /// <summary>
         /// Starts the server. The server then starts two threads to listen for connections.
@@ -227,13 +227,11 @@ namespace Qvizzen.Networking
                 if (MultiplayerCtr.IsIngame)
                 {
                     //Sets player as disconnected on player list.
-                    Player disconnectedPlayer = null;
                     foreach (Player player in MultiplayerCtr.Players)
                     {
                         if (player.IPAddress == ClientIPAddress)
                         {
                             player.IsConnected = false;
-                            disconnectedPlayer = player;
                             break;
                         }
                     }
@@ -286,16 +284,38 @@ namespace Qvizzen.Networking
                             bytesSent = Encoding.ASCII.GetBytes(message);
                             bytesSent[bytesSent.Length - 1] = Encoding.ASCII.GetBytes(new char[] { Delimiter })[0];
                             stream.Write(bytesSent, 0, bytesSent.Length);
+
+
+
+
+
+                           // message = "size" + "size" + message;
+
+
+
+
+
+
+
+
+
                         }
                         catch (System.IO.IOException ex)
                         {
                             DisconnectClient();
-                            Console.WriteLine("Server Write Error" + ex.Message);
+                            //Console.WriteLine("Server Write Error" + ex.Message);
+                            break;
+                        }
+                        catch (System.NullReferenceException ex)
+                        {
+                            DisconnectClient();
+                            //Console.WriteLine("Server Write Error" + ex.Message);
                             break;
                         }
                         catch (ObjectDisposedException)
                         {
                             //Do nothing
+                            break;
                         }
                     }
                 }
@@ -370,12 +390,19 @@ namespace Qvizzen.Networking
                     catch (System.IO.IOException ex)
                     {
                         DisconnectClient();
-                        Console.WriteLine("Server Read Error" + ex.Message);
+                        //Console.WriteLine("Server Read Error" + ex.Message);
+                        break;
+                    }
+                    catch (System.NullReferenceException ex)
+                    {
+                        DisconnectClient();
+                        //Console.WriteLine("Server Read Error" + ex.Message);
                         break;
                     }
                     catch (ObjectDisposedException)
                     {
                         //Do nothing.
+                        break;
                     }
                 }
             }

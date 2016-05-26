@@ -174,6 +174,10 @@ namespace Qvizzen
                     {
 
                     }
+                    catch (Java.Lang.IllegalStateException ex)
+                    {
+                        TimerTickSound.Release();
+                    }
 
                     if (GameplayCtr.AnwserQuestion(CurrentQuestion.Anwsers[e.Position], e.Position))
                     {
@@ -303,8 +307,12 @@ namespace Qvizzen
                 CountdownTimer.Dispose();
                 AnwserTimer.Dispose();
             }
-            catch (System.NullReferenceException) { }
-            GameplayCtr.IsIngame = false;
+            catch (System.NullReferenceException) 
+            { 
+                //Do Nothing
+            }
+            
+            GameplayCtr.EndGame();
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

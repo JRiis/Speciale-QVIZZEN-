@@ -26,8 +26,6 @@ namespace Qvizzen.Controller
         public SingleplayerController()
         {
             Players = new List<Player>();
-            Player player = new Player(ContentController.GetInstance().IPAddress, "Your Score", true);
-            Players.Add(player);
         }
 
         /// <summary>
@@ -41,6 +39,31 @@ namespace Qvizzen.Controller
                 Instance = new SingleplayerController();
             }
             return Instance;
+        }
+
+        /// <summary>
+        /// Starts gameplay on current gameplay activity.
+        /// </summary>
+        /// <param name="activity">GameplayActivity</param>
+        public override void StartGame(GameplayParentActivity activity)
+        {   
+            //Creates a singleplayer player instance.
+            Player newPlayer = new Player(ContentController.GetInstance().IPAddress, "Your Score", true);
+            Players.Add(newPlayer);
+            
+            //Setup Variables
+            FinalQuestion = false;
+            CurrentIndex = 0;
+            PlayerIndex = 0;
+            Activity = activity;
+            CurrentPlayer = GetNextPlayer();
+            foreach (Player player in Players)
+            {
+                player.Score = 0;
+            }
+
+            //Update GUI
+            Activity.UpdateGUI(GetQuestion(), DefaultTimer, CurrentPlayer.Score, 1, Questions.Count);
         }
     }
 }

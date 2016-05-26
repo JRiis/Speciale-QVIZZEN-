@@ -87,10 +87,7 @@ namespace Qvizzen.Activities
         {
             base.OnResume();
             Adapter.NotifyDataSetChanged();
-            ListView listLobbies = FindViewById<ListView>(Resource.Id.listViewLobbies);
             MultiplayerCtr.BeginGetLobbies();
-            Adapter = new LobbyAdapter(this, MultiplayerCtr.Lobbies);
-            listLobbies.Adapter = Adapter;
             MultiplayerCtr.Joining = false;
         }
 
