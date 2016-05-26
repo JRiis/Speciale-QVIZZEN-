@@ -62,7 +62,7 @@ namespace Qvizzen.Networking
                 PingThread.Start();
 
             }
-            catch (System.Net.Sockets.SocketException ex)
+            catch (System.Net.Sockets.SocketException)
             {
                 //Host not connected lost conenction something oh noes!!
                 foreach (Lobby lobby in MultiplayerCtr.Lobbies)
@@ -268,7 +268,15 @@ namespace Qvizzen.Networking
                     Disconnect();
                     break;
                 }
-                catch (System.NullReferenceException ex)
+                catch (NullReferenceException ex)
+                {
+                    //Console.WriteLine("Client Read Exception: " + ex.Message);
+                    MultiplayerCtr.FinishActivity();
+                    MultiplayerCtr.Joining = false;
+                    Disconnect();
+                    break;
+                }
+                catch (System.FormatException ex)
                 {
                     //Console.WriteLine("Client Read Exception: " + ex.Message);
                     MultiplayerCtr.FinishActivity();
@@ -318,7 +326,7 @@ namespace Qvizzen.Networking
                         Disconnect();
                         break;
                     }
-                    catch (System.NullReferenceException ex)
+                    catch (NullReferenceException ex)
                     {
                         //Finishes activtity.
                         //Console.WriteLine("Client Write Exception: " + ex.Message);
@@ -381,19 +389,23 @@ namespace Qvizzen.Networking
         /// <returns></returns>
         private Byte[] GetMessageBuffer(NetworkStream stream)
         {
-            //First reads the number of chars in size.
-            Byte[] countBuffer = new byte[1];
-            stream.Read(countBuffer, 0, countBuffer.Length);
-            string count = System.Text.Encoding.ASCII.GetString(countBuffer);
+            try
+            {
+                //First reads the number of chars in size.
+                Byte[] countBuffer = new byte[1];
+                stream.Read(countBuffer, 0, countBuffer.Length);
+                string count = System.Text.Encoding.ASCII.GetString(countBuffer);
 
-            //Then reads the size of message.
-            Byte[] sizeBuffer = new byte[Int32.Parse(count)];
-            stream.Read(sizeBuffer, 0, sizeBuffer.Length);
-            string size = System.Text.Encoding.ASCII.GetString(sizeBuffer);
+                //Then reads the size of message.
+                Byte[] sizeBuffer = new byte[Int32.Parse(count)];
+                stream.Read(sizeBuffer, 0, sizeBuffer.Length);
+                string size = System.Text.Encoding.ASCII.GetString(sizeBuffer);
 
-            //Creates and returns buffer.
-            Byte[] messageBuffer = new byte[Int32.Parse(size)];
-            return messageBuffer;
+                //Creates and returns buffer.
+                Byte[] messageBuffer = new byte[Int32.Parse(size)];
+                return messageBuffer;
+            }
+            catch { throw; }
         }
 
 

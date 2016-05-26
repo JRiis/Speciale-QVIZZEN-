@@ -294,7 +294,7 @@ namespace Qvizzen.Networking
                             //Console.WriteLine("Server Write Error" + ex.Message);
                             break;
                         }
-                        catch (System.NullReferenceException ex)
+                        catch (NullReferenceException ex)
                         {
                             DisconnectClient();
                             //Console.WriteLine("Server Write Error" + ex.Message);
@@ -347,6 +347,15 @@ namespace Qvizzen.Networking
 
                                 ClientIPAddress = MstrMessage[1];
                                 MultiplayerCtr.UpdateAdapter();
+
+                                //Sends an updated player list to all players.
+                                string message1 = JsonConvert.SerializeObject(new List<string>() 
+                                {
+                                    "UpdatePlayerList", 
+                                    JsonConvert.SerializeObject(MultiplayerCtr.Players)
+                                });
+                                MultiplayerCtr.Server.SendMessageToClients(message1);
+
                                 break;
 
                             //Player disconnects/leaves lobby/game.
@@ -357,13 +366,13 @@ namespace Qvizzen.Networking
 
                             //Player answers a question.
                             case "Answer":
-                                string message = JsonConvert.SerializeObject(new List<string>() 
+                                string message2 = JsonConvert.SerializeObject(new List<string>() 
                                 {
                                     "Answer",
                                     MstrMessage[1],
                                     MstrMessage[2]
                                 });
-                                MultiplayerCtr.Server.SendMessageToClients(message);
+                                MultiplayerCtr.Server.SendMessageToClients(message2);
                                 MultiplayerCtr.AnwserQuestionActivity(int.Parse(MstrMessage[1]));
                                 MstrResponse = defaultAnswer;
                                 break;
@@ -381,7 +390,7 @@ namespace Qvizzen.Networking
                         //Console.WriteLine("Server Read Error" + ex.Message);
                         break;
                     }
-                    catch (System.NullReferenceException ex)
+                    catch (NullReferenceException ex)
                     {
                         DisconnectClient();
                         //Console.WriteLine("Server Read Error" + ex.Message);
