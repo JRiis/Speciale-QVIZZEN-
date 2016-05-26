@@ -278,27 +278,15 @@ namespace Qvizzen.Networking
                     {
                         try
                         {
-                            String message = WriteQueue.Dequeue();
-                            byte[] bytesSent = new byte[message.Length + 1];
+                            string json = WriteQueue.Dequeue();
+                            string count = json.Length.ToString().Length.ToString();
+                            string size = json.Length.ToString();
+                            string message = count + size + json;
+
+                            byte[] bytesSent = new byte[message.Length];
                             NetworkStream stream = client.GetStream();
                             bytesSent = Encoding.ASCII.GetBytes(message);
-                            bytesSent[bytesSent.Length - 1] = Encoding.ASCII.GetBytes(new char[] { Delimiter })[0];
                             stream.Write(bytesSent, 0, bytesSent.Length);
-
-
-
-
-
-                           // message = "size" + "size" + message;
-
-
-
-
-
-
-
-
-
                         }
                         catch (System.IO.IOException ex)
                         {

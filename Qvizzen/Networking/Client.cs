@@ -190,13 +190,12 @@ namespace Qvizzen.Networking
             while (true)
             {
                 try
-                {
-                    Byte[] ReciveData = new byte[BufferSize];
+                {                    
+
                     NetworkStream stream = TCPClient.GetStream();
-                    GetMessageFromStream(stream, ref ReciveData, Delimiter, ref LeftOverBuffer);
-                    stream.Read(ReciveData, 0, ReciveData.Length);
+                    Byte[] ReciveData = GetMessageBuffer(stream);
+                    ReciveData = StreamReadSize(stream, ReciveData);
                     string json = System.Text.Encoding.ASCII.GetString(ReciveData, 0, ReciveData.Length);
-                    json += "]";
                     List<string> message = JsonConvert.DeserializeObject<List<string>>(json);
 
                     string command = message[0];
@@ -369,6 +368,59 @@ namespace Qvizzen.Networking
                 }
             }
         }
+
+
+
+
+
+
+        /// <summary>
+        /// Blocking method that parses incomming messages to create a buffer for incomming message size to recive on.
+        /// </summary>
+        /// <param name="stream">Network stream to read for buffer size.</param>
+        /// <returns></returns>
+        private Byte[] GetMessageBuffer(NetworkStream stream)
+        {
+            //First reads the number of chars in size.
+            Byte[] countBuffer = new byte[1];
+            stream.Read(countBuffer, 0, countBuffer.Length);
+            string count = System.Text.Encoding.ASCII.GetString(countBuffer);
+
+            //Then reads the size of message.
+            Byte[] sizeBuffer = new byte[Int32.Parse(count)];
+            stream.Read(sizeBuffer, 0, sizeBuffer.Length);
+            string size = System.Text.Encoding.ASCII.GetString(sizeBuffer);
+
+            //Creates and returns buffer.
+            Byte[] messageBuffer = new byte[Int32.Parse(size)];
+            return messageBuffer;
+        }
+
+
+        /// <summary>
+        /// Reads from the network stream until given buffer have been filled with data.
+        /// Use the GetMessageBuffer method to get the size of the message beforehand.
+        /// </summary>
+        /// <param name="stream">Network stream to read from.</param>
+        /// <param name="buffer">Buffer to store data. Should be size of expected message.</param>
+        private Byte[] StreamReadSize(NetworkStream stream, Byte[] buffer)
+        {
+            try
+            {
+                int readSoFar = 0;
+                while (readSoFar < buffer.Length)
+                {
+                    var read = stream.Read(buffer, readSoFar, buffer.Length - readSoFar);
+                    readSoFar += read;
+                }
+                return buffer;
+            }
+            catch { throw; }
+        }
+
+
+
+
 
 
         /// <summary>
