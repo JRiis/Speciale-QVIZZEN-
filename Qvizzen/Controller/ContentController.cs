@@ -85,6 +85,32 @@ namespace Qvizzen.Controller
             
         }
 
+
+        //private void SetupDefaultPacks()
+        //{
+        //    var Pack = new Pack();
+        //    Pack.Name = "Qvizzen";
+
+        //    var Question = new Question();
+        //    Question.Text = "Who made Qvizzen?";
+        //    Pack.Questions.Add(Question);
+
+        //    var Answer = new Anwser();
+        //    Answer.Text = "God";
+        //    Answer.IsCorrect = true;
+        //    Question.Anwsers.Add(Answer);
+
+        //    var Answer = new Anwser();
+        //    Answer.Text = "God";
+        //    Answer.IsCorrect = true;
+
+        //    var Question = new Question();
+        //    Question.Text = "What grade will this project recive?";
+
+        //    var Question = new Question();
+        //    Question.Text = "Where was this app concived?";
+        //}
+
         public static ContentController GetInstance()
         {
             if (Instance == null)
