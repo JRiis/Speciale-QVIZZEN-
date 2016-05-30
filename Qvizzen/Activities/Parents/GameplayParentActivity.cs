@@ -306,6 +306,8 @@ namespace Qvizzen
                 //Destroys Timers
                 CountdownTimer.Dispose();
                 AnwserTimer.Dispose();
+                TimerTickSound.Stop();
+                TimerTickSound.Release();
             }
             catch (System.NullReferenceException) 
             { 
