@@ -63,6 +63,8 @@ namespace Qvizzen.Networking
         /// </summary>
         public void StopServer()
         {
+            TCPListener.Stop();
+            
             TCPThread.Abort();
             PingThread.Abort();
             StopUDPListen();
@@ -75,7 +77,6 @@ namespace Qvizzen.Networking
                 client.WriteThread.Abort();
             }
 
-            TCPListener.Stop();
             Clients.Clear();
         }
 
@@ -290,18 +291,15 @@ namespace Qvizzen.Networking
                         catch (System.IO.IOException ex)
                         {
                             DisconnectClient();
-                            //Console.WriteLine("Server Write Error" + ex.Message);
                             break;
                         }
                         catch (NullReferenceException ex)
                         {
                             DisconnectClient();
-                            //Console.WriteLine("Server Write Error" + ex.Message);
                             break;
                         }
                         catch (ObjectDisposedException)
                         {
-                            //Do nothing
                             break;
                         }
                     }

@@ -33,6 +33,8 @@ namespace Qvizzen.Networking
         Thread PingThread;
         public MultiplayerController MultiplayerCtr;
 
+        private const int BufferSize = 250000;
+
         public Client()
         {
             WriteQueue = new Queue<string>();
