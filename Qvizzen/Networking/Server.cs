@@ -288,12 +288,12 @@ namespace Qvizzen.Networking
                             bytesSent = Encoding.ASCII.GetBytes(message);
                             stream.Write(bytesSent, 0, bytesSent.Length);
                         }
-                        catch (System.IO.IOException ex)
+                        catch (System.IO.IOException)
                         {
                             DisconnectClient();
                             break;
                         }
-                        catch (NullReferenceException ex)
+                        catch (NullReferenceException)
                         {
                             DisconnectClient();
                             break;
